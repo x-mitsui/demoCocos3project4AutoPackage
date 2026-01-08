@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "10a14fb1-97c8-498a-a52e-9a4bcff60b51",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "10a14fb1-97c8-498a-a52e-9a4bcff60b51@6c48a",
+      "displayName": "playgame_elimination2_tex",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "10a14fb1-97c8-498a-a52e-9a4bcff60b51",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "10a14fb1-97c8-498a-a52e-9a4bcff60b51@f9941",
+      "displayName": "playgame_elimination2_tex",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -0.5,
+        "offsetY": 0.5,
+        "trimX": 1,
+        "trimY": 1,
+        "width": 500,
+        "height": 620,
+        "rawWidth": 503,
+        "rawHeight": 623,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -250,
+            -310,
+            0,
+            250,
+            -310,
+            0,
+            -250,
+            310,
+            0,
+            250,
+            310,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            1,
+            622,
+            501,
+            622,
+            1,
+            2,
+            501,
+            2
+          ],
+          "nuv": [
+            0.0019880715705765406,
+            0.0032102728731942215,
+            0.9960238568588469,
+            0.0032102728731942215,
+            0.0019880715705765406,
+            0.9983948635634029,
+            0.9960238568588469,
+            0.9983948635634029
+          ],
+          "minPos": [
+            -250,
+            -310,
+            0
+          ],
+          "maxPos": [
+            250,
+            310,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "10a14fb1-97c8-498a-a52e-9a4bcff60b51@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "10a14fb1-97c8-498a-a52e-9a4bcff60b51@6c48a"
+  }
+}

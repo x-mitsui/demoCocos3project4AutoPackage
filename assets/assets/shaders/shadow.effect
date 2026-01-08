@@ -1,0 +1,125 @@
+// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: sprite-vs:vert
+      frag: sprite-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      defines:
+        - USE_OUTER_SHADOW
+      properties:
+        gradientCol:  { value: [1, 0.1, 0.1, 1], linear: true, editor: { type: color } }
+        shadowColor:  { value: [0, 0, 0, 0.5], linear: true, editor: { type: color } }
+        shadowOffset: { value: [3, -3], editor: { type: vector2 } }
+        shadowBlur:   { value: 4, range: [0, 20], editor: { type: number } }
+}%
+
+CCProgram sprite-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1);
+    pos = cc_matViewProj * pos;
+    uv0 = a_texCoord;
+    color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram sprite-fs %{
+  precision highp float;
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #if USE_OUTER_SHADOW
+  uniform SHADOW_DATA {
+    vec4 shadowColor;
+    vec2 shadowOffset;
+    float shadowBlur;
+  };
+  #endif
+
+  #if USE_GRADIENT_COLOR
+  uniform GRADIENT_DATA {
+    vec4 gradientCol;
+  };
+  #endif
+
+  #if USE_TEXTURE
+    #pragma builtin(local)
+    layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+  #endif
+
+  vec4 frag () {
+    vec4 o = vec4(1, 1, 1, 1);
+
+    #if USE_TEXTURE
+      o = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+      #if IS_GRAY
+        float gray = 0.2126 * o.r + 0.7152 * o.g + 0.0722 * o.b;
+        o.r = o.g = o.b = gray;
+      #endif
+    #else
+      o = vec4(1, 1, 1, 1); // 没有纹理时使用白色
+    #endif
+
+    vec4 col = color;
+    
+    #if USE_GRADIENT_COLOR
+      col.rgb = mix(col.rgb, gradientCol.rgb, uv0.y * gradientCol.a);
+    #endif
+    
+    #if USE_OUTER_SHADOW
+      // 简化阴影实现，避免过度混合
+      // 阴影仅在原图有内容的区域应用
+      if (o.a > 0.0) {
+        // 使用简单的偏移和混合
+        vec2 shadowUv = uv0 - shadowOffset * 0.001; // 微小的偏移
+        vec4 shadowSample = vec4(1.0);
+        
+        #if USE_TEXTURE
+          // 确保UV在有效范围内
+          if (shadowUv.x >= 0.0 && shadowUv.x <= 1.0 && shadowUv.y >= 0.0 && shadowUv.y <= 1.0) {
+            shadowSample = CCSampleWithAlphaSeparated(cc_spriteTexture, shadowUv);
+          }
+        #endif
+        
+        // 创建阴影颜色
+        vec4 shadowColorFinal = vec4(shadowColor.rgb, shadowColor.a * shadowSample.a);
+        
+        // 将阴影应用到底色上
+        o.rgb = mix(shadowColorFinal.rgb, o.rgb, o.a);
+        o.a = max(shadowColorFinal.a, o.a);
+      }
+    #endif
+    
+    // 最终颜色混合
+    o *= col;
+    
+    // 确保颜色值在正确范围内
+    o = clamp(o, 0.0, 1.0);
+    
+    return o;
+  }
+}%
