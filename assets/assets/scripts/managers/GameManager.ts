@@ -15,6 +15,7 @@ import { EndPage } from "../misc/EndPage";
 import { AudioManager } from "./AudioManager";
 import { boardBlocksConfig, dragOptionsConfig, GameCustomInfo } from "../configs/config";
 import { DragOptionConfig } from "../configs/types";
+import { Logger } from "../utils/logger";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameManager")
@@ -170,7 +171,7 @@ export class GameManager extends Component {
      */
     private showHeartAnimation(): void {
         if (!this.heartNode) {
-            log("heartNode 未设置");
+            Logger.error("GameManager.showHeartAnimation", "heartNode 未设置");
             return;
         }
 

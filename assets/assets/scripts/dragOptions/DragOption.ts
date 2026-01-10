@@ -19,6 +19,7 @@ import { Block } from "./Block";
 import { GameManager } from "../managers/GameManager";
 import { AudioManager } from "../managers/AudioManager";
 import { DragOptionConfig } from "../configs/types";
+import { Tool } from "../utils/tool";
 const { ccclass, property } = _decorator;
 /**
  * 拖动选项
@@ -80,29 +81,29 @@ export class DragOption extends Component {
         const { shape } = this.config;
         if (!shape || shape.length === 0) return;
 
-        let minX = Number.MAX_VALUE;
-        let maxX = -Number.MAX_VALUE;
-        let minY = Number.MAX_VALUE;
-        let maxY = -Number.MAX_VALUE;
+        let minOffsetX = Number.MAX_VALUE;
+        let maxOffsetX = -Number.MAX_VALUE;
+        let minOffsetY = Number.MAX_VALUE;
+        let maxOffsetY = -Number.MAX_VALUE;
 
-        shape.forEach(([x, y]) => {
-            if (x < minX) minX = x;
-            if (x > maxX) maxX = x;
-            if (y < minY) minY = y;
-            if (y > maxY) maxY = y;
+        shape.forEach(([offsetX, offsetY]) => {
+            if (offsetX < minOffsetX) minOffsetX = offsetX;
+            if (offsetX > maxOffsetX) maxOffsetX = offsetX;
+            if (offsetY < minOffsetY) minOffsetY = offsetY;
+            if (offsetY > maxOffsetY) maxOffsetY = offsetY;
         });
 
-        const centerRow = (minY + maxY) / 2;
-        const centerCol = (minX + maxX) / 2;
+        const centerOffsetY = (minOffsetY + maxOffsetY) / 2;
+        const centerOffsetX = (minOffsetX + maxOffsetX) / 2;
 
-        const offsetX = -centerCol * this.blockSize.width;
-        const offsetY = -centerRow * this.blockSize.height;
+        const distX = centerOffsetX * this.blockSize.width;
+        const distY = centerOffsetY * this.blockSize.height;
         // this.rePosDeltaY = offsetY;
 
         this.node.children.forEach((child) => {
             if (child.getComponent(Block)) {
                 const pos = child.position;
-                child.setPosition(pos.x + offsetX, pos.y + offsetY, pos.z);
+                child.setPosition(pos.x - distX, pos.y + distY, pos.z);
             }
         });
     }
@@ -113,21 +114,21 @@ export class DragOption extends Component {
     resize() {
         const { shape } = this.config;
 
-        let minX = Number.MAX_VALUE;
-        let maxX = -Number.MAX_VALUE;
-        let minY = Number.MAX_VALUE;
-        let maxY = -Number.MAX_VALUE;
+        let minOffsetX = Number.MAX_VALUE;
+        let maxOffsetX = -Number.MAX_VALUE;
+        let minOffsetY = Number.MAX_VALUE;
+        let maxOffsetY = -Number.MAX_VALUE;
 
         shape.forEach((p) => {
-            const [x, y] = p;
-            if (x < minX) minX = x;
-            if (x > maxX) maxX = x;
-            if (y < minY) minY = y;
-            if (y > maxY) maxY = y;
+            const [offsetX, offsetY] = p;
+            if (offsetX < minOffsetX) minOffsetX = offsetX;
+            if (offsetX > maxOffsetX) maxOffsetX = offsetX;
+            if (offsetY < minOffsetY) minOffsetY = offsetY;
+            if (offsetY > maxOffsetY) maxOffsetY = offsetY;
         });
 
-        const touchAreaWidth = (maxX - minX + 2) * this.blockSize.width;
-        const touchAreaHeight = (maxY - minY + 3) * this.blockSize.height;
+        const touchAreaWidth = (maxOffsetX - minOffsetX + 2) * this.blockSize.width;
+        const touchAreaHeight = (maxOffsetY - minOffsetY + 3) * this.blockSize.height;
         log("width:", touchAreaWidth, "height:", touchAreaHeight);
         const uiTransform = this.getComponent(UITransform);
         uiTransform.setContentSize(touchAreaWidth, touchAreaHeight);
@@ -154,9 +155,9 @@ export class DragOption extends Component {
         parentNode?: Node
     ) {
         const blocks: Node[] = [];
-        shape.forEach((offset2Center) => {
+        shape.forEach((offset2Zero) => {
             const block = this.createBlock(
-                offset2Center,
+                offset2Zero,
                 blockColorIdx,
                 targetPos,
                 opacity,
@@ -168,7 +169,7 @@ export class DragOption extends Component {
     }
 
     createBlock(
-        offset2Center: [number, number],
+        offset2Zero: [number, number],
         blockColorIdx: number,
         targetPos: Vec3,
         opacity: number = 255,
@@ -180,16 +181,16 @@ export class DragOption extends Component {
         const compBlock = block.getComponent(Block);
         if (compBlock) {
             compBlock.init(blockColorIdx);
-            compBlock.initShapeOffset2Center(offset2Center);
+            compBlock.initShapeOffset2Center(offset2Zero);
             compBlock.setOpacity(opacity);
-            if (offset2Center[0] === 0 && offset2Center[1] === 0) {
+            if (offset2Zero[0] === 0 && offset2Zero[1] === 0) {
                 compBlock.isOffsetZero = true;
             }
         }
 
         const { width: blockWidth, height: blockHeight } = block.getComponent(UITransform);
-        const posX = targetPos.x + offset2Center[0] * blockWidth;
-        const posY = targetPos.y + offset2Center[1] * blockHeight;
+        const posX = targetPos.x + offset2Zero[0] * blockWidth;
+        const posY = targetPos.y - offset2Zero[1] * blockHeight;
         // log("createBlock realPos:", posX, posY);
         block.setPosition(new Vec3(posX, posY, 0));
         return block;
@@ -378,7 +379,7 @@ export class DragOption extends Component {
                 this.boardNode
             );
             colorIdx = block.getComponent(Block).colorIdx;
-            CompBoard.blockNodes[blockZeroRow - offsetY][blockZeroCol + offsetX] = block;
+            CompBoard.blockNodes[blockZeroRow + offsetY][blockZeroCol + offsetX] = block;
             startBrightAnimation.call(this, block);
         }
         function startBrightAnimation(block: Node) {
@@ -454,7 +455,7 @@ export class DragOption extends Component {
      */
     private createShadowBlocks(shape: [number, number][], blockColorIdx: number): Node[] {
         const blocks: Node[] = [];
-        shape.forEach((offset2Center) => {
+        shape.forEach((offset2Zero) => {
             const block = instantiate(this.blockPrefab);
             block.parent = this.optionShadowNode;
             const compBlock = block.getComponent(Block);
@@ -468,10 +469,9 @@ export class DragOption extends Component {
                 }
             }
 
-            const { width: blockWidth, height: blockHeight } = block.getComponent(UITransform);
-            const posX = offset2Center[0] * blockWidth;
-            const posY = offset2Center[1] * blockHeight;
-            block.setPosition(new Vec3(posX, posY, 0));
+            const posX = offset2Zero[0] * BlockSize.width;
+            const posY = offset2Zero[1] * BlockSize.height;
+            block.setPosition(new Vec3(posX, -posY, 0));
             blocks.push(block);
         });
         return blocks;
@@ -484,28 +484,28 @@ export class DragOption extends Component {
         const { shape } = this.config;
         if (!shape || shape.length === 0 || !this.optionShadowNode) return;
 
-        let minX = Number.MAX_VALUE;
-        let maxX = -Number.MAX_VALUE;
-        let minY = Number.MAX_VALUE;
-        let maxY = -Number.MAX_VALUE;
+        let minOffsetX = Number.MAX_VALUE;
+        let maxOffsetX = -Number.MAX_VALUE;
+        let minOffsetY = Number.MAX_VALUE;
+        let maxOffsetY = -Number.MAX_VALUE;
 
-        shape.forEach(([x, y]) => {
-            if (x < minX) minX = x;
-            if (x > maxX) maxX = x;
-            if (y < minY) minY = y;
-            if (y > maxY) maxY = y;
+        shape.forEach(([offsetX, offsetY]) => {
+            if (offsetX < minOffsetX) minOffsetX = offsetX;
+            if (offsetX > maxOffsetX) maxOffsetX = offsetX;
+            if (offsetY < minOffsetY) minOffsetY = offsetY;
+            if (offsetY > maxOffsetY) maxOffsetY = offsetY;
         });
 
-        const centerRow = (minY + maxY) / 2;
-        const centerCol = (minX + maxX) / 2;
+        const centerOffsetY = (minOffsetY + maxOffsetY) / 2;
+        const centerOffsetX = (minOffsetX + maxOffsetX) / 2;
 
-        const offsetX = -centerCol * this.blockSize.width;
-        const offsetY = -centerRow * this.blockSize.height;
+        const distX = centerOffsetX * this.blockSize.width;
+        const distY = centerOffsetY * this.blockSize.height;
 
         this.optionShadowNode.children.forEach((child) => {
             if (child.getComponent(Block)) {
                 const pos = child.position;
-                child.setPosition(pos.x + offsetX, pos.y + offsetY, pos.z);
+                child.setPosition(pos.x - distX, pos.y + distY, pos.z);
             }
         });
     }

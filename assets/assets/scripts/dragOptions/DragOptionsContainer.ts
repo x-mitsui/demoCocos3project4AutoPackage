@@ -1,10 +1,22 @@
-import { _decorator, Component, find, instantiate, JsonAsset, log, Node, Prefab, Vec3 } from "cc";
+import {
+    _decorator,
+    Component,
+    error,
+    find,
+    instantiate,
+    JsonAsset,
+    log,
+    Node,
+    Prefab,
+    Vec3
+} from "cc";
 import { DragOption } from "./DragOption";
 import { DragOptionConfig } from "../configs/types";
 import { Board } from "../board/Board";
 import { GameManager } from "../managers/GameManager";
 import { EndPage } from "../misc/EndPage";
 import { getRandomTwoIndices } from "../utils/tool";
+import { Logger } from "../utils/logger";
 const { ccclass, property } = _decorator;
 /**
  * 拖动选项容器
@@ -90,42 +102,42 @@ export class DragOptionsContainer extends Component {
         {
             "blockColorIdx": 0,
             "shape": [
-                [-1, 1], [0, 1], [1, 1],
-                [0, 0],
+                [0,  0], [1, 0], [2, 0],
+                [0,  1]
             ]
         },
         {
             "blockColorIdx": 1,
             "shape": [
-                [0, 1],
-                [-1, 0], [0, 0], [1, 0]
+                [0, 0],
+                [0, 1], [1, 1], [2, 1]  
             ]
         },
         {
             "blockColorIdx": 2,
             "shape": [
-                [-1, 1],
-                [-1, 0], [0, 0], [1, 0],
-                [-1, -1],
+                [0, 0],
+                [0, 1], [1, 1], [2, 1],
+                [0, 2],
             ]
         },
         {
             "blockColorIdx": 3,
             "shape": [
-                [-1, 1],
-                [-1, 0], [0, 0],
+                [0, 0],
+                [0, 1], [1, 1],
             ]
         }, {
             "blockColorIdx": 4,
             "shape": [
-                [-1, 1],
-                [-1, 0], [0, 0], [1, 0]
+                [0, 0],
+                [0, 1], [1, 1], [2, 1]  
             ]
         }, {
             "blockColorIdx": 4,
             "shape": [
-                [-1, 0], [0, 0], [1, 0],
-                [-1, -1],
+                [0,  0], [1, 0], [2, 0],
+                [0,  1]
             ]
         },
     ] as DragOptionConfig[];
@@ -256,7 +268,9 @@ export class DragOptionsContainer extends Component {
         if (this.shadowContainerNode) {
             this.shadowContainerNode.removeAllChildren();
         }
-        if (this._allConfigs.length === 0) return;
+        if (this._allConfigs.length === 0) {
+            Logger.error("DragOptionsContainer.generateRound", "_allConfigs is empty");
+        }
 
         let selectedConfigs: DragOptionConfig[] = [];
         // 按顺序选择配置
@@ -280,7 +294,7 @@ export class DragOptionsContainer extends Component {
         }
 
         // 计算布局位置，水平排列
-        // 假设每个选项间隔 350
+        // 假设每个DragOption间隔 350
         const spacing = 350;
         const startX = -((this.optionCount - 1) * spacing) / 2;
 

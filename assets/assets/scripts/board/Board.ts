@@ -4,23 +4,18 @@ import {
     Component,
     dragonBones,
     instantiate,
-    JsonAsset,
     Label,
     log,
     math,
     Node,
     Prefab,
-    Quat,
     sys,
-    UITransform,
-    Vec2,
     Vec3
 } from "cc";
 import { BlockSize, GameCustomInfo } from "../configs/config";
 import { DragOptionsContainer } from "../dragOptions/DragOptionsContainer";
 import { Block } from "../dragOptions/Block";
 import { GameManager } from "../managers/GameManager";
-import { AudioManager } from "../managers/AudioManager";
 import { jump2DownloadPage } from "../utils/tool";
 import { NumberAnimator } from "../utils/NumberAnimator";
 const { ccclass, property } = _decorator;
@@ -152,8 +147,8 @@ export class Board extends Component {
     checkDragOptionCanPlace(touchRow: number, touchCol: number, shape: number[][]) {
         // log("check-------------------", touchRow, touchCol, this.blockNodes, shape);
         for (const [offsetX, offsetY] of shape) {
-            const row = touchRow - offsetY; // 1
-            const col = touchCol + offsetX; //-1
+            const row = touchRow + offsetY;
+            const col = touchCol + offsetX;
             if (!this.checkRowColInBoard(row, col)) {
                 return false;
             }
@@ -171,7 +166,7 @@ export class Board extends Component {
      */
     checkRowColsInBoard(row: number, col: number, shape: number[][]) {
         for (const [offsetX, offsetY] of shape) {
-            const r = row - offsetY;
+            const r = row + offsetY;
             const c = col + offsetX;
             if (r < 0 || r >= 8 || c < 0 || c >= 8) {
                 return false;
