@@ -24,6 +24,8 @@ export class AudioManager extends Component {
     comboEffects: AudioClip[] = [];
     @property(AudioClip)
     placeEffect: AudioClip = null!;
+    @property(AudioClip)
+    winEffect: AudioClip = null!;
     private static _instance: AudioManager;
     private audioSource: AudioSource;
 
@@ -54,20 +56,23 @@ export class AudioManager extends Component {
     playPlaceEffect() {
         this.playEffect(this.placeEffect);
     }
+    playWinEffect() {
+        this.playEffect(this.winEffect);
+    }
 
     // 播放音效（不循环）
     playEffect(sound: AudioClip | string, volume: number = 1.0) {
         if (!sound) {
-            log("playEffect: sound is null");
+            // log("playEffect: sound is null");
             return;
         }
         if (!this.audioSource) {
-            log("playEffect: audioSource is not initialized");
+            // log("playEffect: audioSource is not initialized");
             return;
         }
-        log("playEffectxx:", sound);
+        // log("playEffectxx:", sound);
         if (sound instanceof AudioClip) {
-            log("playEffect:", sound);
+            // log("playEffect:", sound);
             this.audioSource.playOneShot(sound, volume);
         } else {
             resources.load(sound, AudioClip, (err, clip) => {

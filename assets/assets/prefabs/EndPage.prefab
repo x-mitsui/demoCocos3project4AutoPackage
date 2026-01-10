@@ -14,7 +14,7 @@
   {
     "__type__": "cc.Node",
     "_name": "EndPage",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "__editorExtras__": {},
     "_parent": null,
     "_children": [

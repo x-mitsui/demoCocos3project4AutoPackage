@@ -11,7 +11,7 @@
     "speed": 1,
     "wrapMode": 2,
     "enableTrsBlending": false,
-    "_duration": 1.3333333333333333,
+    "_duration": 2,
     "_hash": 500763545,
     "_tracks": [
       {
@@ -78,7 +78,7 @@
         "__type__": "cc.RealKeyframeValue",
         "interpolationMode": 0,
         "tangentWeightMode": 0,
-        "value": -265.9110107421875,
+        "value": -292.0920104980469,
         "rightTangent": 0,
         "rightTangentWeight": 1,
         "leftTangent": 0,
@@ -92,7 +92,7 @@
         "__type__": "cc.RealKeyframeValue",
         "interpolationMode": 0,
         "tangentWeightMode": 0,
-        "value": -265.9110107421875,
+        "value": -292.0920104980469,
         "rightTangent": 0,
         "rightTangentWeight": 1,
         "leftTangent": 0,
@@ -106,7 +106,7 @@
         "__type__": "cc.RealKeyframeValue",
         "interpolationMode": 0,
         "tangentWeightMode": 0,
-        "value": -231.364,
+        "value": -231.36399841308594,
         "rightTangent": 0,
         "rightTangentWeight": 1,
         "leftTangent": 0,
@@ -166,7 +166,7 @@
         "__type__": "cc.RealKeyframeValue",
         "interpolationMode": 0,
         "tangentWeightMode": 0,
-        "value": -222.462,
+        "value": -222.46200561523438,
         "rightTangent": 0,
         "rightTangentWeight": 1,
         "leftTangent": 0,
@@ -301,7 +301,7 @@
     "_times": [
       0,
       1,
-      1.3333333333333333
+      2
     ],
     "_values": [
       {
@@ -361,7 +361,7 @@
     "_times": [
       0,
       1,
-      1.3333333333333333
+      2
     ],
     "_values": [
       {
@@ -421,7 +421,7 @@
     "_times": [
       0,
       1,
-      1.3333333333333333
+      2
     ],
     "_values": [
       {
@@ -481,7 +481,7 @@
     "_times": [
       0,
       1,
-      1.3333333333333333
+      2
     ],
     "_values": [
       {
@@ -516,7 +516,7 @@
         "__type__": "cc.RealKeyframeValue",
         "interpolationMode": 0,
         "tangentWeightMode": 0,
-        "value": 0,
+        "value": 255,
         "rightTangent": 0,
         "rightTangentWeight": 1,
         "leftTangent": 0,

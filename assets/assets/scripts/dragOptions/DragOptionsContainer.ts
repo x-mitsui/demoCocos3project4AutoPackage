@@ -1,4 +1,16 @@
-import { _decorator, Component, find, instantiate, JsonAsset, log, Node, Prefab, UITransform, Vec2, Vec3 } from "cc";
+import {
+    _decorator,
+    Component,
+    find,
+    instantiate,
+    JsonAsset,
+    log,
+    Node,
+    Prefab,
+    UITransform,
+    Vec2,
+    Vec3,
+} from "cc";
 import { DragOption } from "./DragOption";
 import { DragOptionConfig } from "../types";
 import { Board } from "../board/Board";
@@ -55,15 +67,19 @@ export class DragOptionsContainer extends Component {
         }
 
         if (canvas) {
-            const shadowContainer = canvas.getChildByName("DragOptionsShadowContainer");
+            const shadowContainer = canvas.getChildByName(
+                "DragOptionsShadowContainer"
+            );
             if (shadowContainer) {
                 this.shadowContainerNode = shadowContainer;
-                log("找到阴影容器节点:", shadowContainer.name);
+                // log("找到阴影容器节点:", shadowContainer.name);
             } else {
-                log("警告: 未找到 DragOptionsShadowContainer 节点，请确保在 Canvas 下创建了该节点");
+                // log(
+                //     "警告: 未找到 DragOptionsShadowContainer 节点，请确保在 Canvas 下创建了该节点"
+                // );
             }
         } else {
-            log("警告: 未找到 Canvas 节点");
+            // log("警告: 未找到 Canvas 节点");
         }
     }
     onLoad() {
@@ -89,7 +105,7 @@ export class DragOptionsContainer extends Component {
         this._allConfigs = this.dragOptionConfigJson.json as DragOptionConfig[];
         this.generateRound();
     }
-
+    // prettier-ignore
     randomCacheConfigs: DragOptionConfig[] = [
         {
             "blockColorIdx": 0,
@@ -126,7 +142,7 @@ export class DragOptionsContainer extends Component {
                 [-1, 0], [0, 0], [1, 0]
             ]
         }, {
-            "blockColorIdx": 5,
+            "blockColorIdx": 4,
             "shape": [
                 [-1, 0], [0, 0], [1, 0],
                 [-1, -1],
@@ -139,7 +155,7 @@ export class DragOptionsContainer extends Component {
      */
     generateConfigByEmptySpace() {
         const CompBoard = this.boardNode.getComponent(Board);
-        log("CompBoard.blockNodes:", CompBoard.blockNodes);
+        // log("CompBoard.blockNodes:", CompBoard.blockNodes);
 
         // 收集所有空位置
         const emptySpaces: { row: number; col: number }[] = [];
@@ -154,8 +170,8 @@ export class DragOptionsContainer extends Component {
         if (emptySpaces.length === 0) {
             // 如果没有空位置，返回一个单点配置
             return {
-                blockColorIdx: Math.floor(Math.random() * 6),
-                shape: [[0, 0]]
+                blockColorIdx: Math.floor(Math.random() * 5),
+                shape: [[0, 0]],
             };
         }
 
@@ -179,9 +195,9 @@ export class DragOptionsContainer extends Component {
                 // 检查四个方向：上、下、左、右
                 const directions = [
                     { row: -1, col: 0 }, // 上
-                    { row: 1, col: 0 },  // 下
+                    { row: 1, col: 0 }, // 下
                     { row: 0, col: -1 }, // 左
-                    { row: 0, col: 1 }   // 右
+                    { row: 0, col: 1 }, // 右
                 ];
 
                 for (const dir of directions) {
@@ -190,8 +206,10 @@ export class DragOptionsContainer extends Component {
                     const newKey = `${newRow},${newCol}`;
 
                     if (
-                        newRow >= 0 && newRow < 8 &&
-                        newCol >= 0 && newCol < 8 &&
+                        newRow >= 0 &&
+                        newRow < 8 &&
+                        newCol >= 0 &&
+                        newCol < 8 &&
                         !visited.has(newKey) &&
                         !CompBoard.blockNodes[newRow][newCol]
                     ) {
@@ -210,9 +228,14 @@ export class DragOptionsContainer extends Component {
         let selectedRegion: { row: number; col: number }[] = [];
 
         // 优先选择大小在2-4之间的区域
-        const suitableRegions = regions.filter(r => r.length >= 2 && r.length <= 4);
+        const suitableRegions = regions.filter(
+            (r) => r.length >= 2 && r.length <= 4
+        );
         if (suitableRegions.length > 0) {
-            selectedRegion = suitableRegions[Math.floor(Math.random() * suitableRegions.length)];
+            selectedRegion =
+                suitableRegions[
+                    Math.floor(Math.random() * suitableRegions.length)
+                ];
         } else {
             // 如果没有合适的，选择最大的区域，但限制在4个方块以内
             const sortedRegions = regions.sort((a, b) => b.length - a.length);
@@ -230,7 +253,7 @@ export class DragOptionsContainer extends Component {
         const centerCol = selectedRegion[0].col;
 
         // 转换为相对于中心点的偏移
-        const shape: [number, number][] = selectedRegion.map(pos => {
+        const shape: [number, number][] = selectedRegion.map((pos) => {
             // offsetX = col - centerCol (列偏移)
             // offsetY = centerRow - row (行偏移，注意Y轴向上为正)
             const offsetX = pos.col - centerCol;
@@ -238,21 +261,21 @@ export class DragOptionsContainer extends Component {
             return [offsetX, offsetY];
         });
 
-        // 随机选择一个颜色索引（0-5）
-        const blockColorIdx = Math.floor(Math.random() * 6);
+        // 随机选择一个颜色索引（0-4）
+        const blockColorIdx = Math.floor(Math.random() * 5);
 
-        log("生成的配置:", { blockColorIdx, shape, selectedRegion });
+        // log("生成的配置:", { blockColorIdx, shape, selectedRegion });
 
         return {
             blockColorIdx,
-            shape
+            shape,
         };
     }
     /**
      * 生成新的一轮选项
      */
     generateRound() {
-        log("newemptySpaces:", this.generateConfigByEmptySpace());
+        // log("newemptySpaces:", this.generateConfigByEmptySpace());
         this.node.removeAllChildren();
         // 清除阴影容器中的所有子节点
         if (this.shadowContainerNode) {
@@ -265,22 +288,21 @@ export class DragOptionsContainer extends Component {
         if (this._currentIndex >= this._allConfigs.length) {
             // 随机生成3个，其中两个从池子里找，另外一个根据当前Board的空隙生成，以确保有空隙可以放置
             // 根据数组长度随机生成两个索引
-            const indices = getRandomTwoIndices(this.randomCacheConfigs)
+            const indices = getRandomTwoIndices(this.randomCacheConfigs);
             selectedConfigs.push(this.randomCacheConfigs[indices[0]]);
             selectedConfigs.push(this.randomCacheConfigs[indices[1]]);
             const config = this.generateConfigByEmptySpace();
             selectedConfigs.push(config as unknown as DragOptionConfig);
-            log("selectedConfigs:", selectedConfigs);
+            // log("selectedConfigs:", selectedConfigs);
         } else {
             for (let i = 0; i < this.optionCount; i++) {
                 const config = this._allConfigs[this._currentIndex];
                 selectedConfigs.push(config);
-                this._currentIndex++
+                this._currentIndex++;
                 // // 更新索引，如果到达末尾则回到开头
                 // this._currentIndex = (this._currentIndex + 1) % this._allConfigs.length;
             }
         }
-
 
         // 计算布局位置，水平排列
         // 假设每个选项间隔 350

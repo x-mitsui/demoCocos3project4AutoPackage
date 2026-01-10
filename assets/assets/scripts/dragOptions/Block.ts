@@ -14,11 +14,15 @@ export class Block extends Component {
     @property({ type: SpriteFrame })
     skins: SpriteFrame[] = [];
     isOffsetZero: boolean = false; // 是否是偏移量为0的块
+    shapeOffset2Center?: [number, number];
     init(colorIdx: number) {
         // log("init color:", colorIdx);
         this.colorIdx = colorIdx;
         this.initSkin();
         this.initSize();
+    }
+    initShapeOffset2Center(shapeOffset2Center: [number, number]) {
+        this.shapeOffset2Center = shapeOffset2Center;
     }
     initSkin() {
         const compSprite = this.node.getComponent(Sprite);

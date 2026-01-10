@@ -2,6 +2,7 @@ import {
     _decorator,
     Color,
     Component,
+    dragonBones,
     instantiate,
     log,
     Node,
@@ -11,7 +12,6 @@ import {
     Vec3,
 } from "cc";
 import { DragOptionConfig } from "../types";
-import { Tool } from "../utils/tool";
 import { BlockSize, GameCustomInfo } from "../configs/config";
 import { Board } from "../board/Board";
 import { DragOptionsContainer } from "./DragOptionsContainer";
@@ -182,6 +182,7 @@ export class DragOption extends Component {
         const compBlock = block.getComponent(Block);
         if (compBlock) {
             compBlock.init(blockColorIdx);
+            compBlock.initShapeOffset2Center(offset2Center);
             compBlock.setOpacity(opacity);
             if (offset2Center[0] === 0 && offset2Center[1] === 0) {
                 compBlock.isOffsetZero = true;
@@ -251,13 +252,25 @@ export class DragOption extends Component {
             shape
         );
         log("matches:", matches);
-        for (let i = 0; i < matches.blocks2ChangeofDragOption.length; i++) {
-            const { row, col } = matches.blocks2ChangeofDragOption[i];
-            const index = row * 8 + col;
-            log("index:", index);
-            const blockNode = this.node.children[index];
-            if (blockNode) {
-                blockNode.getComponent(Block).init(5);
+        const { color2changeOffsetXs, color2changeOffsetYs } = matches;
+        for (let i = 0; i < color2changeOffsetXs.length; i++) {
+            for (let block of this.node.children) {
+                const compBlock = block.getComponent(Block);
+                if (
+                    compBlock.shapeOffset2Center[0] === color2changeOffsetXs[i]
+                ) {
+                    compBlock.init(5);
+                }
+            }
+        }
+        for (let i = 0; i < color2changeOffsetYs.length; i++) {
+            for (let block of this.node.children) {
+                const compBlock = block.getComponent(Block);
+                if (
+                    compBlock.shapeOffset2Center[1] === color2changeOffsetYs[i]
+                ) {
+                    compBlock.init(5);
+                }
             }
         }
         // 为可以消除的行显示提示块
@@ -391,6 +404,22 @@ export class DragOption extends Component {
             CompBoard.blockNodes[blockZeroRow - offsetY][
                 blockZeroCol + offsetX
             ] = block;
+            startBrightAnimation.call(this, block);
+        }
+        function startBrightAnimation(block: Node) {
+            const dragonNode = block.getChildByName("dragon");
+            const dragonAnimation = dragonNode.getComponent(
+                dragonBones.ArmatureDisplay
+            );
+            dragonNode.active = true;
+            dragonAnimation.playAnimation("in", 1);
+            dragonAnimation.on(
+                dragonBones.EventObject.COMPLETE,
+                () => {
+                    dragonNode.active = false;
+                },
+                this
+            );
         }
 
         // log(

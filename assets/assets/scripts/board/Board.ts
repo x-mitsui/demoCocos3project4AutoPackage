@@ -22,6 +22,7 @@ import { Block } from "../dragOptions/Block";
 import { GameManager } from "../managers/GameManager";
 import { AudioManager } from "../managers/AudioManager";
 import { jump2DownloadPage } from "../utils/tool";
+import { NumberAnimator } from "../utils/NumberAnimator";
 const { ccclass, property } = _decorator;
 
 @ccclass("Board")
@@ -49,11 +50,12 @@ export class Board extends Component {
     scoreLabel: Label = null;
     @property({ type: Label, tooltip: "最佳分数标签" })
     bestScoreLabel: Label = null;
+    @property(Node)
+    encourageNode: Node = null; // 有了它就避免了DragOptions的遮挡
 
     private displayScore: number = 0;
 
     protected onLoad(): void {
-        log("Board onLoad");
         this.initPuzzles();
         this.dragOptionsContainer
             .getComponent(DragOptionsContainer)
@@ -183,10 +185,8 @@ export class Board extends Component {
      */
     checkRowColsInBoard(row: number, col: number, shape: number[][]) {
         for (const [offsetX, offsetY] of shape) {
-            log("offsetX:", offsetX, " offsetY:", offsetY);
             const r = row - offsetY;
             const c = col + offsetX;
-            log("r:", r, " c:", c);
             if (r < 0 || r >= 8 || c < 0 || c >= 8) {
                 return false;
             }
@@ -217,8 +217,12 @@ export class Board extends Component {
         const colsToClear: number[] = []; // 可以清除的列号
 
         // 模拟放置：记录哪些位置会被填充
-        const positionsToFill: { row: number; col: number }[] = [];
-        const blocks2ChangeofDragOption: { row: number; col: number }[] = [];
+        const positionsToFill: {
+            row: number;
+            col: number;
+        }[] = [];
+        const color2changeOffsetXs: number[] = [];
+        const color2changeOffsetYs: number[] = [];
         for (const [offsetX, offsetY] of shape) {
             const row = blockZeroRow - offsetY;
             const col = blockZeroCol + offsetX;
@@ -226,13 +230,19 @@ export class Board extends Component {
                 positionsToFill.push({ row, col });
             }
         }
-        log("positionsToFill:", positionsToFill);
+        // log("positionsToFill:", positionsToFill);
 
         // 检查满行（考虑模拟放置的位置）
         for (let i = 0; i < 8; i++) {
             if (this.isRowFull(i, positionsToFill)) {
                 rowsToClear.push(i);
-                blocks2ChangeofDragOption.push({ ...positionsToFill[i] });
+                for (const [offsetX, offsetY] of shape) {
+                    const row = blockZeroRow - offsetY;
+                    const col = blockZeroCol + offsetX;
+                    if (row === i) {
+                        color2changeOffsetYs.push(offsetY);
+                    }
+                }
             }
         }
 
@@ -240,14 +250,21 @@ export class Board extends Component {
         for (let j = 0; j < 8; j++) {
             if (this.isColFull(j, positionsToFill)) {
                 colsToClear.push(j);
-                blocks2ChangeofDragOption.push({ ...positionsToFill[j] });
+                for (const [offsetX, offsetY] of shape) {
+                    const row = blockZeroRow - offsetY;
+                    const col = blockZeroCol + offsetX;
+                    if (col === j) {
+                        color2changeOffsetXs.push(offsetX);
+                    }
+                }
             }
         }
 
         return {
             rows: rowsToClear,
             cols: colsToClear,
-            blocks2ChangeofDragOption,
+            color2changeOffsetXs,
+            color2changeOffsetYs,
         };
     }
 
@@ -263,11 +280,12 @@ export class Board extends Component {
     ): boolean {
         // 遍历所有列，只查找不满的情况
         for (let j = 0; j < 8; j++) {
-            // 检查当前位置是否要被填充
+            // 如果positionsToFill为空，则willBeFilled为null ，代表没有要填充的，只需要检查当前位置是否有方块
+            // 如果positionsToFill不为空，则检查willBeFilled的块是否能填补空缺的位置
             const willBeFilled = positionsToFill?.some(
                 (p) => p.row === row && p.col === j
             );
-            log("willBeFilled:", willBeFilled, this.blockNodes[row][j]);
+            // log("willBeFilled:", willBeFilled, this.blockNodes[row][j]);
             // 如果某一列既没有现有方块，也将不会被新方块填充，则该行不可能满，返回 false
             if (!this.blockNodes[row][j] && !willBeFilled) {
                 return false;
@@ -288,7 +306,8 @@ export class Board extends Component {
     ): boolean {
         // 遍历所有行，只查找不满的情况
         for (let i = 0; i < 8; i++) {
-            // 检查当前位置是否要被填充
+            // 如果positionsToFill为空，则willBeFilled为null ，代表没有要填充的，只需要检查当前位置是否有方块
+            // 如果positionsToFill不为空，则检查willBeFilled的块是否能填补空缺的位置
             const willBeFilled = positionsToFill?.some(
                 (p) => p.row === i && p.col === col
             );
@@ -374,18 +393,30 @@ export class Board extends Component {
             this.playClearAnimation(-1, col, colorName + 2);
         });
         if (clearCount > 0) {
-            // AudioManager.instance.playEffect(GameManager.instance.clearEffect);
-            this.playEncourageAnimation(
-                clearCount,
-                colorIdx,
-                blockZeroRow,
-                blockZeroCol,
-                curRoundScore
-            );
+            if (GameManager.instance.combo > 0) {
+                this.scheduleOnce(() => {
+                    this.playEncourageAnimation(
+                        clearCount,
+                        colorIdx,
+                        blockZeroRow,
+                        blockZeroCol,
+                        curRoundScore
+                    );
+                }, 0.6);
+            } else {
+                // AudioManager.instance.playEffect(GameManager.instance.clearEffect);
+                this.playEncourageAnimation(
+                    clearCount,
+                    colorIdx,
+                    blockZeroRow,
+                    blockZeroCol,
+                    curRoundScore
+                );
+            }
         }
 
         if (rowsToClear.length > 0 || colsToClear.length > 0) {
-            log(`Cleared rows: ${rowsToClear}, cols: ${colsToClear}`);
+            // log(`Cleared rows: ${rowsToClear}, cols: ${colsToClear}`);
         }
     }
 
@@ -398,33 +429,21 @@ export class Board extends Component {
      */
     private animateScore(): void {
         const targetScore = GameManager.instance.score;
-        if (this.displayScore < targetScore) {
-            // 每次只增加1
-            this.displayScore++;
+        const currentValue = { value: this.displayScore };
 
-            // 更新显示
-            this.scoreLabel.string = this.displayScore.toString();
-
-            const bestScore = parseInt(
-                sys.localStorage.getItem("bestScore") || "0"
-            );
-            if (this.displayScore > bestScore) {
-                sys.localStorage.setItem(
-                    "bestScore",
-                    this.displayScore.toString()
-                );
-                this.bestScoreLabel.string = this.displayScore.toString();
+        NumberAnimator.animateWithBestScore(
+            this,
+            currentValue,
+            targetScore,
+            (value) => {
+                this.displayScore = value;
+                this.scoreLabel.string = value.toString();
+            },
+            "bestScore",
+            (bestScore) => {
+                this.bestScoreLabel.string = bestScore.toString();
             }
-
-            // 继续动画，每10ms更新一次
-            this.scheduleOnce(() => {
-                this.animateScore();
-            }, 0.01);
-        } else {
-            // 动画完成
-            this.displayScore = targetScore;
-            this.scoreLabel.string = this.displayScore.toString();
-        }
+        );
     }
 
     private clearRow(row: number) {
@@ -464,7 +483,7 @@ export class Board extends Component {
         desCol: number,
         curRoundScore: number
     ) {
-        log("playEncourageAnimation----------------------->");
+        // log("playEncourageAnimation----------------------->");
 
         // 根据消除的行/列数确定动画名称
         let animationPrefix = this.getAnimationPrefix(linesCleared);
@@ -475,7 +494,7 @@ export class Board extends Component {
             curRoundScore,
             !!animationPrefix
         );
-        log("animationPrefix", animationPrefix);
+        // log("animationPrefix", animationPrefix);
         if (!animationPrefix) return;
         // 获取颜色名称
         const colorName = this.getColorName(colorIdx);
@@ -483,21 +502,21 @@ export class Board extends Component {
             GameCustomInfo.name === "BlockBrush"
                 ? animationPrefix
                 : animationPrefix + colorName;
-        log("colorName", colorName, "animationName", animationName);
+        // log("colorName", colorName, "animationName", animationName);
 
         // 获取pos
         const pos = this.getPosByOffset(desRow, desCol);
 
         const encourage = instantiate(GameManager.instance.encouragePrefab);
         encourage.setPosition(pos);
-        encourage.parent = this.node;
+        encourage.parent = this.encourageNode;
         const armatureDisplay = encourage.getComponent(
             dragonBones.ArmatureDisplay
         );
         armatureDisplay.on(
             dragonBones.EventObject.COMPLETE,
             () => {
-                log("-----龙骨动画播放完成");
+                // log("-----龙骨动画播放完成");
                 this.node.removeChild(encourage);
                 encourage.destroy();
             },
@@ -519,7 +538,7 @@ export class Board extends Component {
         needLift: boolean
     ) {
         const bonusLabel = instantiate(GameManager.instance.bonusLabelPrefab);
-        bonusLabel.parent = this.node;
+        bonusLabel.parent = this.encourageNode;
 
         // 获取 Label 组件并设置分数文本
         const label = bonusLabel.getComponent(Label);
@@ -531,7 +550,7 @@ export class Board extends Component {
         // 获取 Animation 组件并播放 'bonus' 动画
         const animation = bonusLabel.getComponent(Animation);
         if (animation) {
-            log("播放 bonus 动画");
+            // log("播放 bonus 动画");
             // 播放 'bonus' 动画
             animation.play("bonus");
 
@@ -545,7 +564,7 @@ export class Board extends Component {
                 this
             );
         } else {
-            log("BonusLabel 节点没有 Animation 组件");
+            // log("BonusLabel 节点没有 Animation 组件");
         }
     }
     getAnimationPrefix(linesCleared: number): string {
@@ -587,7 +606,7 @@ export class Board extends Component {
         col: number,
         animationName: string
     ) {
-        log("playClearAnimation----------------------->");
+        // log("playClearAnimation----------------------->");
         // 补丁
         if (animationName === "darkblue2") animationName = "wathetblue2";
         if (animationName === "darkblue1") animationName = "wathetblue1";
@@ -606,12 +625,12 @@ export class Board extends Component {
             // 行消除：横向动画，位置在行的中心
             x = this.originNode.x + ((8 - 1) * BlockSize.width) / 2;
             y = this.originNode.y - row * BlockSize.height;
-            log("消除行", row, "x", x, "y", y);
+            // log("消除行", row, "x", x, "y", y);
         } else if (col >= 0) {
             // 列消除：竖向动画，位置在列的中心
             x = this.originNode.x + col * BlockSize.width;
             y = this.originNode.y - ((8 - 1) * BlockSize.height) / 2;
-            log("消除列", col, "x", x, "y", y, "animationName", animationName);
+            //  log("消除列", col, "x", x, "y", y, "animationName", animationName);
             if (GameCustomInfo.name === "BlockBrush") {
                 // 旋转90度，因为它只有横向动画，动画名in
                 clearAni.eulerAngles = new math.Vec3(0, 0, 90);
@@ -628,7 +647,7 @@ export class Board extends Component {
         armatureDisplay.on(
             dragonBones.EventObject.COMPLETE,
             () => {
-                log("---清除动画");
+                // log("---清除动画");
                 this.node.removeChild(clearAni);
                 clearAni.destroy();
             },

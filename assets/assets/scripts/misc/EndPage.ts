@@ -2,6 +2,7 @@ import {
     _decorator,
     Button,
     Component,
+    dragonBones,
     Label,
     log,
     Node,
@@ -12,6 +13,8 @@ import {
 } from "cc";
 import { AudioManager } from "../managers/AudioManager";
 import { jump2DownloadPage } from "../utils/tool";
+import { GameCustomInfo } from "../configs/config";
+import { GameManager } from "../managers/GameManager";
 const { ccclass, property } = _decorator;
 
 @ccclass("EndPage")
@@ -31,7 +34,7 @@ export class EndPage extends Component {
     flag2: Node = null;
 
     playParticle() {
-        log("playParticle");
+        // log("playParticle");
         // Particle可以在数独都完成后立即播放
         if (this.Particle) {
             this.Particle.active = true;
@@ -43,21 +46,51 @@ export class EndPage extends Component {
 
         // 延迟切换到winPanel，等待高亮动画播放完
         // 最长的动画时间大概是 (4 + 4) * 0.1 + 0.3 + 0.5 ≈ 1.6s，这里取 2s 安全值
+
         this.scheduleOnce(() => {
             this.showWinPanel();
         }, 2);
     }
-    showWinPanel() {
-        log("showWinPanel");
-        AudioManager.instance.playFailEffect();
-        this.winPanel.active = true;
-        const bestScore = sys.localStorage.getItem("bestScore") || "0";
+    curScore = 0;
+    animateScore() {
+        // log("animateScore", this.curScore);
+        this.curScore += Math.ceil(GameManager.instance.score / 10);
         const bestScoreLabel = this.winPanel
             .getChildByName("BestScore")
             .getComponent(Label);
-        if (bestScoreLabel) {
-            bestScoreLabel.string = bestScore;
+        bestScoreLabel.string =
+            Math.min(this.curScore, GameManager.instance.score) + "";
+        // log("this.curScore", this.curScore, GameManager.instance.score);
+        if (this.curScore < GameManager.instance.score) {
+            this.scheduleOnce(() => {
+                this.animateScore();
+            }, 0.1);
         }
+    }
+    showWinPanel() {
+        // log("showWinPanel");
+        const bestScoreLabel = this.winPanel
+            .getChildByName("BestScore")
+            .getComponent(Label);
+        if (GameCustomInfo.name === "BlockBrush") {
+            AudioManager.instance.playWinEffect();
+            this.animateScore();
+            const dragon = this.winPanel.getChildByName("dragon");
+            dragon.active = true;
+            const dragonAnimation = dragon.getComponent(
+                dragonBones.ArmatureDisplay
+            );
+            dragonAnimation.playAnimation("BestScore", 1);
+        } else {
+            AudioManager.instance.playFailEffect();
+            const bestScore = sys.localStorage.getItem("bestScore") || "0";
+
+            if (bestScoreLabel) {
+                bestScoreLabel.string = bestScore;
+            }
+        }
+        this.winPanel.active = true;
+
         const button = this.winPanel.getChildByName("jump");
         button.on(Node.EventType.TOUCH_END, this.onJumpButtonClick, this);
         // 给button创建一个引诱点击的循环动画
@@ -73,6 +106,15 @@ export class EndPage extends Component {
             .repeatForever()
             .start();
 
+        this.playFlagsAni();
+        // if (this.audioSource) {
+        //     this.audioSource.play();
+        // }
+    }
+    onJumpButtonClick() {
+        jump2DownloadPage();
+    }
+    playFlagsAni() {
         const startY = 1240; // 起始位置
         const endY = 969; // 目标位置
         const bounceHeight1 = 999; // 第一次反弹高度
@@ -116,12 +158,5 @@ export class EndPage extends Component {
         this.scheduleOnce(() => {
             createFlagBounceTween(this.flag2).start();
         }, 1);
-
-        // if (this.audioSource) {
-        //     this.audioSource.play();
-        // }
-    }
-    onJumpButtonClick() {
-        jump2DownloadPage();
     }
 }

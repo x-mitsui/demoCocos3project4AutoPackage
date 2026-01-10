@@ -39,7 +39,7 @@ export class DragHandler extends Component {
     }
 
     onTouchStart(event: EventTouch) {
-        log("onTouchStart");
+        // log("onTouchStart");
         AudioManager.instance.playClickEffect();
         this.isDragging = true;
         this.touchStartPosY = event.getUILocation().y;
@@ -64,20 +64,10 @@ export class DragHandler extends Component {
         // const [touchRow, touchCol] = CompBoard.getOffsetByPos(
         //     new Vec3(currentPosX, currentPosY, 0)
         // );
-        log(
-            "blocks",
-            CompBoard.blockNodes.map((row) =>
-                row.map((node) => (node ? node.name : "null"))
-            )
-        );
+
         const [blockZeroRow, blockZeroCol] =
             CompDragOption.getZeroBlockRowCol();
-        log(
-            "---------zblockZeroRow:",
-            blockZeroRow,
-            "blockZeroCol:",
-            blockZeroCol
-        );
+
         if (
             !CompBoard.checkDragOptionCanPlace(
                 blockZeroRow,
@@ -85,7 +75,7 @@ export class DragHandler extends Component {
                 CompDragOption.config.shape
             )
         ) {
-            log("can't place");
+            // log("can't place");
 
             return;
         }
@@ -96,7 +86,7 @@ export class DragHandler extends Component {
                 CompDragOption.config.shape
             )
         ) {
-            log("out of board");
+            // log("out of board");
             CompDragOption.clearDragShadow();
 
             return;
@@ -139,7 +129,7 @@ export class DragHandler extends Component {
                 CompDragOption.config.shape
             )
         ) {
-            log("can't place");
+            // log("can't place");
             CompDragOption.clearDragShadow();
             return;
         }
@@ -150,7 +140,7 @@ export class DragHandler extends Component {
                 CompDragOption.config.shape
             )
         ) {
-            log("out of board");
+            // log("out of board");
             CompDragOption.clearDragShadow();
             return;
         }
@@ -168,14 +158,14 @@ export class DragHandler extends Component {
     }
 
     onTouchEnd(event: EventTouch) {
-        log("onTouchEnd");
+        // log("onTouchEnd");
         this.isDragging = false;
         this.placeDragOption();
         event.propagationStopped = true;
     }
 
     onTouchCancel(event: EventTouch) {
-        log("onTouchCancel");
+        // log("onTouchCancel");
         this.isDragging = false;
         this.placeDragOption();
         event.propagationStopped = true;
@@ -198,7 +188,7 @@ export class DragHandler extends Component {
                 CompDragOption.config.shape
             )
         ) {
-            log("can place>>>>>>>>>>>>");
+            // log("can place>>>>>>>>>>>>");
             CompDragOption.placeDragOption(
                 blockZeroRow,
                 blockZeroCol,
@@ -211,9 +201,9 @@ export class DragHandler extends Component {
             parent.removeChild(this.node);
             parent.getComponent(DragOptionsContainer).checkAndShowMask();
             // 触发检查补充逻辑
-            log("parent.children.length:", parent.children.length);
+            //  log("parent.children.length:", parent.children.length);
             if (parent.children.length === 0) {
-                log("check refill???");
+                // log("check refill???");
                 parent.emit("check-refill");
             }
 

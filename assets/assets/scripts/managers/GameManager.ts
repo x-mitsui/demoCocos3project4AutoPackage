@@ -8,10 +8,12 @@ import {
     Vec3,
     view,
     sys,
+    dragonBones,
 } from "cc";
 import { ComboAni } from "../ComboAni";
 import { EndPage } from "../misc/EndPage";
 import { AudioManager } from "./AudioManager";
+import { GameCustomInfo } from "../configs/config";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameManager")
@@ -30,7 +32,6 @@ export class GameManager extends Component {
     comboAni: Node = null!;
     @property(EndPage)
     endPage: EndPage = null!;
-    private heartAnimationHandle: any = null; // 心形动画句柄
     score: number = 0;
     combo: number = -1;
     noClearRounds: number = 0; // 持续未清除的轮数，连续3次会导致combo中断
@@ -50,6 +51,7 @@ export class GameManager extends Component {
         }
         GameManager._instance = this;
         if (this.heartNode) {
+            if (GameCustomInfo.name === "BlockBrush") return;
             this.heartNode.active = false;
         }
     }
@@ -131,6 +133,7 @@ export class GameManager extends Component {
     setScoreByClearCount(clearCount: number) {
         if (clearCount > 0) {
             this.combo++;
+            // log("setScoreByClearCount", this.combo);
             AudioManager.instance.playComboEffect(this.combo);
             if (this.combo > 0) {
                 this.comboAni
@@ -168,14 +171,27 @@ export class GameManager extends Component {
         //     return;
         // }
 
-        // 取消之前的动画句柄
-        if (this.heartAnimationHandle) {
-            this.unschedule(this.heartAnimationHandle);
-            this.heartAnimationHandle = null;
-        }
-
         // 显示心形节点
         this.heartNode.active = true;
+        if (GameCustomInfo.name === "BlockBrush") {
+            const dragon = this.heartNode.getChildByName("dragon");
+            dragon.active = true;
+            const dragonAnimation = dragon.getComponent(
+                dragonBones.ArmatureDisplay
+            );
+            dragon.active = true;
+            dragonAnimation.playAnimation("newAnimation_2", 1);
+            dragonAnimation.on(
+                dragonBones.EventObject.COMPLETE,
+                (event: dragonBones.EventObject) => {
+                    if (event.animationState.name === "newAnimation_2") {
+                        dragonAnimation.playAnimation("newAnimation", 0);
+                    }
+                },
+                this
+            );
+            return;
+        }
 
         // 获取 Animation 组件
         const animation = this.heartNode.getComponent(Animation);
@@ -207,6 +223,21 @@ export class GameManager extends Component {
      * 隐藏心形节点
      */
     private hideHeartNode(): void {
+        if (GameCustomInfo.name === "BlockBrush") {
+            const dragon = this.heartNode.getChildByName("dragon");
+            const dragonAnimation = dragon.getComponent(
+                dragonBones.ArmatureDisplay
+            );
+            dragon.active = true;
+            const aniName2play = "newAnimation_1";
+            const curname =
+                dragonAnimation.armature().animation.lastAnimationName;
+            if (aniName2play !== curname) {
+                dragonAnimation.playAnimation("newAnimation_1", 1);
+            }
+
+            return;
+        }
         if (this.heartNode) {
             this.heartNode.active = false;
         }

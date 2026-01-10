@@ -7,7 +7,7 @@ import {
     Label,
     log,
     Node,
-    Vec3
+    Vec3,
 } from "cc";
 
 const { ccclass, property } = _decorator;
@@ -20,12 +20,12 @@ export class ComboAni extends Component {
         this.bgAni = this.node.getChildByName("bgAni");
     }
 
-    playComboAnimation(comboCount: number, position: Vec3, callback: () => void) {
-        log(
-            "playComboAnimation",
-            this.node.getChildByName("ComboCountLabel").getComponent(Label).string,
-            comboCount
-        );
+    playComboAnimation(
+        comboCount: number,
+        position: Vec3,
+        callback: () => void
+    ) {
+        if (!comboCount) return;
         this.node.getChildByName("ComboCountLabel").getComponent(Label).string =
             comboCount.toString();
         this.node.setPosition(position);
@@ -35,7 +35,9 @@ export class ComboAni extends Component {
         }
 
         if (this.bgAni) {
-            const armatureDisplay = this.bgAni.getComponent(dragonBones.ArmatureDisplay);
+            const armatureDisplay = this.bgAni.getComponent(
+                dragonBones.ArmatureDisplay
+            );
             if (armatureDisplay) {
                 armatureDisplay.playAnimation("newAnimation", 1);
                 armatureDisplay.on(
