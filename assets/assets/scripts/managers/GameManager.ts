@@ -8,17 +8,20 @@ import {
     Vec3,
     view,
     sys,
-    dragonBones,
+    dragonBones
 } from "cc";
 import { ComboAni } from "../ComboAni";
 import { EndPage } from "../misc/EndPage";
 import { AudioManager } from "./AudioManager";
-import { GameCustomInfo } from "../configs/config";
+import { boardBlocksConfig, dragOptionsConfig, GameCustomInfo } from "../configs/config";
+import { DragOptionConfig } from "../configs/types";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameManager")
 export class GameManager extends Component {
     private static _instance: GameManager = null;
+    boardBlocksConfig: typeof boardBlocksConfig = null!;
+    dragOptionsConfig: DragOptionConfig[] = null!;
 
     @property(Prefab)
     encouragePrefab: Prefab = null;
@@ -50,6 +53,7 @@ export class GameManager extends Component {
             return;
         }
         GameManager._instance = this;
+        this.initConfigs();
         if (this.heartNode) {
             if (GameCustomInfo.name === "BlockBrush") return;
             this.heartNode.active = false;
@@ -66,6 +70,11 @@ export class GameManager extends Component {
         if (sys.isBrowser && typeof window !== "undefined") {
             window.addEventListener("resize", this.onResize.bind(this));
         }
+    }
+
+    initConfigs() {
+        this.boardBlocksConfig = boardBlocksConfig;
+        this.dragOptionsConfig = dragOptionsConfig;
     }
 
     /**
@@ -151,8 +160,7 @@ export class GameManager extends Component {
             }
         }
 
-        const curRoundScore =
-            (this.combo + 1) * this.getBaseScore(clearCount) + clearCount * 8;
+        const curRoundScore = (this.combo + 1) * this.getBaseScore(clearCount) + clearCount * 8;
         this.score += curRoundScore;
         return curRoundScore;
     }
@@ -176,9 +184,7 @@ export class GameManager extends Component {
         if (GameCustomInfo.name === "BlockBrush") {
             const dragon = this.heartNode.getChildByName("dragon");
             dragon.active = true;
-            const dragonAnimation = dragon.getComponent(
-                dragonBones.ArmatureDisplay
-            );
+            const dragonAnimation = dragon.getComponent(dragonBones.ArmatureDisplay);
             dragon.active = true;
             dragonAnimation.playAnimation("newAnimation_2", 1);
             dragonAnimation.on(
@@ -225,13 +231,10 @@ export class GameManager extends Component {
     private hideHeartNode(): void {
         if (GameCustomInfo.name === "BlockBrush") {
             const dragon = this.heartNode.getChildByName("dragon");
-            const dragonAnimation = dragon.getComponent(
-                dragonBones.ArmatureDisplay
-            );
+            const dragonAnimation = dragon.getComponent(dragonBones.ArmatureDisplay);
             dragon.active = true;
             const aniName2play = "newAnimation_1";
-            const curname =
-                dragonAnimation.armature().animation.lastAnimationName;
+            const curname = dragonAnimation.armature().animation.lastAnimationName;
             if (aniName2play !== curname) {
                 dragonAnimation.playAnimation("newAnimation_1", 1);
             }

@@ -1,34 +1,132 @@
 import { sys } from "cc";
+import { DragOptionConfig } from "./types";
 
 /** 块大小 */
 export const BlockSize = {
     width: 120,
-    height: 120,
+    height: 120
 };
 
-/** 网格大小 */
-export const GridSize = {
-    width: 10,
-    height: 10,
-};
+// prettier-ignore
+export const dragOptionsConfig:DragOptionConfig[] = [
+    {
+        "blockColorIdx": 0,
+        "shape": [
+            [0,  0], [1,  0], [2,  0],
+            [0, -1], [1, -1], [2, -1],
+            [0, -2], [1, -2], [2, -2]
+        ]
+    },
+    {
+        "blockColorIdx": 1,
+        "shape": [
+            [0, 0], [1, 0], [2, 0],
+                             [2, -1]
+        ]
+    },
+    {
+        "blockColorIdx": 2,
+        "shape": [
+            [0,  0], [1,  0], [2,  0],
+            [0, -1], [1, -1], [2, -1],
+            [0, -2], [1, -2], [2, -2]
+        ]
+    },
+    {
+        "blockColorIdx": 3,
+        "shape": [
+                     [1, 1],
+            [0, 0], [1, 0], 
+            [0, -1]
+        ]
+    },
+    {
+        "blockColorIdx": 3,
+        "shape": [
+            [0, 0],
+            [0, -1], [0, -1], [1, -1]
+                     
+        ]
+    },
+    {
+        "blockColorIdx": 3,
+        "shape": [
+            [0, 0], [1, 0], 
+            [0, -1]
+        ]
+    },
+    {
+        "blockColorIdx": 3,
+        "shape": [
+            [0,  0], [1,  0], [2,  0],
+            [0, -1], [1, -1], [2, -1],
+            [0, -2], [1, -2], [2, -2]
+        ]
+    },
+    {
+        "blockColorIdx": 2,
+        "shape": [
+            [0,  0], [1,  0], [2,  0],
+            [0, -1], [1, -1], [2, -1],
+            [0, -2], [1, -2], [2, -2]
+        ]
+    },
+    {
+        "blockColorIdx": 3, 
+        "shape": [
+            [0, 0], [1, 0], 
+            [0, -1],[1,-1]
+        ]
+    },
+    {
+        "blockColorIdx": 2,
+        "shape": [
+            [0, 0],[1, 0], [2, 0],
+                           [2,-1]
+        ]
+    },
+    
+    {
+        "blockColorIdx": 2, 
+        "shape": [
+            [0,  0], [1, 0], [2, 0],
+            [0, -1]
+        ]
+    },
+    {
+        "blockColorIdx": 0, 
+        "shape": [
+            [0, 0], [1, 0], 
+            [0, -1],[1,-1]
+        ]
+    }
+    
+]
+
+export const boardBlocksConfig = [
+    [0, 0, 0, 3, 3, 3, 3, 3],
+    [1, 1, 0, 1, 1, 0, 0, 0],
+    [2, 2, 2, 2, 0, 0, 0, 0],
+    [4, 4, 4, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 4, 4],
+    [0, 0, 0, 2, 0, 1, 1, 1],
+    [0, 0, 0, 1, 1, 0, 1, 1],
+    [3, 3, 3, 3, 3, 0, 0, 0]
+];
 
 export const GameCustomInfo = {
-    name: "BlockBrush",
+    name: "BlockBrush"
 };
-
-export const Colors = ["yellow", "blue", "red", "green", "purple", "orange"];
 
 const appUrls = {
     blockblast: {
-        android:
-            "https://play.google.com/store/apps/details?id=com.block.juggle",
-        ios: "https://apps.apple.com/us/app/block-blast/id1617391485",
+        android: "https://play.google.com/store/apps/details?id=com.block.juggle",
+        ios: "https://apps.apple.com/us/app/block-blast/id1617391485"
     },
     BlockBrush: {
-        android:
-            "https://play.google.com/store/apps/details?id=com.wood.block.sudoku.puzzle.bm",
-        ios: "https://apps.apple.com/us/app/block-crush-travel-master/id1638139403",
-    },
+        android: "https://play.google.com/store/apps/details?id=com.wood.block.sudoku.puzzle.bm",
+        ios: "https://apps.apple.com/us/app/block-crush-travel-master/id1638139403"
+    }
 };
 
 export const getJumpUrl = () => {
@@ -79,7 +177,7 @@ export const i18nConfig = {
             "am",
             "id",
             "th",
-            "tl",
+            "tl"
         ],
         list: {
             hello: [
@@ -107,7 +205,7 @@ export const i18nConfig = {
                 "Merhaba",
                 "নমস্তে",
                 "Xin chào",
-                "สวัสดี",
+                "สวัสดี"
             ],
             freeToPlay: [
                 "Free to Play", // 索引 0: 英语
@@ -130,7 +228,7 @@ export const i18nConfig = {
                 "በነፃ ይጫወቱ", // 索引 17: 阿姆哈拉语
                 "Main gratis", // 索引 18: 印尼语
                 "เล่นฟรี", // 索引 19: 泰语
-                "Maglaro nang libre", // 索引 20: 他加禄语
+                "Maglaro nang libre" // 索引 20: 他加禄语
             ],
             playNow: [
                 "Play Now", // 索引 0: 英语
@@ -153,7 +251,7 @@ export const i18nConfig = {
                 "አሁን ይጫወቱ", // 索引 17: 阿姆哈拉语
                 "Main sekarang", // 索引 18: 印尼语
                 "เล่นตอนนี้", // 索引 19: 泰语
-                "Maglaro ngayon", // 索引 20: 他加禄语
+                "Maglaro ngayon" // 索引 20: 他加禄语
             ],
             congratulationsWantMore: [
                 "Congratulations!\nWant More?", // 索引 0: 英语
@@ -176,7 +274,7 @@ export const i18nConfig = {
                 "እንኳን ደስ አለህ!\nተጨማሪ ይፈልጋሉ?", // 索引 17: 阿姆哈拉语
                 "Selamat!\nIngin lebih?", // 索引 18: 印尼语
                 "ยินดีด้วย!\nต้องการเพิ่มเติมไหม?", // 索引 19: 泰语
-                "Binabati kita!\nGusto mo pa?", // 索引 20: 他加禄语
+                "Binabati kita!\nGusto mo pa?" // 索引 20: 他加禄语
             ],
             tryAgain: [
                 "TRY AGAIN?", // 索引 0: 英语
@@ -199,7 +297,7 @@ export const i18nConfig = {
                 "እንደገና ሞክር?", // 索引 17: 阿姆哈拉语
                 "COBA LAGI?", // 索引 18: 印尼语
                 "ลองอีกครั้ง?", // 索引 19: 泰语
-                "SUBUKAN ULIT?", // 索引 20: 他加禄语
+                "SUBUKAN ULIT?" // 索引 20: 他加禄语
             ],
             exploreNow: [
                 "EXPLORE NOW", // 索引 0: 英语
@@ -222,7 +320,7 @@ export const i18nConfig = {
                 "አሁን ያስሱ", // 索引 17: 阿姆哈拉语
                 "JELAJAHI SEKARANG", // 索引 18: 印尼语
                 "สำรวจตอนนี้", // 索引 19: 泰语
-                "TUKLASIN NGAYON", // 索引 20: 他加禄语
+                "TUKLASIN NGAYON" // 索引 20: 他加禄语
             ],
             splitShapeInstruction: [
                 "Split the shape below into the four pieces above", // 索引 0: 英语
@@ -245,10 +343,10 @@ export const i18nConfig = {
                 "ከታች ያለውን ቅርጽ ወደ ላይ ያሉትን አራት ቁርጥራጮች ይከፋፍሉ", // 索引 17: 阿姆哈拉语
                 "Bagi bentuk di bawah menjadi empat bagian di atas", // 索引 18: 印尼语
                 "แบ่งรูปร่างด้านล่างเป็นสี่ชิ้นด้านบน", // 索引 19: 泰语
-                "Hatiin ang hugis sa ibaba sa apat na piraso sa itaas", // 索引 20: 他加禄语
-            ],
-        },
-    },
+                "Hatiin ang hugis sa ibaba sa apat na piraso sa itaas" // 索引 20: 他加禄语
+            ]
+        }
+    }
 };
 
 /**
@@ -336,13 +434,12 @@ const DEBUG_LANG_LIST = [
     "am",
     "id",
     "th",
-    "tl",
+    "tl"
 ];
 
 // 注意：IS_DEBUG 需要在外部定义，或者使用全局变量
 // @ts-ignore
-const IS_DEBUG =
-    (typeof window !== "undefined" && (window as any).IS_DEBUG) || false;
+const IS_DEBUG = (typeof window !== "undefined" && (window as any).IS_DEBUG) || false;
 const DEBUG_LANG = IS_DEBUG ? DEBUG_LANG_LIST[DEBUG_LANG_IDX] : null;
 
 const ZH_T = ["zh-TW", "zh-HK", "zh-MO"];
@@ -388,7 +485,7 @@ export function getI18N(str: string) {
         return {
             lang_idx: index, // 语言索引
             str: new_str, // 翻译后的文本
-            max_width: str_list[0], // 第一个语言的文本（用于布局计算）
+            max_width: str_list[0] // 第一个语言的文本（用于布局计算）
         };
     }
     // 如果找不到对应的翻译，返回原始字符串

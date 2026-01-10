@@ -9,9 +9,8 @@ import {
     Prefab,
     Sprite,
     UITransform,
-    Vec3,
+    Vec3
 } from "cc";
-import { DragOptionConfig } from "../types";
 import { BlockSize, GameCustomInfo } from "../configs/config";
 import { Board } from "../board/Board";
 import { DragOptionsContainer } from "./DragOptionsContainer";
@@ -19,6 +18,7 @@ import { DragHandler } from "./DragHandler";
 import { Block } from "./Block";
 import { GameManager } from "../managers/GameManager";
 import { AudioManager } from "../managers/AudioManager";
+import { DragOptionConfig } from "../configs/types";
 const { ccclass, property } = _decorator;
 /**
  * 拖动选项
@@ -31,12 +31,11 @@ export class DragOption extends Component {
     @property({ type: Prefab })
     blockPrefab: Prefab = null;
 
-    @property({ type: DragOptionConfig })
-    config: DragOptionConfig = new DragOptionConfig();
+    config: DragOptionConfig = null;
 
     private blockSize: { width: number; height: number } = {
         width: 0,
-        height: 0,
+        height: 0
     };
     private shadowBlocks: Node[] = [];
     private hintBlocks: Node[] = [];
@@ -50,8 +49,7 @@ export class DragOption extends Component {
     protected onLoad(): void {
         log("DragOption onLoad");
         this.blockSize = BlockSize;
-        this.boardNode =
-            this.node.parent.getComponent(DragOptionsContainer).boardNode;
+        this.boardNode = this.node.parent.getComponent(DragOptionsContainer).boardNode;
     }
 
     onDestroy(): void {
@@ -189,8 +187,7 @@ export class DragOption extends Component {
             }
         }
 
-        const { width: blockWidth, height: blockHeight } =
-            block.getComponent(UITransform);
+        const { width: blockWidth, height: blockHeight } = block.getComponent(UITransform);
         const posX = targetPos.x + offset2Center[0] * blockWidth;
         const posY = targetPos.y + offset2Center[1] * blockHeight;
         // log("createBlock realPos:", posX, posY);
@@ -214,9 +211,7 @@ export class DragOption extends Component {
         // 先清除之前的暗影和提示
         this.clearDragShadow();
         // 为每个形状位置创建暗影方块
-        const pos = this.boardNode
-            .getComponent(Board)
-            .getPosByOffset(blockZeroRow, blockZeroCol);
+        const pos = this.boardNode.getComponent(Board).getPosByOffset(blockZeroRow, blockZeroCol);
         this.shadowBlocks = this.createBlocksByShape(
             shape,
             blockColorIdx,
@@ -224,13 +219,7 @@ export class DragOption extends Component {
             120,
             this.boardNode
         );
-        this.showDragHint(
-            shape,
-            blockZeroRow,
-            blockZeroCol,
-            pos,
-            blockColorIdx
-        );
+        this.showDragHint(shape, blockZeroRow, blockZeroCol, pos, blockColorIdx);
     }
 
     showDragHint(
@@ -246,19 +235,13 @@ export class DragOption extends Component {
         // 先清除之前的提示
         // this.clearDragHint();
         const CompBoard = this.boardNode.getComponent(Board);
-        const matches = CompBoard.getMatchesAfterPlace(
-            blockZeroRow,
-            blockZeroCol,
-            shape
-        );
+        const matches = CompBoard.getMatchesAfterPlace(blockZeroRow, blockZeroCol, shape);
         log("matches:", matches);
         const { color2changeOffsetXs, color2changeOffsetYs } = matches;
         for (let i = 0; i < color2changeOffsetXs.length; i++) {
             for (let block of this.node.children) {
                 const compBlock = block.getComponent(Block);
-                if (
-                    compBlock.shapeOffset2Center[0] === color2changeOffsetXs[i]
-                ) {
+                if (compBlock.shapeOffset2Center[0] === color2changeOffsetXs[i]) {
                     compBlock.init(5);
                 }
             }
@@ -266,9 +249,7 @@ export class DragOption extends Component {
         for (let i = 0; i < color2changeOffsetYs.length; i++) {
             for (let block of this.node.children) {
                 const compBlock = block.getComponent(Block);
-                if (
-                    compBlock.shapeOffset2Center[1] === color2changeOffsetYs[i]
-                ) {
+                if (compBlock.shapeOffset2Center[1] === color2changeOffsetYs[i]) {
                     compBlock.init(5);
                 }
             }
@@ -377,11 +358,7 @@ export class DragOption extends Component {
      * @param blockZeroCol 中心列
      * @param shape 俄罗斯方块形状
      */
-    placeDragOption(
-        blockZeroRow: number,
-        blockZeroCol: number,
-        shape: [number, number][]
-    ) {
+    placeDragOption(blockZeroRow: number, blockZeroCol: number, shape: [number, number][]) {
         const CompBoard = this.boardNode.getComponent(Board);
         AudioManager.instance.playPlaceEffect();
 
@@ -401,16 +378,12 @@ export class DragOption extends Component {
                 this.boardNode
             );
             colorIdx = block.getComponent(Block).colorIdx;
-            CompBoard.blockNodes[blockZeroRow - offsetY][
-                blockZeroCol + offsetX
-            ] = block;
+            CompBoard.blockNodes[blockZeroRow - offsetY][blockZeroCol + offsetX] = block;
             startBrightAnimation.call(this, block);
         }
         function startBrightAnimation(block: Node) {
             const dragonNode = block.getChildByName("dragon");
-            const dragonAnimation = dragonNode.getComponent(
-                dragonBones.ArmatureDisplay
-            );
+            const dragonAnimation = dragonNode.getComponent(dragonBones.ArmatureDisplay);
             dragonNode.active = true;
             dragonAnimation.playAnimation("in", 1);
             dragonAnimation.on(
@@ -444,9 +417,7 @@ export class DragOption extends Component {
         });
 
         const CompBoard = this.boardNode.getComponent(Board);
-        const localpos = this.boardNode
-            .getComponent(UITransform)
-            .convertToNodeSpaceAR(worldPos);
+        const localpos = this.boardNode.getComponent(UITransform).convertToNodeSpaceAR(worldPos);
         const rowCol = CompBoard.getOffsetByPos(localpos);
         return rowCol;
     }
@@ -461,19 +432,13 @@ export class DragOption extends Component {
         }
 
         // 创建阴影容器节点（用于当前 DragOption 的阴影）
-        this.optionShadowNode = new Node(
-            `Shadow_${this.node.name || this.node.uuid}`
-        );
+        this.optionShadowNode = new Node(`Shadow_${this.node.name || this.node.uuid}`);
         this.optionShadowNode.parent = container.shadowContainerNode;
 
         // 添加偏移量，让阴影更明显（向右下方偏移）
         const shadowOffsetX = 8; // 向右偏移
         const shadowOffsetY = -8; // 向下偏移
-        this.optionShadowNode.setPosition(
-            pos.x + shadowOffsetX,
-            pos.y + shadowOffsetY,
-            pos.z
-        );
+        this.optionShadowNode.setPosition(pos.x + shadowOffsetX, pos.y + shadowOffsetY, pos.z);
         this.optionShadowNode.setScale(0.5, 0.5, 1); // 与 DragOption 相同的缩放
 
         // 创建阴影 block
@@ -487,10 +452,7 @@ export class DragOption extends Component {
     /**
      * 创建阴影 block
      */
-    private createShadowBlocks(
-        shape: [number, number][],
-        blockColorIdx: number
-    ): Node[] {
+    private createShadowBlocks(shape: [number, number][], blockColorIdx: number): Node[] {
         const blocks: Node[] = [];
         shape.forEach((offset2Center) => {
             const block = instantiate(this.blockPrefab);
@@ -506,8 +468,7 @@ export class DragOption extends Component {
                 }
             }
 
-            const { width: blockWidth, height: blockHeight } =
-                block.getComponent(UITransform);
+            const { width: blockWidth, height: blockHeight } = block.getComponent(UITransform);
             const posX = offset2Center[0] * blockWidth;
             const posY = offset2Center[1] * blockHeight;
             block.setPosition(new Vec3(posX, posY, 0));

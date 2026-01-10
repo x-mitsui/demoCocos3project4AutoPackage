@@ -14,7 +14,7 @@ import {
     sys,
     UITransform,
     Vec2,
-    Vec3,
+    Vec3
 } from "cc";
 import { BlockSize, GameCustomInfo } from "../configs/config";
 import { DragOptionsContainer } from "../dragOptions/DragOptionsContainer";
@@ -36,9 +36,6 @@ export class Board extends Component {
     @property({ type: Prefab, tooltip: "砖块预制体" })
     blockPrefab: Prefab = null;
 
-    @property({ type: JsonAsset, tooltip: "游戏的谜题配置" })
-    puzzleConfig: JsonAsset = null;
-
     @property({ type: Node, tooltip: "拖动选项容器" })
     dragOptionsContainer: Node = null;
 
@@ -57,11 +54,8 @@ export class Board extends Component {
 
     protected onLoad(): void {
         this.initPuzzles();
-        this.dragOptionsContainer
-            .getComponent(DragOptionsContainer)
-            .init(this.node);
-        this.bestScoreLabel.string =
-            sys.localStorage.getItem("bestScore") || "0";
+        this.dragOptionsContainer.getComponent(DragOptionsContainer).init(this.node);
+        this.bestScoreLabel.string = sys.localStorage.getItem("bestScore") || "0";
     }
 
     start() {
@@ -87,9 +81,9 @@ export class Board extends Component {
 ]
  */
     initPuzzles() {
-        if (!this.puzzleConfig) return;
+        if (!GameManager.instance.boardBlocksConfig) return;
         const blockSize = BlockSize;
-        const config = this.puzzleConfig.json as number[][];
+        const config = GameManager.instance.boardBlocksConfig;
         log("config:", config);
 
         // // 初始化 blockNodes
@@ -142,12 +136,8 @@ export class Board extends Component {
         const blockSize = BlockSize;
         const originNode = this.originNode;
         const localPos = pos; //this.node.getComponent(UITransform).convertToNodeSpaceAR(pos);
-        const row = -Math.round(
-            (localPos.y - originNode.position.y) / blockSize.height
-        );
-        const col = Math.round(
-            (localPos.x - originNode.position.x) / blockSize.width
-        );
+        const row = -Math.round((localPos.y - originNode.position.y) / blockSize.height);
+        const col = Math.round((localPos.x - originNode.position.x) / blockSize.width);
 
         return [row, col];
     }
@@ -159,11 +149,7 @@ export class Board extends Component {
      * @param shape 俄罗斯方块形状
      * @returns 是否可以放置
      */
-    checkDragOptionCanPlace(
-        touchRow: number,
-        touchCol: number,
-        shape: number[][]
-    ) {
+    checkDragOptionCanPlace(touchRow: number, touchCol: number, shape: number[][]) {
         // log("check-------------------", touchRow, touchCol, this.blockNodes, shape);
         for (const [offsetX, offsetY] of shape) {
             const row = touchRow - offsetY; // 1
@@ -208,11 +194,7 @@ export class Board extends Component {
      * @param blockZeroCol 假如放下后，DragOption的Zero块所在的列
      * @param shape
      */
-    getMatchesAfterPlace(
-        blockZeroRow: number,
-        blockZeroCol: number,
-        shape: number[][]
-    ) {
+    getMatchesAfterPlace(blockZeroRow: number, blockZeroCol: number, shape: number[][]) {
         const rowsToClear: number[] = []; // 可以清除的行号
         const colsToClear: number[] = []; // 可以清除的列号
 
@@ -264,7 +246,7 @@ export class Board extends Component {
             rows: rowsToClear,
             cols: colsToClear,
             color2changeOffsetXs,
-            color2changeOffsetYs,
+            color2changeOffsetYs
         };
     }
 
@@ -274,17 +256,12 @@ export class Board extends Component {
      * @param positionsToFill
      * @returns 是否满
      */
-    private isRowFull(
-        row: number,
-        positionsToFill?: { row: number; col: number }[]
-    ): boolean {
+    private isRowFull(row: number, positionsToFill?: { row: number; col: number }[]): boolean {
         // 遍历所有列，只查找不满的情况
         for (let j = 0; j < 8; j++) {
             // 如果positionsToFill为空，则willBeFilled为null ，代表没有要填充的，只需要检查当前位置是否有方块
             // 如果positionsToFill不为空，则检查willBeFilled的块是否能填补空缺的位置
-            const willBeFilled = positionsToFill?.some(
-                (p) => p.row === row && p.col === j
-            );
+            const willBeFilled = positionsToFill?.some((p) => p.row === row && p.col === j);
             // log("willBeFilled:", willBeFilled, this.blockNodes[row][j]);
             // 如果某一列既没有现有方块，也将不会被新方块填充，则该行不可能满，返回 false
             if (!this.blockNodes[row][j] && !willBeFilled) {
@@ -300,17 +277,12 @@ export class Board extends Component {
      * @param positionsToFill
      * @returns 是否满
      */
-    private isColFull(
-        col: number,
-        positionsToFill?: { row: number; col: number }[]
-    ): boolean {
+    private isColFull(col: number, positionsToFill?: { row: number; col: number }[]): boolean {
         // 遍历所有行，只查找不满的情况
         for (let i = 0; i < 8; i++) {
             // 如果positionsToFill为空，则willBeFilled为null ，代表没有要填充的，只需要检查当前位置是否有方块
             // 如果positionsToFill不为空，则检查willBeFilled的块是否能填补空缺的位置
-            const willBeFilled = positionsToFill?.some(
-                (p) => p.row === i && p.col === col
-            );
+            const willBeFilled = positionsToFill?.some((p) => p.row === i && p.col === col);
             // 如果某一行既没有现有方块，也将不会被新方块填充，则该列不可能满，返回 false
             if (!this.blockNodes[i][col] && !willBeFilled) {
                 return false;
@@ -348,11 +320,7 @@ export class Board extends Component {
     //     this.checkAndClearLines();
     // }
 
-    checkAndClearLines(
-        colorIdx: number,
-        blockZeroRow: number,
-        blockZeroCol: number
-    ) {
+    checkAndClearLines(colorIdx: number, blockZeroRow: number, blockZeroCol: number) {
         const rowsToClear: number[] = [];
         const colsToClear: number[] = [];
         let clearCount = 0;
@@ -372,8 +340,7 @@ export class Board extends Component {
             }
         }
 
-        const curRoundScore =
-            GameManager.instance.setScoreByClearCount(clearCount);
+        const curRoundScore = GameManager.instance.setScoreByClearCount(clearCount);
         GameManager.instance.cleanTimes += clearCount;
 
         if (GameManager.instance.cleanTimes >= 9) {
@@ -488,20 +455,13 @@ export class Board extends Component {
         // 根据消除的行/列数确定动画名称
         let animationPrefix = this.getAnimationPrefix(linesCleared);
         // 先播放分数动画
-        this.playBonusLabelAnimation(
-            desRow,
-            desCol,
-            curRoundScore,
-            !!animationPrefix
-        );
+        this.playBonusLabelAnimation(desRow, desCol, curRoundScore, !!animationPrefix);
         // log("animationPrefix", animationPrefix);
         if (!animationPrefix) return;
         // 获取颜色名称
         const colorName = this.getColorName(colorIdx);
         const animationName =
-            GameCustomInfo.name === "BlockBrush"
-                ? animationPrefix
-                : animationPrefix + colorName;
+            GameCustomInfo.name === "BlockBrush" ? animationPrefix : animationPrefix + colorName;
         // log("colorName", colorName, "animationName", animationName);
 
         // 获取pos
@@ -510,9 +470,7 @@ export class Board extends Component {
         const encourage = instantiate(GameManager.instance.encouragePrefab);
         encourage.setPosition(pos);
         encourage.parent = this.encourageNode;
-        const armatureDisplay = encourage.getComponent(
-            dragonBones.ArmatureDisplay
-        );
+        const armatureDisplay = encourage.getComponent(dragonBones.ArmatureDisplay);
         armatureDisplay.on(
             dragonBones.EventObject.COMPLETE,
             () => {
@@ -573,39 +531,22 @@ export class Board extends Component {
         } else if (linesCleared === 3) {
             return GameCustomInfo.name === "BlockBrush" ? "great" : "great_";
         } else if (linesCleared === 4) {
-            return GameCustomInfo.name === "BlockBrush"
-                ? "excellect"
-                : "excellect_";
+            return GameCustomInfo.name === "BlockBrush" ? "excellect" : "excellect_";
         } else if (linesCleared === 5) {
-            return GameCustomInfo.name === "BlockBrush"
-                ? "amazing"
-                : "amazing_";
+            return GameCustomInfo.name === "BlockBrush" ? "amazing" : "amazing_";
         } else if (linesCleared >= 6) {
-            return GameCustomInfo.name === "BlockBrush"
-                ? "unbelievable"
-                : "unbelievable_";
+            return GameCustomInfo.name === "BlockBrush" ? "unbelievable" : "unbelievable_";
         } else {
             // 1行/列不播放动画
             return "";
         }
     }
     getColorName(colorIdx: number): string {
-        const colors = [
-            "yellow",
-            "darkblue",
-            "red",
-            "green",
-            "purple",
-            "orange",
-        ];
+        const colors = ["yellow", "darkblue", "red", "green", "purple", "orange"];
         return colors[colorIdx];
     }
 
-    private playClearAnimation(
-        row: number,
-        col: number,
-        animationName: string
-    ) {
+    private playClearAnimation(row: number, col: number, animationName: string) {
         // log("playClearAnimation----------------------->");
         // 补丁
         if (animationName === "darkblue2") animationName = "wathetblue2";
@@ -640,9 +581,7 @@ export class Board extends Component {
         clearAni.setPosition(x, y, 0);
         clearAni.parent = this.node;
 
-        const armatureDisplay = clearAni.getComponent(
-            dragonBones.ArmatureDisplay
-        );
+        const armatureDisplay = clearAni.getComponent(dragonBones.ArmatureDisplay);
         clearAni.setScale(1.15, 1.15, 1);
         armatureDisplay.on(
             dragonBones.EventObject.COMPLETE,

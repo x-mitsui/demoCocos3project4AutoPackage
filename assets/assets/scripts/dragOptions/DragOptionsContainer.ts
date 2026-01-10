@@ -1,18 +1,6 @@
-import {
-    _decorator,
-    Component,
-    find,
-    instantiate,
-    JsonAsset,
-    log,
-    Node,
-    Prefab,
-    UITransform,
-    Vec2,
-    Vec3,
-} from "cc";
+import { _decorator, Component, find, instantiate, JsonAsset, log, Node, Prefab, Vec3 } from "cc";
 import { DragOption } from "./DragOption";
-import { DragOptionConfig } from "../types";
+import { DragOptionConfig } from "../configs/types";
 import { Board } from "../board/Board";
 import { GameManager } from "../managers/GameManager";
 import { EndPage } from "../misc/EndPage";
@@ -27,8 +15,6 @@ const { ccclass, property } = _decorator;
 export class DragOptionsContainer extends Component {
     @property({ type: Prefab })
     dragOptionPrefab: Prefab = null;
-    @property({ type: JsonAsset })
-    dragOptionConfigJson: JsonAsset = null;
 
     @property
     optionCount: number = 3;
@@ -67,9 +53,7 @@ export class DragOptionsContainer extends Component {
         }
 
         if (canvas) {
-            const shadowContainer = canvas.getChildByName(
-                "DragOptionsShadowContainer"
-            );
+            const shadowContainer = canvas.getChildByName("DragOptionsShadowContainer");
             if (shadowContainer) {
                 this.shadowContainerNode = shadowContainer;
                 // log("找到阴影容器节点:", shadowContainer.name);
@@ -98,11 +82,7 @@ export class DragOptionsContainer extends Component {
     }
 
     start() {
-        if (!this.dragOptionConfigJson) {
-            console.error("DragOptionsContainer: dragOptionConfigJson is null");
-            return;
-        }
-        this._allConfigs = this.dragOptionConfigJson.json as DragOptionConfig[];
+        this._allConfigs = GameManager.instance.dragOptionsConfig;
         this.generateRound();
     }
     // prettier-ignore
@@ -171,7 +151,7 @@ export class DragOptionsContainer extends Component {
             // 如果没有空位置，返回一个单点配置
             return {
                 blockColorIdx: Math.floor(Math.random() * 5),
-                shape: [[0, 0]],
+                shape: [[0, 0]]
             };
         }
 
@@ -197,7 +177,7 @@ export class DragOptionsContainer extends Component {
                     { row: -1, col: 0 }, // 上
                     { row: 1, col: 0 }, // 下
                     { row: 0, col: -1 }, // 左
-                    { row: 0, col: 1 }, // 右
+                    { row: 0, col: 1 } // 右
                 ];
 
                 for (const dir of directions) {
@@ -228,14 +208,9 @@ export class DragOptionsContainer extends Component {
         let selectedRegion: { row: number; col: number }[] = [];
 
         // 优先选择大小在2-4之间的区域
-        const suitableRegions = regions.filter(
-            (r) => r.length >= 2 && r.length <= 4
-        );
+        const suitableRegions = regions.filter((r) => r.length >= 2 && r.length <= 4);
         if (suitableRegions.length > 0) {
-            selectedRegion =
-                suitableRegions[
-                    Math.floor(Math.random() * suitableRegions.length)
-                ];
+            selectedRegion = suitableRegions[Math.floor(Math.random() * suitableRegions.length)];
         } else {
             // 如果没有合适的，选择最大的区域，但限制在4个方块以内
             const sortedRegions = regions.sort((a, b) => b.length - a.length);
@@ -268,7 +243,7 @@ export class DragOptionsContainer extends Component {
 
         return {
             blockColorIdx,
-            shape,
+            shape
         };
     }
     /**
