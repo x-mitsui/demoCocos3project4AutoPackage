@@ -231,20 +231,20 @@ export class DragOptionsContainer extends Component {
             Logger.error("DragOptionsContainer.generateRound", "_allConfigs is empty");
         }
         // 找到此轮所有的DragOption配置
-        let selectedConfigs: DragOptionConfig[] = [];
+        let curRoundDragOptionConfigs: DragOptionConfig[] = [];
         // 按顺序选择配置
         if (this._curDragOptionConfigIndex < this._allConfigs.length) {
             for (let i = 0; i < this.dragOptionsCount; i++) {
                 const config = this._allConfigs[this._curDragOptionConfigIndex];
-                selectedConfigs.push(config);
+                curRoundDragOptionConfigs.push(config);
                 this._curDragOptionConfigIndex++;
             }
         } else {
             // 随机生成3个，其中两个从池子里找，另外一个根据当前Board的空隙生成，以确保有空隙可以放置
             // 根据数组长度随机生成两个索引
-            selectedConfigs.push(...Tool.getRandomTwoIndices(this.randomCacheConfigs));
+            curRoundDragOptionConfigs.push(...Tool.getRandomTwoIndices(this.randomCacheConfigs));
             const config4Empty = this.generateConfigByEmptySpace();
-            selectedConfigs.push(config4Empty as unknown as DragOptionConfig);
+            curRoundDragOptionConfigs.push(config4Empty as unknown as DragOptionConfig);
             // log("selectedConfigs:", selectedConfigs);
         }
 
@@ -253,7 +253,7 @@ export class DragOptionsContainer extends Component {
         const spacing = 350;
         const startX = -((this.dragOptionsCount - 1) * spacing) / 2;
 
-        selectedConfigs.forEach((config, index) => {
+        curRoundDragOptionConfigs.forEach((config, index) => {
             if (!this.dragOptionPrefab) return;
 
             const dragOptionNode = instantiate(this.dragOptionPrefab);

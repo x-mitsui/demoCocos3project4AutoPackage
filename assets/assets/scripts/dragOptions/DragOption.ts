@@ -3,6 +3,7 @@ import {
     Color,
     Component,
     dragonBones,
+    find,
     instantiate,
     log,
     Node,
@@ -54,6 +55,10 @@ export class DragOption extends Component {
         this.destroyShadow();
     }
 
+    /**
+     * 渲染此拖动选项
+     * @param pos 此DrapOption的本地位置
+     */
     render(pos: Vec3) {
         log("DragOption render pos:", pos);
         // 设置当前节点的位置
@@ -65,35 +70,12 @@ export class DragOption extends Component {
         // 遍历布局，根据布局创建对应的块
         this._blocks = this.createBlocksByShape(shape, blockColorIdx);
 
-        this.rePosChildren();
+        this.rePosChildren(this.node);
         this.resize();
         this.rescale();
 
         // 创建阴影
-        this.createOptionShadow(pos);
-    }
-    // 现在所有子节点中，0,0的元素中心在DragOption的中心
-    // 此方法将所有子节点的中心移动到DragOption的中心，这样就能保证和其它选项垂直中心对称
-    rePosChildren() {
-        const { shape } = this.config;
-        if (!shape || shape.length === 0) return;
-
-        const { minOffsetX, maxOffsetX, minOffsetY, maxOffsetY } = Tool.getMaxMinOffset(shape);
-
-        // 中心的offset
-        const centerOffsetY = (minOffsetY + maxOffsetY) / 2;
-        const centerOffsetX = (minOffsetX + maxOffsetX) / 2;
-
-        // 中心的offset转换为距离
-        const distX = centerOffsetX * BlockSize.width;
-        const distY = centerOffsetY * BlockSize.height;
-
-        this.node.children.forEach((child) => {
-            if (child.getComponent(Block)) {
-                const pos = child.position;
-                child.setPosition(pos.x - distX, pos.y + distY, pos.z);
-            }
-        });
+        this.createDragOptionShadow(pos);
     }
 
     /**
@@ -383,17 +365,14 @@ export class DragOption extends Component {
     }
 
     /**
-     * 创建 DragOption 的阴影（在阴影容器中）
+     * 创建 DragOption 的阴影（在DragOptionsShadowContainer中）
      */
-    private createOptionShadow(pos: Vec3) {
-        const container = this.node.parent.getComponent(DragOptionsContainer);
-        if (!container || !container.dragOptionsShadowContainerNode) {
-            return;
-        }
+    private createDragOptionShadow(pos: Vec3) {
+        const dragOptionsShadowContainerNode = find("Canvas/DragOptionsShadowContainer");
 
         // 创建阴影容器节点（用于当前 DragOption 的阴影）
         this.optionShadowNode = new Node(`Shadow_${this.node.name || this.node.uuid}`);
-        this.optionShadowNode.parent = container.dragOptionsShadowContainerNode;
+        this.optionShadowNode.parent = dragOptionsShadowContainerNode;
 
         // 添加偏移量，让阴影更明显（向右下方偏移）
         const shadowOffsetX = 8; // 向右偏移
@@ -406,7 +385,7 @@ export class DragOption extends Component {
         this.optionShadowBlocks = this.createShadowBlocks(shape, blockColorIdx);
 
         // 应用与 DragOption 相同的 rePos 逻辑
-        this.rePosShadow();
+        this.rePosChildren(this.optionShadowNode);
     }
 
     /**
@@ -435,13 +414,11 @@ export class DragOption extends Component {
         });
         return blocks;
     }
-
-    /**
-     * 对阴影 block 应用与 DragOption 相同的 rePos 逻辑
-     */
-    private rePosShadow() {
+    // 现在所有子节点中，在DragOption中心的是0,0的元素中心
+    // 此方法将所有子节点的中心移动到DragOption的中心，这样就能保证和其它选项垂直中心对称
+    private rePosChildren(parent: Node) {
         const { shape } = this.config;
-        if (!shape || shape.length === 0 || !this.optionShadowNode) return;
+        if (!shape || shape.length === 0 || !parent) return;
 
         const { minOffsetX, maxOffsetX, minOffsetY, maxOffsetY } = Tool.getMaxMinOffset(shape);
 
@@ -451,7 +428,7 @@ export class DragOption extends Component {
         const distX = centerOffsetX * BlockSize.width;
         const distY = centerOffsetY * BlockSize.height;
 
-        this.optionShadowNode.children.forEach((child) => {
+        parent.children.forEach((child) => {
             if (child.getComponent(Block)) {
                 const pos = child.position;
                 child.setPosition(pos.x - distX, pos.y + distY, pos.z);
