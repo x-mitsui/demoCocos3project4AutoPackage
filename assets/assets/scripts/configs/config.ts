@@ -99,7 +99,6 @@ export const dragOptionsConfig:DragOptionConfig[] = [
             [0, 1], [1, 1]
         ]
     }
-    
 ]
 
 export const boardBlocksConfig = [

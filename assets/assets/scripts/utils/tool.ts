@@ -1,8 +1,6 @@
 import {
     _decorator,
     Camera,
-    Component,
-    sys,
     UITransform,
     view,
     Node,
@@ -10,8 +8,7 @@ import {
     Texture2D,
     SpriteFrame,
     Color,
-    Size,
-    Vec3
+    find
 } from "cc";
 import { getJumpUrl } from "../configs/config";
 
@@ -74,34 +71,68 @@ export const Tool = {
         // 假设主摄像机跟随默认设置（正交，居中）
         const cameraPos = camera.node.getWorldPosition();
         return cameraPos.y - halfHeight;
+    },
+
+    getMaxMinOffset(shape: number[][]) {
+        let minOffsetX = Number.MAX_VALUE;
+        let maxOffsetX = -Number.MAX_VALUE;
+        let minOffsetY = Number.MAX_VALUE;
+        let maxOffsetY = -Number.MAX_VALUE;
+
+        shape.forEach((p) => {
+            const [offsetX, offsetY] = p;
+            if (offsetX < minOffsetX) minOffsetX = offsetX;
+            if (offsetX > maxOffsetX) maxOffsetX = offsetX;
+            if (offsetY < minOffsetY) minOffsetY = offsetY;
+            if (offsetY > maxOffsetY) maxOffsetY = offsetY;
+        });
+        return {
+            minOffsetX,
+            maxOffsetX,
+            minOffsetY,
+            maxOffsetY
+        };
+    },
+
+    getCanvasNode() {
+        // 从 Canvas 节点开始查找 DragOptionsShadowContainer
+        // 先尝试从当前节点向上查找 Canvas
+        let canvas = this.node;
+        while (canvas && canvas.name !== "Canvas") {
+            canvas = canvas.parent;
+        }
+
+        // 如果没找到，尝试使用 find 查找
+        if (!canvas) {
+            canvas = find("Canvas");
+        }
+        return canvas;
+    },
+
+    getRandomTwoIndices(arr: any[]) {
+        if (arr.length < 2) throw new Error("Too short");
+        const allIndices = Array.from({ length: arr.length }, (_, i) => i);
+        // 简单洗牌（Fisher-Yates）
+        for (let i = allIndices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allIndices[i], allIndices[j]] = [allIndices[j], allIndices[i]];
+        }
+        return [arr[allIndices[0]], arr[allIndices[1]]];
     }
 };
 
 export const jump2DownloadPage = (): void => {
     const jumpUrl = getJumpUrl();
     /// @ts-ignore
-    if (typeof window.ExitApi !== 'undefined' && window.ExitApi.exit) {
+    if (typeof window.ExitApi !== "undefined" && window.ExitApi.exit) {
         /// @ts-ignore
         window.ExitApi.exit();
     }
     // @ts-ignore
     if (window.mraid) {
-
         /// @ts-ignore
         window.mraid.open(jumpUrl);
     } else {
         window.open(jumpUrl, "_blank");
     }
-}
-
-
-export function getRandomTwoIndices(arr: any[]) {
-    if (arr.length < 2) throw new Error('Too short');
-    const allIndices = Array.from({ length: arr.length }, (_, i) => i);
-    // 简单洗牌（Fisher-Yates）
-    for (let i = allIndices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [allIndices[i], allIndices[j]] = [allIndices[j], allIndices[i]];
-    }
-    return [allIndices[0], allIndices[1]];
-}
+};

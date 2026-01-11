@@ -1,21 +1,10 @@
-import {
-    _decorator,
-    Component,
-    error,
-    find,
-    instantiate,
-    JsonAsset,
-    log,
-    Node,
-    Prefab,
-    Vec3
-} from "cc";
+import { _decorator, Component, find, instantiate, log, Node, Prefab, Vec3 } from "cc";
 import { DragOption } from "./DragOption";
 import { DragOptionConfig } from "../configs/types";
 import { Board } from "../board/Board";
 import { GameManager } from "../managers/GameManager";
 import { EndPage } from "../misc/EndPage";
-import { getRandomTwoIndices } from "../utils/tool";
+import { Tool } from "../utils/tool";
 import { Logger } from "../utils/logger";
 const { ccclass, property } = _decorator;
 /**
@@ -29,7 +18,7 @@ export class DragOptionsContainer extends Component {
     dragOptionPrefab: Prefab = null;
 
     @property
-    optionCount: number = 3;
+    dragOptionsCount: number = 3;
 
     @property({ tooltip: "拖动选项的基础 Y 坐标（相对于容器中心）" })
     baseY: number = -650;
@@ -38,46 +27,16 @@ export class DragOptionsContainer extends Component {
     maskNode: Node = null!;
 
     private _allConfigs: DragOptionConfig[] = [];
-    private _currentIndex: number = 0;
+    private _curDragOptionConfigIndex: number = 0; // 配置是按顺序依次使用的，这个索引记录一下，如果用完配置，需要其它测量生成选项
     boardNode: Node = null!;
     curOptions: Node[] = [];
-    shadowContainerNode: Node = null!; // 阴影容器节点
+    dragOptionsShadowContainerNode: Node = null!; // 阴影容器节点
 
     init(boardNode: Node) {
         this.boardNode = boardNode;
-        this.initShadowContainer();
+        this.dragOptionsShadowContainerNode = find("Canvas/DragOptionsShadowContainer");
     }
 
-    /**
-     * 初始化阴影容器节点（在 Canvas 下查找已存在的 DragOptionsShadowContainer）
-     */
-    private initShadowContainer() {
-        // 从 Canvas 节点开始查找 DragOptionsShadowContainer
-        // 先尝试从当前节点向上查找 Canvas
-        let canvas = this.node;
-        while (canvas && canvas.name !== "Canvas") {
-            canvas = canvas.parent;
-        }
-
-        // 如果没找到，尝试使用 find 查找
-        if (!canvas) {
-            canvas = find("Canvas");
-        }
-
-        if (canvas) {
-            const shadowContainer = canvas.getChildByName("DragOptionsShadowContainer");
-            if (shadowContainer) {
-                this.shadowContainerNode = shadowContainer;
-                // log("找到阴影容器节点:", shadowContainer.name);
-            } else {
-                // log(
-                //     "警告: 未找到 DragOptionsShadowContainer 节点，请确保在 Canvas 下创建了该节点"
-                // );
-            }
-        } else {
-            // log("警告: 未找到 Canvas 节点");
-        }
-    }
     onLoad() {
         log("DragOptionsContainer onLoad");
         this.node.on("check-refill", this.checkAndRefill, this);
@@ -265,38 +224,34 @@ export class DragOptionsContainer extends Component {
         // log("newemptySpaces:", this.generateConfigByEmptySpace());
         this.node.removeAllChildren();
         // 清除阴影容器中的所有子节点
-        if (this.shadowContainerNode) {
-            this.shadowContainerNode.removeAllChildren();
+        if (this.dragOptionsShadowContainerNode) {
+            this.dragOptionsShadowContainerNode.removeAllChildren();
         }
         if (this._allConfigs.length === 0) {
             Logger.error("DragOptionsContainer.generateRound", "_allConfigs is empty");
         }
-
+        // 找到此轮所有的DragOption配置
         let selectedConfigs: DragOptionConfig[] = [];
         // 按顺序选择配置
-        if (this._currentIndex >= this._allConfigs.length) {
+        if (this._curDragOptionConfigIndex < this._allConfigs.length) {
+            for (let i = 0; i < this.dragOptionsCount; i++) {
+                const config = this._allConfigs[this._curDragOptionConfigIndex];
+                selectedConfigs.push(config);
+                this._curDragOptionConfigIndex++;
+            }
+        } else {
             // 随机生成3个，其中两个从池子里找，另外一个根据当前Board的空隙生成，以确保有空隙可以放置
             // 根据数组长度随机生成两个索引
-            const indices = getRandomTwoIndices(this.randomCacheConfigs);
-            selectedConfigs.push(this.randomCacheConfigs[indices[0]]);
-            selectedConfigs.push(this.randomCacheConfigs[indices[1]]);
-            const config = this.generateConfigByEmptySpace();
-            selectedConfigs.push(config as unknown as DragOptionConfig);
+            selectedConfigs.push(...Tool.getRandomTwoIndices(this.randomCacheConfigs));
+            const config4Empty = this.generateConfigByEmptySpace();
+            selectedConfigs.push(config4Empty as unknown as DragOptionConfig);
             // log("selectedConfigs:", selectedConfigs);
-        } else {
-            for (let i = 0; i < this.optionCount; i++) {
-                const config = this._allConfigs[this._currentIndex];
-                selectedConfigs.push(config);
-                this._currentIndex++;
-                // // 更新索引，如果到达末尾则回到开头
-                // this._currentIndex = (this._currentIndex + 1) % this._allConfigs.length;
-            }
         }
 
         // 计算布局位置，水平排列
         // 假设每个DragOption间隔 350
         const spacing = 350;
-        const startX = -((this.optionCount - 1) * spacing) / 2;
+        const startX = -((this.dragOptionsCount - 1) * spacing) / 2;
 
         selectedConfigs.forEach((config, index) => {
             if (!this.dragOptionPrefab) return;

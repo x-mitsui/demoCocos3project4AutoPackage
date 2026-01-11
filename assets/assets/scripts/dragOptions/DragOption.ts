@@ -20,6 +20,7 @@ import { GameManager } from "../managers/GameManager";
 import { AudioManager } from "../managers/AudioManager";
 import { DragOptionConfig } from "../configs/types";
 import { Tool } from "../utils/tool";
+import { Logger } from "../utils/logger";
 const { ccclass, property } = _decorator;
 /**
  * 拖动选项
@@ -34,10 +35,6 @@ export class DragOption extends Component {
 
     config: DragOptionConfig = null;
 
-    private blockSize: { width: number; height: number } = {
-        width: 0,
-        height: 0
-    };
     private shadowBlocks: Node[] = [];
     private hintBlocks: Node[] = [];
     private boardNode: Node = null!;
@@ -49,7 +46,6 @@ export class DragOption extends Component {
 
     protected onLoad(): void {
         log("DragOption onLoad");
-        this.blockSize = BlockSize;
         this.boardNode = this.node.parent.getComponent(DragOptionsContainer).boardNode;
     }
 
@@ -64,41 +60,33 @@ export class DragOption extends Component {
         this.node.setPosition(pos);
         const { shape, blockColorIdx } = this.config;
         // 先绘制触摸区域
-        this.renderTouchArea();
+        this.initTouchArea();
 
         // 遍历布局，根据布局创建对应的块
         this._blocks = this.createBlocksByShape(shape, blockColorIdx);
 
-        this.rePos();
+        this.rePosChildren();
         this.resize();
         this.rescale();
 
         // 创建阴影
         this.createOptionShadow(pos);
     }
-    // 让内部block整体距离DragOption上下距离相同，这样就能保证和其它选项垂直中心对称
-    rePos() {
+    // 现在所有子节点中，0,0的元素中心在DragOption的中心
+    // 此方法将所有子节点的中心移动到DragOption的中心，这样就能保证和其它选项垂直中心对称
+    rePosChildren() {
         const { shape } = this.config;
         if (!shape || shape.length === 0) return;
 
-        let minOffsetX = Number.MAX_VALUE;
-        let maxOffsetX = -Number.MAX_VALUE;
-        let minOffsetY = Number.MAX_VALUE;
-        let maxOffsetY = -Number.MAX_VALUE;
+        const { minOffsetX, maxOffsetX, minOffsetY, maxOffsetY } = Tool.getMaxMinOffset(shape);
 
-        shape.forEach(([offsetX, offsetY]) => {
-            if (offsetX < minOffsetX) minOffsetX = offsetX;
-            if (offsetX > maxOffsetX) maxOffsetX = offsetX;
-            if (offsetY < minOffsetY) minOffsetY = offsetY;
-            if (offsetY > maxOffsetY) maxOffsetY = offsetY;
-        });
-
+        // 中心的offset
         const centerOffsetY = (minOffsetY + maxOffsetY) / 2;
         const centerOffsetX = (minOffsetX + maxOffsetX) / 2;
 
-        const distX = centerOffsetX * this.blockSize.width;
-        const distY = centerOffsetY * this.blockSize.height;
-        // this.rePosDeltaY = offsetY;
+        // 中心的offset转换为距离
+        const distX = centerOffsetX * BlockSize.width;
+        const distY = centerOffsetY * BlockSize.height;
 
         this.node.children.forEach((child) => {
             if (child.getComponent(Block)) {
@@ -114,22 +102,11 @@ export class DragOption extends Component {
     resize() {
         const { shape } = this.config;
 
-        let minOffsetX = Number.MAX_VALUE;
-        let maxOffsetX = -Number.MAX_VALUE;
-        let minOffsetY = Number.MAX_VALUE;
-        let maxOffsetY = -Number.MAX_VALUE;
+        const { minOffsetX, maxOffsetX, minOffsetY, maxOffsetY } = Tool.getMaxMinOffset(shape);
 
-        shape.forEach((p) => {
-            const [offsetX, offsetY] = p;
-            if (offsetX < minOffsetX) minOffsetX = offsetX;
-            if (offsetX > maxOffsetX) maxOffsetX = offsetX;
-            if (offsetY < minOffsetY) minOffsetY = offsetY;
-            if (offsetY > maxOffsetY) maxOffsetY = offsetY;
-        });
-
-        const touchAreaWidth = (maxOffsetX - minOffsetX + 2) * this.blockSize.width;
-        const touchAreaHeight = (maxOffsetY - minOffsetY + 3) * this.blockSize.height;
-        log("width:", touchAreaWidth, "height:", touchAreaHeight);
+        const touchAreaWidth = (maxOffsetX - minOffsetX + 2) * BlockSize.width;
+        const touchAreaHeight = (maxOffsetY - minOffsetY + 3) * BlockSize.height;
+        // Logger.info("DragOption.resize", "width:", touchAreaWidth, "height:", touchAreaHeight);
         const uiTransform = this.getComponent(UITransform);
         uiTransform.setContentSize(touchAreaWidth, touchAreaHeight);
     }
@@ -140,7 +117,7 @@ export class DragOption extends Component {
         this.node.scale = new Vec3(0.5, 0.5, 1);
     }
 
-    renderTouchArea() {
+    initTouchArea() {
         // Tool.addColorBG(this.node, new Color(255, 0, 0, 50));
 
         // 添加拖动功能
@@ -335,24 +312,6 @@ export class DragOption extends Component {
         this.hintBlocks = [];
     }
 
-    getBound(centerRowNum: number, centerColNum: number): number[] {
-        let minX = Number.MAX_VALUE;
-        let maxX = -Number.MAX_VALUE;
-        let minY = Number.MAX_VALUE;
-        let maxY = -Number.MAX_VALUE;
-
-        for (const [offsetX, offsetY] of this.config.shape) {
-            const row = centerRowNum + offsetY;
-            const col = centerColNum + offsetX;
-
-            if (row < minY) minY = row;
-            if (row > maxY) maxY = row;
-            if (col < minX) minX = col;
-            if (col > maxX) maxX = col;
-        }
-        return [minX, maxX, minY, maxY];
-    }
-
     /**
      * 放置拖动选项
      * @param blockZeroRow 中心行
@@ -428,13 +387,13 @@ export class DragOption extends Component {
      */
     private createOptionShadow(pos: Vec3) {
         const container = this.node.parent.getComponent(DragOptionsContainer);
-        if (!container || !container.shadowContainerNode) {
+        if (!container || !container.dragOptionsShadowContainerNode) {
             return;
         }
 
         // 创建阴影容器节点（用于当前 DragOption 的阴影）
         this.optionShadowNode = new Node(`Shadow_${this.node.name || this.node.uuid}`);
-        this.optionShadowNode.parent = container.shadowContainerNode;
+        this.optionShadowNode.parent = container.dragOptionsShadowContainerNode;
 
         // 添加偏移量，让阴影更明显（向右下方偏移）
         const shadowOffsetX = 8; // 向右偏移
@@ -484,23 +443,13 @@ export class DragOption extends Component {
         const { shape } = this.config;
         if (!shape || shape.length === 0 || !this.optionShadowNode) return;
 
-        let minOffsetX = Number.MAX_VALUE;
-        let maxOffsetX = -Number.MAX_VALUE;
-        let minOffsetY = Number.MAX_VALUE;
-        let maxOffsetY = -Number.MAX_VALUE;
-
-        shape.forEach(([offsetX, offsetY]) => {
-            if (offsetX < minOffsetX) minOffsetX = offsetX;
-            if (offsetX > maxOffsetX) maxOffsetX = offsetX;
-            if (offsetY < minOffsetY) minOffsetY = offsetY;
-            if (offsetY > maxOffsetY) maxOffsetY = offsetY;
-        });
+        const { minOffsetX, maxOffsetX, minOffsetY, maxOffsetY } = Tool.getMaxMinOffset(shape);
 
         const centerOffsetY = (minOffsetY + maxOffsetY) / 2;
         const centerOffsetX = (minOffsetX + maxOffsetX) / 2;
 
-        const distX = centerOffsetX * this.blockSize.width;
-        const distY = centerOffsetY * this.blockSize.height;
+        const distX = centerOffsetX * BlockSize.width;
+        const distY = centerOffsetY * BlockSize.height;
 
         this.optionShadowNode.children.forEach((child) => {
             if (child.getComponent(Block)) {
