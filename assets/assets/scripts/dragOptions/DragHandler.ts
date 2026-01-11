@@ -71,14 +71,6 @@ export class DragHandler extends Component {
             // log("can't place");
             return;
         }
-        if (
-            !CompBoard.checkRowColsInBoard(blockZeroRow, blockZeroCol, CompDragOption.config.shape)
-        ) {
-            // log("out of board");
-            CompDragOption.clearDragShadow();
-
-            return;
-        }
 
         // 暗影逻辑
         const { shape, blockColorIdx } = CompDragOption.config;
@@ -113,13 +105,13 @@ export class DragHandler extends Component {
             CompDragOption.clearDragShadow();
             return;
         }
-        if (
-            !CompBoard.checkRowColsInBoard(blockZeroRow, blockZeroCol, CompDragOption.config.shape)
-        ) {
-            // log("out of board");
-            CompDragOption.clearDragShadow();
-            return;
-        }
+        // if (
+        //     !CompBoard.checkRowColsInBoard(blockZeroRow, blockZeroCol, CompDragOption.config.shape)
+        // ) {
+        //     // log("out of board");
+        //     CompDragOption.clearDragShadow();
+        //     return;
+        // }
 
         // 暗影逻辑
         const { shape, blockColorIdx } = CompDragOption.config;

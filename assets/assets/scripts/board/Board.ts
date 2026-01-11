@@ -139,16 +139,16 @@ export class Board extends Component {
 
     /**
      * 检查俄罗斯方块是否可以放置（在网格范围内且所有位置都为空）
-     * @param touchRow 中心行
-     * @param touchCol 中心列
+     * @param blockZeroRow 中心行
+     * @param blockZeroCol 中心列
      * @param shape 俄罗斯方块形状
      * @returns 是否可以放置
      */
-    checkDragOptionCanPlace(touchRow: number, touchCol: number, shape: number[][]) {
+    checkDragOptionCanPlace(blockZeroRow: number, blockZeroCol: number, shape: number[][]) {
         // log("check-------------------", touchRow, touchCol, this.blockNodes, shape);
         for (const [offsetX, offsetY] of shape) {
-            const row = touchRow + offsetY;
-            const col = touchCol + offsetX;
+            const row = blockZeroRow + offsetY;
+            const col = blockZeroCol + offsetX;
             if (!this.checkRowColInBoard(row, col)) {
                 return false;
             }
@@ -160,20 +160,20 @@ export class Board extends Component {
         return true;
     }
 
-    /**
-     * 检查俄罗斯方块的所有方块的行号和列号(row, col)是否完全在8*8网格(0,0)~(7,7)范围内
-     * @returns
-     */
-    checkRowColsInBoard(row: number, col: number, shape: number[][]) {
-        for (const [offsetX, offsetY] of shape) {
-            const r = row + offsetY;
-            const c = col + offsetX;
-            if (r < 0 || r >= 8 || c < 0 || c >= 8) {
-                return false;
-            }
-        }
-        return true;
-    }
+    // /**
+    //  * 检查俄罗斯方块的所有方块的行号和列号(row, col)是否完全在8*8网格(0,0)~(7,7)范围内
+    //  * @returns
+    //  */
+    // checkRowColsInBoard(row: number, col: number, shape: number[][]) {
+    //     for (const [offsetX, offsetY] of shape) {
+    //         const r = row + offsetY;
+    //         const c = col + offsetX;
+    //         if (r < 0 || r >= 8 || c < 0 || c >= 8) {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 
     /**
      * 检查此行、列号(row, col)是否完全在8*8网格(0,0)~(7,7)范围内
