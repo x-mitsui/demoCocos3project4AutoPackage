@@ -201,7 +201,7 @@ export class Board extends Component {
         const color2changeOffsetXs: number[] = [];
         const color2changeOffsetYs: number[] = [];
         for (const [offsetX, offsetY] of shape) {
-            const row = blockZeroRow - offsetY;
+            const row = blockZeroRow + offsetY;
             const col = blockZeroCol + offsetX;
             if (row >= 0 && row < 8 && col >= 0 && col < 8) {
                 positionsToFill.push({ row, col });
@@ -214,7 +214,7 @@ export class Board extends Component {
             if (this.isRowFull(i, positionsToFill)) {
                 rowsToClear.push(i);
                 for (const [offsetX, offsetY] of shape) {
-                    const row = blockZeroRow - offsetY;
+                    const row = blockZeroRow + offsetY;
                     const col = blockZeroCol + offsetX;
                     if (row === i) {
                         color2changeOffsetYs.push(offsetY);
@@ -228,7 +228,7 @@ export class Board extends Component {
             if (this.isColFull(j, positionsToFill)) {
                 colsToClear.push(j);
                 for (const [offsetX, offsetY] of shape) {
-                    const row = blockZeroRow - offsetY;
+                    const row = blockZeroRow + offsetY;
                     const col = blockZeroCol + offsetX;
                     if (col === j) {
                         color2changeOffsetXs.push(offsetX);

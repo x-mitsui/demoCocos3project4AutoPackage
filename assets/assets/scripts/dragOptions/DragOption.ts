@@ -218,7 +218,7 @@ export class DragOption extends Component {
             for (let j = 0; j < 8; j++) {
                 // 检查这个位置是否已经有暗影块（避免重复显示）
                 const hasShadow = shape.some(([offsetX, offsetY]) => {
-                    const shadowRow = blockZeroRow - offsetY;
+                    const shadowRow = blockZeroRow + offsetY;
                     const shadowCol = blockZeroCol + offsetX;
                     return shadowRow === row && shadowCol === j;
                 });
@@ -245,7 +245,7 @@ export class DragOption extends Component {
             for (let i = 0; i < 8; i++) {
                 // 检查这个位置是否已经有暗影块（避免重复显示）
                 const hasShadow = shape.some(([offsetX, offsetY]) => {
-                    const shadowRow = blockZeroRow - offsetY;
+                    const shadowRow = blockZeroRow + offsetY;
                     const shadowCol = blockZeroCol + offsetX;
                     return shadowRow === i && shadowCol === col;
                 });
