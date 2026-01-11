@@ -13,9 +13,6 @@ export class DragHandler extends Component {
     @property({ tooltip: "拖拽时的位置偏移（例如向上偏移以免手指遮挡）" })
     offsetY = 300;
 
-    @property({ tooltip: "拖拽时是否将节点层级置顶" })
-    bringToFront: boolean = true;
-
     private isDragging: boolean = false;
     private _originalPosition: Vec3 = new Vec3();
     private boardNode: Node | null = null;
@@ -23,8 +20,7 @@ export class DragHandler extends Component {
     private touchMovePosY: number = 0;
 
     onLoad() {
-        this.boardNode =
-            this.node.parent.getComponent(DragOptionsContainer).boardNode;
+        this.boardNode = this.node.parent.getComponent(DragOptionsContainer).boardNode;
         this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
         this.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
@@ -45,28 +41,25 @@ export class DragHandler extends Component {
         this.touchStartPosY = event.getUILocation().y;
         this._originalPosition.set(this.node.position);
 
-        if (this.bringToFront && this.node.parent) {
+        if (this.node.parent) {
             this.node.setSiblingIndex(this.node.parent.children.length - 1);
         }
 
-        // 拖动时缩放为1
+        // 拖动时缩放恢复为1
         this.node.setScale(1, 1, 1);
 
         const CompDragOption = this.node.getComponent(DragOption);
-        // 隐藏阴影
+        // 拖动时隐藏DragOptionShadowContainer内的阴影
         CompDragOption.hideShadow();
 
-        // 应用初始偏移（例如向上移动）
-        const currentPosX = this.node.x;
-        const currentPosY = this.node.y + this.offsetY;
-        this.node.setPosition(currentPosX, currentPosY, this.node.z);
+        // 应用初始偏移，防挡手
+        const curPosX = this.node.x;
+        const curPosY = this.node.y + this.offsetY;
+        this.node.setPosition(curPosX, curPosY, this.node.z);
         const CompBoard = this.boardNode.getComponent(Board);
-        // const [touchRow, touchCol] = CompBoard.getOffsetByPos(
-        //     new Vec3(currentPosX, currentPosY, 0)
-        // );
 
-        const [blockZeroRow, blockZeroCol] =
-            CompDragOption.getZeroBlockRowCol();
+        // 当前0,0元素所处的行列索引
+        const [blockZeroRow, blockZeroCol] = CompDragOption.getZeroBlockRowCol();
 
         if (
             !CompBoard.checkDragOptionCanPlace(
@@ -76,15 +69,10 @@ export class DragHandler extends Component {
             )
         ) {
             // log("can't place");
-
             return;
         }
         if (
-            !CompBoard.checkRowColsInBoard(
-                blockZeroRow,
-                blockZeroCol,
-                CompDragOption.config.shape
-            )
+            !CompBoard.checkRowColsInBoard(blockZeroRow, blockZeroCol, CompDragOption.config.shape)
         ) {
             // log("out of board");
             CompDragOption.clearDragShadow();
@@ -94,12 +82,7 @@ export class DragHandler extends Component {
 
         // 暗影逻辑
         const { shape, blockColorIdx } = CompDragOption.config;
-        CompDragOption.showDragShadow(
-            shape,
-            blockZeroRow,
-            blockZeroCol,
-            blockColorIdx
-        );
+        CompDragOption.showDragShadow(shape, blockZeroRow, blockZeroCol, blockColorIdx);
         // CompDragOption.showDragHint(shape, touchRow, touchCol, new Vec3(currentPosX, currentPosY, 0), blockColorIdx);
 
         event.propagationStopped = true;
@@ -110,9 +93,7 @@ export class DragHandler extends Component {
 
         this.touchMovePosY = event.getUILocation().y;
         const delta = event.getUIDelta();
-        const newPos = this.node.position
-            .add(delta.toVec3())
-            .add(new Vec3(0, delta.y, 0));
+        const newPos = this.node.position.add(delta.toVec3()).add(new Vec3(0, delta.y, 0));
         this.node.setPosition(newPos);
 
         const CompDragOption = this.node.getComponent(DragOption);
@@ -120,8 +101,7 @@ export class DragHandler extends Component {
         // const [touchRow, touchCol] = CompBoard.getOffsetByPos(
         //     new Vec3(this.node.x, this.node.y + CompDragOption.rePosDeltaY, 0)
         // );
-        const [blockZeroRow, blockZeroCol] =
-            CompDragOption.getZeroBlockRowCol();
+        const [blockZeroRow, blockZeroCol] = CompDragOption.getZeroBlockRowCol();
         if (
             !CompBoard.checkDragOptionCanPlace(
                 blockZeroRow,
@@ -134,11 +114,7 @@ export class DragHandler extends Component {
             return;
         }
         if (
-            !CompBoard.checkRowColsInBoard(
-                blockZeroRow,
-                blockZeroCol,
-                CompDragOption.config.shape
-            )
+            !CompBoard.checkRowColsInBoard(blockZeroRow, blockZeroCol, CompDragOption.config.shape)
         ) {
             // log("out of board");
             CompDragOption.clearDragShadow();
@@ -147,12 +123,7 @@ export class DragHandler extends Component {
 
         // 暗影逻辑
         const { shape, blockColorIdx } = CompDragOption.config;
-        CompDragOption.showDragShadow(
-            shape,
-            blockZeroRow,
-            blockZeroCol,
-            blockColorIdx
-        );
+        CompDragOption.showDragShadow(shape, blockZeroRow, blockZeroCol, blockColorIdx);
 
         event.propagationStopped = true;
     }
@@ -178,8 +149,7 @@ export class DragHandler extends Component {
         // const [touchRow, touchCol] = CompBoard.getOffsetByPos(
         //     new Vec3(this.node.x, this.node.y + CompDragOption.rePosDeltaY, 0)
         // );
-        const [blockZeroRow, blockZeroCol] =
-            CompDragOption.getZeroBlockRowCol();
+        const [blockZeroRow, blockZeroCol] = CompDragOption.getZeroBlockRowCol();
         const parent = this.node.parent;
         if (
             CompBoard.checkDragOptionCanPlace(
@@ -189,11 +159,7 @@ export class DragHandler extends Component {
             )
         ) {
             // log("can place>>>>>>>>>>>>");
-            CompDragOption.placeDragOption(
-                blockZeroRow,
-                blockZeroCol,
-                CompDragOption.config.shape
-            );
+            CompDragOption.placeDragOption(blockZeroRow, blockZeroCol, CompDragOption.config.shape);
             CompDragOption.clearDragShadow();
             // 销毁阴影
             CompDragOption.destroyShadow();

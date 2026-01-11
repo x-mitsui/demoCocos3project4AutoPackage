@@ -40,9 +40,8 @@ export class DragOption extends Component {
     private hintBlocks: Node[] = [];
     private boardNode: Node = null!;
     private _blocks: Node[] = [];
-    // rePosDeltaY: number = 0; // 重新定位时的Y轴偏移量
     zeroPos: Vec3 = new Vec3(0, 0, 0);
-    private optionShadowNode: Node = null!; // 当前 DragOption 的阴影容器节点
+    private dragOptionShadowNode: Node = null!; // 当前 DragOption 的阴影容器节点
     private optionShadowBlocks: Node[] = []; // 当前 DragOption 的阴影 block 节点
 
     protected onLoad(): void {
@@ -371,31 +370,31 @@ export class DragOption extends Component {
         const dragOptionsShadowContainerNode = find("Canvas/DragOptionsShadowContainer");
 
         // 创建阴影容器节点（用于当前 DragOption 的阴影）
-        this.optionShadowNode = new Node(`Shadow_${this.node.name || this.node.uuid}`);
-        this.optionShadowNode.parent = dragOptionsShadowContainerNode;
+        this.dragOptionShadowNode = new Node(`Shadow_${this.node.name || this.node.uuid}`);
+        this.dragOptionShadowNode.parent = dragOptionsShadowContainerNode;
 
         // 添加偏移量，让阴影更明显（向右下方偏移）
         const shadowOffsetX = 8; // 向右偏移
         const shadowOffsetY = -8; // 向下偏移
-        this.optionShadowNode.setPosition(pos.x + shadowOffsetX, pos.y + shadowOffsetY, pos.z);
-        this.optionShadowNode.setScale(0.5, 0.5, 1); // 与 DragOption 相同的缩放
+        this.dragOptionShadowNode.setPosition(pos.x + shadowOffsetX, pos.y + shadowOffsetY, pos.z);
+        this.dragOptionShadowNode.setScale(0.5, 0.5, 1); // 与 DragOption 相同的缩放
 
         // 创建阴影 block
         const { shape, blockColorIdx } = this.config;
         this.optionShadowBlocks = this.createShadowBlocks(shape, blockColorIdx);
 
         // 应用与 DragOption 相同的 rePos 逻辑
-        this.rePosChildren(this.optionShadowNode);
+        this.rePosChildren(this.dragOptionShadowNode);
     }
 
     /**
-     * 创建阴影 block
+     * 创建DragOptionsShadowContainer的所有DragOption内block的阴影
      */
     private createShadowBlocks(shape: [number, number][], blockColorIdx: number): Node[] {
         const blocks: Node[] = [];
         shape.forEach((offset2Zero) => {
             const block = instantiate(this.blockPrefab);
-            block.parent = this.optionShadowNode;
+            block.parent = this.dragOptionShadowNode;
             const compBlock = block.getComponent(Block);
             if (compBlock) {
                 compBlock.init(blockColorIdx);
@@ -440,8 +439,8 @@ export class DragOption extends Component {
      * 隐藏阴影
      */
     hideShadow() {
-        if (this.optionShadowNode) {
-            this.optionShadowNode.active = false;
+        if (this.dragOptionShadowNode) {
+            this.dragOptionShadowNode.active = false;
         }
     }
 
@@ -449,8 +448,8 @@ export class DragOption extends Component {
      * 显示阴影
      */
     showShadow() {
-        if (this.optionShadowNode) {
-            this.optionShadowNode.active = true;
+        if (this.dragOptionShadowNode) {
+            this.dragOptionShadowNode.active = true;
         }
     }
 
@@ -458,9 +457,9 @@ export class DragOption extends Component {
      * 销毁阴影
      */
     destroyShadow() {
-        if (this.optionShadowNode) {
-            this.optionShadowNode.destroy();
-            this.optionShadowNode = null!;
+        if (this.dragOptionShadowNode) {
+            this.dragOptionShadowNode.destroy();
+            this.dragOptionShadowNode = null!;
             this.optionShadowBlocks = [];
         }
     }
