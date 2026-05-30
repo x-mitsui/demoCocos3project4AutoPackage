@@ -1,0 +1,225 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "AudioManager",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "_native": "",
+    "data": {
+      "__id__": 1
+    },
+    "optimizationPolicy": 0,
+    "persistent": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "AudioManager",
+    "_objFlags": 512,
+    "__editorExtras__": {},
+    "_parent": null,
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      },
+      {
+        "__id__": 4
+      }
+    ],
+    "_prefab": {
+      "__id__": 6
+    },
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_mobility": 0,
+    "_layer": 33554432,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 3
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 100,
+      "height": 100
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "62FiH1s39OtqL4RzFt2NhY"
+  },
+  {
+    "__type__": "1e50cZNIopJ0JVkLDgAoGA9",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 5
+    },
+    "clickBtnEffect": {
+      "__uuid__": "8f5dc118-35d1-4cbf-8929-cd0c914d494a",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "touchEffect": {
+      "__uuid__": "ec9e4e3c-0ea5-431f-89c2-c942ca27a406",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "placeEffect": {
+      "__uuid__": "bcadca90-b2d4-4e46-8097-f8eec2fcc71e",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "clearEffect": {
+      "__uuid__": "cd1850fd-3a25-4c9a-af06-a234c27bc427",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "comboEffects": [
+      {
+        "__uuid__": "da95fc25-c65c-4867-be0b-e64d57a0031d",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "9551a4dd-f08b-4d21-aa60-15cf4a1ebcc6",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "0e072db0-4b33-49e0-8c30-b0f9090d00b0",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "ab660d8b-5b3b-427b-9235-cfb796b6ca1b",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "c80a4875-6745-4ad2-81f3-e279a86c2d18",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "16c7fa7b-4bfb-4339-a54a-26690cde8ae0",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "e0855b12-ee7e-40b6-b234-1142689f6420",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "9f7e75cf-7356-4cb1-9399-88d6310ef52c",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "eda13a22-8485-4e8c-882b-788be526b0ae",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "eda13a22-8485-4e8c-882b-788be526b0ae",
+        "__expectedType__": "cc.AudioClip"
+      }
+    ],
+    "winEffect": {
+      "__uuid__": "d5d5373c-90e4-4848-8b82-12b80aa29fae",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "failEffect": {
+      "__uuid__": "1908cfa1-3ecf-49bc-ab72-9f6ca009eb12",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "goodEffect": {
+      "__uuid__": "0fdb111e-4bef-4d01-b8d5-ae71843e7daf",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "greatEffect": {
+      "__uuid__": "d54033c3-9b2b-4264-a05d-01881c0332f8",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "excellectEffect": {
+      "__uuid__": "db131d85-6cae-485e-9f9e-3369a8d378b2",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "amazingEffect": {
+      "__uuid__": "79257cde-0d0b-4795-b88b-85e65b65318d",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "unbelievableEffect": {
+      "__uuid__": "9e8810c5-3059-4899-af6c-02066d4567ca",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "refreshEffect": {
+      "__uuid__": "ce57bd36-8a47-4bb2-91f9-82c22590ebbe",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "bgm": {
+      "__uuid__": "3039a292-a0a2-487c-8d6a-953f82ef4799",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "diEffect": {
+      "__uuid__": "f76f210c-bac3-4c44-9f42-4f93779b745d",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "showBtnEffect": {
+      "__uuid__": "9f1e4d5e-b216-4bfa-9595-8dd155068f5c",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "newHighScoreEffect": {
+      "__uuid__": "88b987e4-4271-4f2c-861f-831059683780",
+      "__expectedType__": "cc.AudioClip"
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "6aAZUlVPRMPrGjDiUcy0nl"
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__id__": 0
+    },
+    "fileId": "99NLsg1QZNqrjzmXn1InDw",
+    "targetOverrides": null
+  }
+]

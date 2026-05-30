@@ -1,0 +1,167 @@
+
+gameplay_word_019.png
+size: 990,742
+format: RGBA8888
+filter: MipMap,MipMap
+repeat: none
+JLWZ_13
+  rotate: false
+  xy: 4, 208
+  size: 462, 140
+  orig: 468, 146
+  offset: 3, 3
+  index: -1
+JLWZ_14
+  rotate: false
+  xy: 676, 24
+  size: 80, 79
+  orig: 91, 95
+  offset: 6, 7
+  index: -1
+JLWZ_15
+  rotate: false
+  xy: 4, 352
+  size: 635, 119
+  orig: 641, 124
+  offset: 3, 2
+  index: -1
+JLWZ_2
+  rotate: false
+  xy: 543, 494
+  size: 303, 120
+  orig: 307, 124
+  offset: 2, 2
+  index: -1
+JLWZ_3
+  rotate: false
+  xy: 897, 208
+  size: 80, 79
+  orig: 91, 95
+  offset: 6, 7
+  index: -1
+JLWZ_4
+  rotate: false
+  xy: 866, 104
+  size: 80, 79
+  orig: 91, 95
+  offset: 6, 7
+  index: -1
+JLWZ_5
+  rotate: false
+  xy: 543, 618
+  size: 320, 120
+  orig: 324, 124
+  offset: 2, 2
+  index: -1
+JLWZ_52
+  rotate: false
+  xy: 760, 24
+  size: 80, 79
+  orig: 91, 95
+  offset: 6, 7
+  index: -1
+JLWZ_53
+  rotate: false
+  xy: 844, 21
+  size: 80, 79
+  orig: 91, 95
+  offset: 6, 7
+  index: -1
+JLWZ_6
+  rotate: false
+  xy: 592, 24
+  size: 80, 79
+  orig: 91, 95
+  offset: 6, 7
+  index: -1
+JLWZ_7
+  rotate: true
+  xy: 867, 291
+  size: 447, 119
+  orig: 452, 124
+  offset: 2, 3
+  index: -1
+bg
+  rotate: false
+  xy: 4, 475
+  size: 535, 263
+  orig: 540, 267
+  offset: 3, 2
+  index: -1
+combotips_guang
+  rotate: false
+  xy: 592, 107
+  size: 32, 32
+  orig: 44, 41
+  offset: 5, 2
+  index: -1
+guangYun
+  rotate: false
+  xy: 643, 270
+  size: 220, 220
+  orig: 249, 249
+  offset: 15, 14
+  index: -1
+h_guang_1
+  rotate: false
+  xy: 221, 30
+  size: 122, 48
+  orig: 140, 65
+  offset: 9, 10
+  index: -1
+high
+  rotate: false
+  xy: 640, 107
+  size: 222, 76
+  orig: 236, 82
+  offset: 10, 3
+  index: -1
+huangGuan
+  rotate: true
+  xy: 480, 143
+  size: 205, 156
+  orig: 209, 161
+  offset: 2, 2
+  index: -1
+huangGuan_guang
+  rotate: false
+  xy: 480, 56
+  size: 108, 83
+  orig: 147, 114
+  offset: 20, 16
+  index: -1
+n_guang_1
+  rotate: false
+  xy: 347, 30
+  size: 117, 48
+  orig: 138, 71
+  offset: 10, 13
+  index: -1
+new
+  rotate: false
+  xy: 4, 4
+  size: 213, 74
+  orig: 228, 84
+  offset: 10, 5
+  index: -1
+s_guang_1
+  rotate: false
+  xy: 640, 187
+  size: 253, 79
+  orig: 274, 116
+  offset: 10, 21
+  index: -1
+score
+  rotate: false
+  xy: 4, 82
+  size: 472, 122
+  orig: 490, 138
+  offset: 9, 8
+  index: -1
+xingXing_guang_2
+  rotate: false
+  xy: 221, 4
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1

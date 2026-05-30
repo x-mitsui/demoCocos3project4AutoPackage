@@ -1,0 +1,32 @@
+// colorful-glitter-fs：UV 格子星光闪烁 uniform + 片元函数体
+// x=speed, y=density, z=saturation, w=brightness
+uniform GlitterParams {
+  vec4 glitterParams;
+};
+
+float hash2(vec2 v) {
+  return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+vec4 frag () {
+  float speed      = glitterParams.x;
+  float density    = glitterParams.y;
+  float saturation = glitterParams.z;
+  float brightness = glitterParams.w;
+
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  vec2  cell     = floor(uv0 * 20.0);
+  float cellFreq = 1.0 + hash2(cell) * speed;
+  float t        = floor(cc_time.x * cellFreq);
+  float isOn     = step(1.0 - density, hash2(cell + vec2(t * 0.01, 0.0)));
+  float hue      = fract(hash2(cell * 3.7) + cc_time.x * 0.05);
+
+  vec3 c     = hsv2rgb(vec3(hue, saturation, brightness));
+  vec4 plain = texColor * color;
+  vec4 lit   = vec4(c, texColor.a) * color;
+  vec4 o     = mix(plain, lit, isOn);
+  o.a = texColor.a * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

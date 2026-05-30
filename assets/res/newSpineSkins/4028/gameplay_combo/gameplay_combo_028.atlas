@@ -1,0 +1,27 @@
+
+gameplay_combo_028.png
+size: 453,248
+format: RGBA8888
+filter: MipMap,MipMap
+repeat: none
+CB-5
+  rotate: false
+  xy: 4, 4
+  size: 248, 240
+  orig: 318, 309
+  offset: 35, 34
+  index: -1
+CB-9
+  rotate: false
+  xy: 256, 51
+  size: 193, 193
+  orig: 199, 199
+  offset: 3, 3
+  index: -1
+cb_5
+  rotate: false
+  xy: 256, 10
+  size: 37, 37
+  orig: 41, 41
+  offset: 2, 2
+  index: -1

@@ -1,0 +1,24 @@
+// colorful-rotate-fs：逆时针旋转彩虹 uniform + 片元函数体
+// x=speed, y=saturation, z=brightness, w=保留
+uniform ColorfulParams {
+  vec4 colorfulParams;
+};
+
+vec4 frag () {
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  float speed      = colorfulParams.x;
+  float saturation = colorfulParams.y;
+  float brightness = colorfulParams.z;
+
+  vec2  centered = uv0 - vec2(0.5);
+  float angle    = atan(-centered.y, centered.x);
+  float t        = (angle + 3.14159265359) / 6.28318530718;
+  float h        = fract(t - cc_time.x * speed);
+
+  vec3 rainbow = hsv2rgb(vec3(h, saturation, brightness));
+  vec4 o = vec4(rainbow, texColor.a) * color;
+  o.a = texColor.a * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

@@ -1,0 +1,76 @@
+
+gameplay_combo_021.png
+size: 738,233
+format: RGBA8888
+filter: MipMap,MipMap
+repeat: none
+combo_cai_x_01
+  rotate: true
+  xy: 431, 152
+  size: 77, 79
+  orig: 91, 91
+  offset: 7, 6
+  index: -1
+combo_cai_x_02
+  rotate: true
+  xy: 514, 152
+  size: 77, 78
+  orig: 91, 91
+  offset: 7, 6
+  index: -1
+combo_cai_x_03
+  rotate: true
+  xy: 4, 160
+  size: 69, 71
+  orig: 87, 85
+  offset: 11, 7
+  index: -1
+combo_cai_x_04
+  rotate: true
+  xy: 596, 152
+  size: 77, 78
+  orig: 92, 91
+  offset: 8, 7
+  index: -1
+combo_cgy
+  rotate: false
+  xy: 79, 157
+  size: 348, 72
+  orig: 374, 78
+  offset: 13, 3
+  index: -1
+combo_qb_02
+  rotate: false
+  xy: 295, 5
+  size: 143, 143
+  orig: 153, 153
+  offset: 5, 5
+  index: -1
+combo_qb_05
+  rotate: false
+  xy: 589, 4
+  size: 145, 144
+  orig: 153, 153
+  offset: 4, 5
+  index: -1
+combo_qb_06
+  rotate: false
+  xy: 442, 5
+  size: 143, 143
+  orig: 153, 153
+  offset: 5, 5
+  index: -1
+combo_qb_07
+  rotate: false
+  xy: 4, 12
+  size: 142, 141
+  orig: 153, 153
+  offset: 5, 6
+  index: -1
+combo_qb_08
+  rotate: false
+  xy: 150, 12
+  size: 141, 141
+  orig: 153, 153
+  offset: 6, 6
+  index: -1

@@ -1,0 +1,25 @@
+// colorful-breath-fs：色相呼吸灯 uniform + 片元函数体
+// x=colorSpeed, y=breatheSpeed, z=saturation, w=brightness
+uniform BreathParams {
+  vec4 breathParams;
+};
+
+vec4 frag () {
+  float colorSpeed   = breathParams.x;
+  float breatheSpeed = breathParams.y;
+  float saturation   = breathParams.z;
+  float brightness   = breathParams.w;
+
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  float hue     = fract(cc_time.x * colorSpeed);
+  float breathe = sin(cc_time.x * breatheSpeed) * 0.5 + 0.5;
+
+  vec3 c     = hsv2rgb(vec3(hue, saturation, brightness * (0.4 + 0.6 * breathe)));
+  vec4 plain = texColor * color;
+  vec4 lit   = vec4(c, texColor.a) * color;
+  vec4 o     = mix(plain, lit, breathe);
+  o.a = texColor.a * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

@@ -1,0 +1,146 @@
+{
+  "ver": "1.0.6",
+  "importer": "bitmap-font",
+  "imported": true,
+  "uuid": "8af6166c-6c78-43d5-8ab6-b3b6ca21c200",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {},
+  "userData": {
+    "_fntConfig": {
+      "commonHeight": 46,
+      "fontSize": 46,
+      "atlasName": "gameplay_num_zuigaofen.png",
+      "fontDefDictionary": {
+        "32": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "xOffset": 0,
+          "yOffset": 0,
+          "xAdvance": 13
+        },
+        "48": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 56
+          },
+          "xOffset": -1,
+          "yOffset": -2,
+          "xAdvance": 36
+        },
+        "49": {
+          "rect": {
+            "x": 138,
+            "y": 0,
+            "width": 30,
+            "height": 52
+          },
+          "xOffset": 0,
+          "yOffset": 0,
+          "xAdvance": 20
+        },
+        "50": {
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 46,
+            "height": 55
+          },
+          "xOffset": -1,
+          "yOffset": -2,
+          "xAdvance": 35
+        },
+        "51": {
+          "rect": {
+            "x": 49,
+            "y": 0,
+            "width": 43,
+            "height": 56
+          },
+          "xOffset": -1,
+          "yOffset": -2,
+          "xAdvance": 31
+        },
+        "52": {
+          "rect": {
+            "x": 93,
+            "y": 57,
+            "width": 47,
+            "height": 53
+          },
+          "xOffset": 0,
+          "yOffset": -1,
+          "xAdvance": 38
+        },
+        "53": {
+          "rect": {
+            "x": 0,
+            "y": 113,
+            "width": 43,
+            "height": 55
+          },
+          "xOffset": -1,
+          "yOffset": -1,
+          "xAdvance": 32
+        },
+        "54": {
+          "rect": {
+            "x": 47,
+            "y": 57,
+            "width": 45,
+            "height": 55
+          },
+          "xOffset": -1,
+          "yOffset": -1,
+          "xAdvance": 34
+        },
+        "55": {
+          "rect": {
+            "x": 90,
+            "y": 113,
+            "width": 42,
+            "height": 53
+          },
+          "xOffset": -1,
+          "yOffset": 0,
+          "xAdvance": 30
+        },
+        "56": {
+          "rect": {
+            "x": 93,
+            "y": 0,
+            "width": 44,
+            "height": 56
+          },
+          "xOffset": -1,
+          "yOffset": -2,
+          "xAdvance": 32
+        },
+        "57": {
+          "rect": {
+            "x": 44,
+            "y": 113,
+            "width": 45,
+            "height": 55
+          },
+          "xOffset": -1,
+          "yOffset": -2,
+          "xAdvance": 34
+        }
+      },
+      "kerningDict": {
+        "3604532": -8,
+        "3604534": -3
+      }
+    },
+    "fontSize": 46,
+    "textureUuid": "630f7eca-2118-4391-b529-9cb7e0eefadb"
+  }
+}

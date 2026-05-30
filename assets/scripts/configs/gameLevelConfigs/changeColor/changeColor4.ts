@@ -1,0 +1,55 @@
+//
+export const changeColor4 = {
+    scrollingDashedConfig: {
+        shapeFirstBlockRowCol: { x: 6, y: 0 },
+        autoShapeDragOptionIndex: 0,
+    },
+    tipConfig: {
+        targetRow: 6.5,
+        targetCol: 1,
+        dragOptionIndex: 0,
+        offset2FirstRow: 1,
+        offset2FirstCol: 1,
+    },
+    // 1003粉红，1040蓝，1005绿，1011土色，1012浅蓝，1027深红，1016靛青，1034紫色
+    changeColorCfg: [1003, 1040, 1005, 1011, 1012, 1027, 1016, 1034],
+    ques: [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ],
+    answers: [
+        {
+            blockIndex: 1,
+            shapes: [
+                [
+                    [1, 1, 1],
+                    [1, 1, 1],
+                ],
+            ],
+        },
+        {
+            blockIndex: 1,
+            shapes: [
+                [
+                    [1, 1, 1],
+                    [1, 1, 1],
+                ],
+            ],
+        },
+        {
+            blockIndex: 1,
+            shapes: [
+                [
+                    [1, 1],
+                    [1, 1],
+                ],
+            ],
+        },
+    ],
+};

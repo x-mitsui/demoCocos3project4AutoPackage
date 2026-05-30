@@ -1,0 +1,300 @@
+// colorBlock.effect
+// technique 0（线性）：从上到下双色线性渐变
+// technique 1（径向）：从中心向外径向渐变
+// technique 2（风车）：以中心为轴的风车/旋转扇形渐变，可动画旋转
+
+CCEffect %{
+  techniques:
+  - name: linear
+    passes:
+    - vert: colorblock-vs:vert
+      frag: colorblock-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        topColor:          { value: [0.8, 0.5, 1.0, 1.0], editor: { displayName: "顶部颜色", type: color } }
+        bottomColor:       { value: [0.5, 0.5, 0.9, 1.0], editor: { displayName: "底部颜色", type: color } }
+        borderWidth:       { value: 0.06, target: tileParams.x, editor: { displayName: "边框宽度",   slide: true, range: [0.02, 0.15], step: 0.01 } }
+        brightness:        { value: 1.0,  target: tileParams.y, editor: { displayName: "亮度",       slide: true, range: [0.0,  3.0],  step: 0.01 } }
+        borderDarken:      { value: 0.35, target: tileParams.z, editor: { displayName: "边框暗度",   slide: true, range: [0.0,  1.0],  step: 0.01 } }
+        textureBlend:      { value: 0.3,  target: tileParams.w, editor: { displayName: "木纹混合度", slide: true, range: [0.0,  1.0],  step: 0.01 } }
+        tileParams:        { value: [0.06, 1.0, 0.35, 0.3] }
+  - name: radial
+    passes:
+    - vert: colorblock-vs:vert
+      frag: colorblock-radial-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        topColor:          { value: [0.8, 0.5, 1.0, 1.0], editor: { displayName: "中心颜色", type: color } }
+        bottomColor:       { value: [0.5, 0.5, 0.9, 1.0], editor: { displayName: "边缘颜色", type: color } }
+        borderWidth:       { value: 0.06, target: tileParams.x, editor: { displayName: "边框宽度",   slide: true, range: [0.02, 0.15], step: 0.01 } }
+        brightness:        { value: 1.0,  target: tileParams.y, editor: { displayName: "亮度",       slide: true, range: [0.0,  3.0],  step: 0.01 } }
+        borderDarken:      { value: 0.35, target: tileParams.z, editor: { displayName: "边框暗度",   slide: true, range: [0.0,  1.0],  step: 0.01 } }
+        textureBlend:      { value: 0.3,  target: tileParams.w, editor: { displayName: "木纹混合度", slide: true, range: [0.0,  1.0],  step: 0.01 } }
+        tileParams:        { value: [0.06, 1.0, 0.35, 0.3] }
+  - name: windmill
+    passes:
+    - vert: colorblock-vs:vert
+      frag: colorblock-windmill-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        topColor:          { value: [0.8, 0.5, 1.0, 1.0], editor: { displayName: "叶片A颜色", type: color } }
+        bottomColor:       { value: [0.5, 0.5, 0.9, 1.0], editor: { displayName: "叶片B颜色", type: color } }
+        bladeColorC:       { value: [0.3, 0.9, 0.5, 1.0], editor: { displayName: "叶片C颜色", type: color } }
+        bladeColorD:       { value: [1.0, 0.8, 0.2, 1.0], editor: { displayName: "叶片D颜色", type: color } }
+        borderWidth:       { value: 0.06, target: tileParams.x, editor: { displayName: "边框宽度", slide: true, range: [0.02, 0.15], step: 0.01 } }
+        brightness:        { value: 1.0,  target: tileParams.y, editor: { displayName: "亮度",     slide: true, range: [0.0,  3.0],  step: 0.01 } }
+        borderDarken:      { value: 0.35, target: tileParams.z, editor: { displayName: "边框暗度", slide: true, range: [0.0,  1.0],  step: 0.01 } }
+        windmillBlend:     { value: 0.85, target: tileParams.w, editor: { displayName: "风车混合度", slide: true, range: [0.0, 1.0], step: 0.01 } }
+        tileParams:        { value: [0.06, 1.0, 0.35, 0.85] }
+        numBlades:         { value: 4.0,  target: windmillParams.x, editor: { displayName: "叶片数",   slide: true, range: [2.0, 8.0],  step: 1.0  } }
+        twist:             { value: 0.4,  target: windmillParams.y, editor: { displayName: "扭曲度",   slide: true, range: [0.0, 2.0],  step: 0.05 } }
+        phase:             { value: 0.0,  target: windmillParams.z, editor: { displayName: "旋转相位", slide: true, range: [0.0, 1.0],  step: 0.01 } }
+        edgeBlend:         { value: 0.12, target: windmillParams.w, editor: { displayName: "叶边柔和", slide: true, range: [0.0, 0.49], step: 0.01 } }
+        windmillParams:    { value: [4.0, 0.4, 0.0, 0.12] }
+}%
+
+CCProgram colorblock-vs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+  #include <builtin/uniforms/cc-global>
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 v_color;
+  out vec2 v_uv;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+    pos = cc_matViewProj * pos;
+    v_uv    = a_texCoord;
+    v_color = a_color;
+    return pos;
+  }
+}%
+
+// ── technique 0：上下线性渐变 ─────────────────────────────────────────────────
+CCProgram colorblock-fs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+
+  in vec4 v_color;
+  in vec2 v_uv;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform CB_DATA {
+    vec4 topColor;
+    vec4 bottomColor;
+    vec4 tileParams;   // x=borderWidth, y=brightness, z=borderDarken, w=textureBlend
+  };
+
+  vec4 frag () {
+    vec2 uv = v_uv;
+
+    float border      = tileParams.x;
+    float bright      = tileParams.y;
+    float borderDark  = tileParams.z;
+    float texBlend    = tileParams.w;
+
+    float inBorder = min(
+      step(uv.x, border) + step(1.0 - border, uv.x) +
+      step(uv.y, border) + step(1.0 - border, uv.y),
+      1.0
+    );
+
+    float inner   = 1.0 - 2.0 * border;
+    vec2 innerUV  = clamp((uv - border) / inner, 0.0, 1.0);
+
+    vec3 bodyColor   = mix(bottomColor.rgb, topColor.rgb, innerUV.y);
+    vec3 borderColor = bottomColor.rgb * (1.0 - borderDark);
+    vec3 gradientResult = mix(bodyColor, borderColor, inBorder);
+
+    vec4 texSample  = texture(cc_spriteTexture, v_uv);
+    float texLum    = dot(texSample.rgb, vec3(0.299, 0.587, 0.114));
+    float texDetail = mix(1.0, texLum, texBlend);
+
+    vec3 finalColor = gradientResult * texDetail * bright;
+    return vec4(finalColor, topColor.a * v_color.a * texSample.a);
+  }
+}%
+
+// ── technique 1：径向渐变 ─────────────────────────────────────────────────────
+CCProgram colorblock-radial-fs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+
+  in vec4 v_color;
+  in vec2 v_uv;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform CB_DATA {
+    vec4 topColor;    // 中心颜色
+    vec4 bottomColor; // 边缘颜色
+    vec4 tileParams;  // x=borderWidth, y=brightness, z=borderDarken, w=textureBlend
+  };
+
+  vec4 frag () {
+    vec2 uv = v_uv;
+
+    float border     = tileParams.x;
+    float bright     = tileParams.y;
+    float borderDark = tileParams.z;
+    float texBlend   = tileParams.w;
+
+    float inBorder = min(
+      step(uv.x, border) + step(1.0 - border, uv.x) +
+      step(uv.y, border) + step(1.0 - border, uv.y),
+      1.0
+    );
+
+    float inner = 1.0 - 2.0 * border;
+    vec2 innerUV = clamp((uv - border) / inner, 0.0, 1.0);
+    vec2 centered = innerUV - 0.5;
+    float dist = clamp(length(centered) / 0.7071, 0.0, 1.0);
+
+    vec3 bodyColor   = mix(topColor.rgb, bottomColor.rgb, dist);
+    vec3 borderColor = bottomColor.rgb * (1.0 - borderDark);
+    vec3 gradientResult = mix(bodyColor, borderColor, inBorder);
+
+    vec4 texSample  = texture(cc_spriteTexture, v_uv);
+    float texLum    = dot(texSample.rgb, vec3(0.299, 0.587, 0.114));
+    float texDetail = mix(1.0, texLum, texBlend);
+
+    vec3 finalColor = gradientResult * texDetail * bright;
+    return vec4(finalColor, topColor.a * v_color.a * texSample.a);
+  }
+}%
+
+// ── technique 2：风车旋转 ─────────────────────────────────────────────────────
+// windmillParams: x=叶片数, y=扭曲度(0=直线扇形,>0=旋涡), z=旋转相位(动画驱动), w=叶边柔和度
+CCProgram colorblock-windmill-fs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+
+  in vec4 v_color;
+  in vec2 v_uv;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform CB_WIND_DATA {
+    vec4 topColor;
+    vec4 bottomColor;
+    vec4 bladeColorC;
+    vec4 bladeColorD;
+    vec4 tileParams;      // x=borderWidth, y=brightness, z=borderDarken, w=windmillBlend
+    vec4 windmillParams;  // x=numBlades, y=twist, z=phase, w=edgeBlend
+  };
+
+  vec4 frag () {
+    vec2 uv = v_uv;
+
+    float border     = tileParams.x;
+    float bright     = tileParams.y;
+    float borderDark = tileParams.z;
+    float windBlend  = tileParams.w;
+
+    float numBlades = windmillParams.x;
+    float twist     = windmillParams.y;
+    float phase     = windmillParams.z;
+    float edgeBlend = windmillParams.w;
+
+    float inBorder = min(
+      step(uv.x, border) + step(1.0 - border, uv.x) +
+      step(uv.y, border) + step(1.0 - border, uv.y),
+      1.0
+    );
+
+    float inner   = 1.0 - 2.0 * border;
+    vec2 innerUV  = clamp((uv - border) / inner, 0.0, 1.0);
+    vec2 centered = innerUV - 0.5;
+
+    float dist  = clamp(length(centered) / 0.7071, 0.0, 1.0);
+
+    // 极角归一化到 (-0.5, 0.5)，phase: 0→1 恰好旋转一整圈
+    // 用 fract(angle + phase + twist*dist) 做扇叶索引，避免 phase 在 1→0 回绕时产生不连续跳变
+    float angle  = atan(centered.y, centered.x) / 6.2831853;
+    float bladeF = fract(angle + phase + twist * dist) * numBlades;
+    float bladeI = floor(bladeF);
+    float local  = fract(bladeF);
+
+    float idx4 = mod(bladeI, 4.0);
+    float nextIdx4 = mod(idx4 + 1.0, 4.0);
+    vec3 c0 = topColor.rgb;
+    vec3 c1 = bottomColor.rgb;
+    vec3 c2 = bladeColorC.rgb;
+    vec3 c3 = bladeColorD.rgb;
+
+    vec3 bladeColor =
+      (idx4 < 0.5) ? c0 :
+      (idx4 < 1.5) ? c1 :
+      (idx4 < 2.5) ? c2 : c3;
+    vec3 nextColor =
+      (nextIdx4 < 0.5) ? c0 :
+      (nextIdx4 < 1.5) ? c1 :
+      (nextIdx4 < 2.5) ? c2 : c3;
+
+    float seamT = smoothstep(1.0 - edgeBlend, 1.0, local);
+    vec3 bgColor = mix(topColor.rgb, bottomColor.rgb, 0.5) * 0.75;
+    vec3 windColor = mix(bladeColor, nextColor, seamT);
+    vec3 bodyColor = mix(bgColor, windColor, windBlend);
+    bodyColor *= (1.0 - dist * 0.35); // 中心亮、边缘暗，增加立体感
+
+    vec3 borderColor = mix(topColor.rgb, bottomColor.rgb, 0.5) * (1.0 - borderDark);
+    vec3 gradientResult = mix(bodyColor, borderColor, inBorder);
+
+    vec4 texSample  = texture(cc_spriteTexture, v_uv);
+    float texLum    = dot(texSample.rgb, vec3(0.299, 0.587, 0.114));
+    float texDetail = mix(1.0, texLum, 0.2);
+
+    vec3 finalColor = gradientResult * texDetail * bright;
+    return vec4(finalColor, topColor.a * v_color.a * texSample.a);
+  }
+}%

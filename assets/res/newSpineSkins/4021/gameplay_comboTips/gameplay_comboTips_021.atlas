@@ -1,0 +1,160 @@
+
+gameplay_comboTips_021.png
+size: 1468,300
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+c_tips_01
+  rotate: false
+  xy: 1300, 161
+  size: 166, 137
+  orig: 190, 150
+  offset: 12, 7
+  index: -1
+c_tips_02
+  rotate: true
+  xy: 918, 62
+  size: 236, 196
+  orig: 260, 260
+  offset: 12, 32
+  index: -1
+c_tips_04
+  rotate: true
+  xy: 1165, 79
+  size: 25, 20
+  orig: 30, 30
+  offset: 2, 5
+  index: -1
+c_tips_05
+  rotate: true
+  xy: 1116, 75
+  size: 29, 24
+  orig: 40, 30
+  offset: 5, 2
+  index: -1
+c_tips_06
+  rotate: true
+  xy: 1142, 78
+  size: 26, 21
+  orig: 30, 30
+  offset: 2, 5
+  index: -1
+c_tips_07
+  rotate: true
+  xy: 1187, 81
+  size: 23, 19
+  orig: 30, 30
+  offset: 3, 6
+  index: -1
+cailizi_1
+  rotate: true
+  xy: 1084, 2
+  size: 6, 7
+  orig: 10, 10
+  offset: 2, 2
+  index: -1
+cailizi_2
+  rotate: false
+  xy: 1208, 78
+  size: 7, 7
+  orig: 10, 10
+  offset: 1, 2
+  index: -1
+cailizi_3
+  rotate: false
+  xy: 1130, 64
+  size: 8, 9
+  orig: 12, 12
+  offset: 2, 2
+  index: -1
+cailizi_4
+  rotate: false
+  xy: 1213, 62
+  size: 13, 14
+  orig: 16, 16
+  offset: 1, 1
+  index: -1
+cailizi_5
+  rotate: true
+  xy: 918, 2
+  size: 58, 59
+  orig: 72, 73
+  offset: 7, 7
+  index: -1
+cailizi_6
+  rotate: false
+  xy: 979, 8
+  size: 51, 52
+  orig: 66, 67
+  offset: 8, 7
+  index: -1
+cailizi_7
+  rotate: false
+  xy: 1084, 10
+  size: 48, 50
+  orig: 64, 64
+  offset: 8, 7
+  index: -1
+cailizi_8
+  rotate: false
+  xy: 1032, 9
+  size: 50, 51
+  orig: 64, 65
+  offset: 7, 7
+  index: -1
+flz
+  rotate: false
+  xy: 1140, 2
+  size: 71, 71
+  orig: 89, 89
+  offset: 9, 9
+  index: -1
+flz2
+  rotate: true
+  xy: 1116, 62
+  size: 11, 12
+  orig: 15, 15
+  offset: 2, 2
+  index: -1
+guangyun
+  rotate: false
+  xy: 2, 5
+  size: 336, 293
+  orig: 353, 317
+  offset: 8, 12
+  index: -1
+h_tips_01
+  rotate: false
+  xy: 1300, 22
+  size: 166, 137
+  orig: 200, 200
+  offset: 17, 32
+  index: -1
+h_tips_02
+  rotate: true
+  xy: 678, 8
+  size: 290, 238
+  orig: 292, 240
+  offset: 1, 1
+  index: -1
+huanggy
+  rotate: false
+  xy: 340, 5
+  size: 336, 293
+  orig: 353, 317
+  offset: 8, 12
+  index: -1
+qlz
+  rotate: true
+  xy: 1208, 87
+  size: 17, 16
+  orig: 17, 16
+  offset: 0, 0
+  index: -1
+tips_01
+  rotate: true
+  xy: 1116, 106
+  size: 192, 182
+  orig: 192, 183
+  offset: 0, 0
+  index: -1

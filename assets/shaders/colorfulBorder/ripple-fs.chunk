@@ -1,0 +1,52 @@
+// colorful-ripple-fs：彩色涟漪环 uniform + 片元函数体
+// x=speed, y=numRings, z=sharpness, w=saturation
+// x=brightness, y=tailLength, z=shapeBlend(0圆/1方), w=保留
+uniform RippleParams {
+  vec4 rippleParams1;
+  vec4 rippleParams2;
+};
+
+vec4 frag () {
+  float speed      = rippleParams1.x;
+  float numRings   = rippleParams1.y;
+  float sharpness  = rippleParams1.z;
+  float saturation = rippleParams1.w;
+  float brightness = rippleParams2.x;
+  float tailLen    = rippleParams2.y;
+  float shapeBlend = rippleParams2.z;
+
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  float dist    = shapeDist(uv0 - vec2(0.5), shapeBlend);
+  float maxDist = mix(0.72, 0.5, shapeBlend);
+
+  float totalIntensity = 0.0;
+  float finalHue       = 0.0;
+  float maxW           = 0.0;
+  int   n              = int(clamp(numRings, 1.0, 5.0));
+
+  for (int i = 0; i < 5; i++) {
+    if (i >= n) break;
+
+    float offset     = float(i) / float(n);
+    float progress   = fract(cc_time.x * speed + offset);
+    float ringRadius = progress * maxDist;
+    float d          = dist - ringRadius;
+
+    float w = exp(-max( d, 0.0) * sharpness * 40.0)
+            * exp( min( d, 0.0) * tailLen    *  8.0);
+    w *= (1.0 - progress * 0.85);
+
+    if (w > maxW) { maxW = w; finalHue = fract(float(i) * 0.2 + cc_time.x * 0.04); }
+    totalIntensity += w;
+  }
+
+  totalIntensity = clamp(totalIntensity, 0.0, 1.0);
+  vec3 c     = hsv2rgb(vec3(finalHue, saturation, brightness));
+  vec4 plain = texColor * color;
+  vec4 lit   = vec4(c, texColor.a) * color;
+  vec4 o     = mix(plain, lit, totalIntensity);
+  o.a = texColor.a * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

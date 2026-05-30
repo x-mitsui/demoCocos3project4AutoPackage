@@ -1,0 +1,89 @@
+uniform Constant {
+  vec4 palColor1;
+  vec4 palColor2;
+  vec4 palColor3;
+  vec4 sparkParams1; // x=speed, y=distort, z=thickness, w=sparkSize
+  vec4 sparkParams2; // x=brightness, y=angleBins, z=density, w=rings
+  vec4 sparkParams3; // x=seed, y=jitter, zw=保留
+};
+
+float hash2(vec2 v) {
+  return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+vec3 adjust(vec3 c, float sat, float bri) {
+  float g = dot(c, vec3(0.299, 0.587, 0.114));
+  c = mix(vec3(g), c, sat);
+  return c * bri;
+}
+
+vec4 frag () {
+  float speed      = sparkParams1.x;
+  float distort    = sparkParams1.y;
+  float thick      = sparkParams1.z;
+  float sparkSize  = sparkParams1.w;
+  float brightness = sparkParams2.x;
+  float angleBins  = sparkParams2.y;
+  float density    = sparkParams2.z;
+  float rings      = sparkParams2.w;
+  float seed       = sparkParams3.x;
+  float jitter     = sparkParams3.y;
+  float saturation = 1.0;
+
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  vec2 c = uv0 - vec2(0.5);
+  float r = length(c);
+  float a = atan(-c.y, c.x);
+  float t = cc_time.x * speed;
+
+  float n1 = sin(a * 9.0 + t * 2.1) * 0.5 + 0.5;
+  float n2 = sin(a * 4.0 - t * 1.2) * 0.5 + 0.5;
+  float n3 = hash2(vec2(floor((a + 3.14159265) * 14.0), floor(t * 1.3)));
+  float noise = clamp(0.45 * n1 + 0.35 * n2 + 0.20 * n3, 0.0, 1.0);
+
+  float baseR = fract(t * 0.35) * 1.25;
+  float targetR0 = baseR + (noise - 0.5) * distort;
+  float targetR1 = baseR * 0.7 + (noise - 0.5) * (distort * 0.8);
+  float targetR2 = min(1.0, baseR + 0.25) + (noise - 0.5) * (distort * 0.6);
+
+  float edge0 = 1.0 - smoothstep(0.0, thick, abs(r - targetR0));
+  float edge1 = 1.0 - smoothstep(0.0, thick, abs(r - targetR1));
+  float edge2 = 1.0 - smoothstep(0.0, thick, abs(r - targetR2));
+  float glow = 1.0 - smoothstep(0.0, 0.8, r);
+  float ringIntensity = clamp(glow * 0.25 + edge0 + 0.8 * edge1 + 0.6 * edge2, 0.0, 1.0);
+
+  float ramp = clamp(r * rings + 0.25 * sin(a * 3.0 + t * 0.8), 0.0, 1.0);
+  vec3 baseCol = mix(palColor1.rgb, palColor2.rgb, ramp);
+  float centerBoost = (1.0 - smoothstep(0.12, 0.42, r)) * ringIntensity;
+  baseCol = mix(baseCol, palColor3.rgb, centerBoost);
+  baseCol = adjust(baseCol, saturation, brightness);
+
+  float ai = floor((a + 3.14159265) * angleBins);
+  float s0 = hash2(vec2(ai + seed, floor(t * 2.0) + seed));
+  float s1 = hash2(vec2(ai + 13.0 + seed, floor(t * 1.5) + seed));
+  float s2 = hash2(vec2(ai + 37.0 + seed, floor(t * 1.8) + seed));
+  float gate0 = step(1.0 - density, s0);
+  float gate1 = step(1.0 - density, s1);
+  float gate2 = step(1.0 - density, s2);
+  float rp0 = fract(s0 + t);
+  float rp1 = fract(s1 + t * 1.2);
+  float rp2 = fract(s2 + t * 1.4);
+  vec2 dir = normalize(c);
+  vec2 perp = vec2(-dir.y, dir.x);
+  vec2 center0 = vec2(0.5) + dir * rp0 + perp * jitter * (s0 - 0.5);
+  vec2 center1 = vec2(0.5) + dir * rp1 + perp * jitter * (s1 - 0.5);
+  vec2 center2 = vec2(0.5) + dir * rp2 + perp * jitter * (s2 - 0.5);
+  float spark0 = gate0 * (1.0 - smoothstep(0.0, sparkSize, length(uv0 - center0)));
+  float spark1 = gate1 * (1.0 - smoothstep(0.0, sparkSize, length(uv0 - center1)));
+  float spark2 = gate2 * (1.0 - smoothstep(0.0, sparkSize, length(uv0 - center2)));
+  float sparks = clamp(spark0 + spark1 + spark2, 0.0, 1.0);
+
+  vec3 col = baseCol * ringIntensity + palColor3.rgb * sparks;
+  float intensity = clamp(max(ringIntensity, sparks), 0.0, 1.0);
+
+  vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+  o.a = max(texColor.a, intensity) * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

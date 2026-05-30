@@ -1,0 +1,15 @@
+info face="Arial" size=102 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=102 base=102 scaleW=918 scaleH=107 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="gameplay_JLWZ_fnt_material_4004.png"
+chars count=11
+char id=43 x=0 y=0 width=84 height=85 xoffset=0 yoffset=0 xadvance=84 page=0  chnl=15
+char id=48 x=84 y=0 width=89 height=103 xoffset=0 yoffset=0 xadvance=89 page=0  chnl=15
+char id=49 x=173 y=0 width=65 height=102 xoffset=0 yoffset=0 xadvance=65 page=0  chnl=15
+char id=50 x=238 y=0 width=83 height=103 xoffset=0 yoffset=0 xadvance=83 page=0  chnl=15
+char id=51 x=321 y=0 width=83 height=105 xoffset=0 yoffset=0 xadvance=83 page=0  chnl=15
+char id=52 x=404 y=0 width=91 height=103 xoffset=0 yoffset=0 xadvance=91 page=0  chnl=15
+char id=53 x=495 y=0 width=84 height=104 xoffset=0 yoffset=0 xadvance=84 page=0  chnl=15
+char id=54 x=579 y=0 width=85 height=105 xoffset=0 yoffset=0 xadvance=85 page=0  chnl=15
+char id=55 x=664 y=0 width=82 height=103 xoffset=0 yoffset=0 xadvance=82 page=0  chnl=15
+char id=56 x=746 y=0 width=87 height=107 xoffset=0 yoffset=0 xadvance=87 page=0  chnl=15
+char id=57 x=833 y=0 width=85 height=105 xoffset=0 yoffset=0 xadvance=85 page=0  chnl=15

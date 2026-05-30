@@ -1,0 +1,76 @@
+
+gameplay_comboTips_037.png
+size: 300,495
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+c_b_0
+  rotate: true
+  xy: 2, 2
+  size: 164, 140
+  orig: 168, 145
+  offset: 2, 3
+  index: -1
+c_c_0
+  rotate: false
+  xy: 2, 318
+  size: 202, 175
+  orig: 206, 182
+  offset: 2, 4
+  index: -1
+c_p_0
+  rotate: true
+  xy: 144, 2
+  size: 164, 140
+  orig: 168, 145
+  offset: 2, 3
+  index: -1
+c_ring_1
+  rotate: false
+  xy: 2, 168
+  size: 169, 148
+  orig: 185, 164
+  offset: 8, 8
+  index: -1
+c_ring_3
+  rotate: true
+  xy: 173, 171
+  size: 145, 125
+  orig: 147, 129
+  offset: 1, 2
+  index: -1
+glowLight
+  rotate: false
+  xy: 239, 393
+  size: 29, 28
+  orig: 32, 32
+  offset: 1, 2
+  index: -1
+par_01
+  rotate: false
+  xy: 258, 457
+  size: 36, 36
+  orig: 44, 44
+  offset: 4, 4
+  index: -1
+par_b
+  rotate: false
+  xy: 206, 446
+  size: 50, 47
+  orig: 53, 51
+  offset: 2, 2
+  index: -1
+par_g
+  rotate: false
+  xy: 258, 423
+  size: 34, 32
+  orig: 36, 34
+  offset: 1, 2
+  index: -1
+par_p
+  rotate: false
+  xy: 206, 416
+  size: 31, 28
+  orig: 32, 30
+  offset: 0, 1
+  index: -1

@@ -1,0 +1,57 @@
+uniform Constant {
+  vec4 palColor1;
+  vec4 palColor2;
+  vec4 palColor3;
+  vec4 paletteParams1; // x=speed, y=distort, z=thickness, w=saturation
+  vec4 paletteParams2; // x=brightness, y=rings, zw=保留
+};
+
+float hash2(vec2 v) {
+  return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+vec3 adjust(vec3 c, float sat, float bri) {
+  float g = dot(c, vec3(0.299, 0.587, 0.114));
+  c = mix(vec3(g), c, sat);
+  return c * bri;
+}
+
+vec4 frag () {
+  float speed      = paletteParams1.x;
+  float distort    = paletteParams1.y;
+  float thick      = paletteParams1.z;
+  float saturation = paletteParams1.w;
+  float brightness = paletteParams2.x;
+  float rings      = paletteParams2.y;
+
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  vec2 c = uv0 - vec2(0.5);
+  float r = length(c);
+  float a = atan(-c.y, c.x);
+  float t = cc_time.x * speed;
+
+  float n1 = sin(a * 8.0 + t * 2.2) * 0.5 + 0.5;
+  float n2 = sin(a * 5.0 - t * 1.1) * 0.5 + 0.5;
+  float n3 = hash2(vec2(floor((a + 3.14159265) * 12.0), floor(t * 1.5)));
+  float noise = clamp(0.45 * n1 + 0.35 * n2 + 0.20 * n3, 0.0, 1.0);
+
+  float baseR = fract(t * 0.35) * 1.25;
+  float targetR = baseR + (noise - 0.5) * distort;
+
+  float edge = 1.0 - smoothstep(0.0, thick, abs(r - targetR));
+  float glow = 1.0 - smoothstep(0.0, 0.75, r);
+  float intensity = clamp(glow * 0.3 + edge, 0.0, 1.0);
+
+  float ramp = clamp(r * rings + 0.25 * sin(a * 3.0 + t * 0.8), 0.0, 1.0);
+  vec3 col = mix(palColor1.rgb, palColor2.rgb, ramp);
+  float centerBoost = (1.0 - smoothstep(0.15, 0.45, r)) * intensity;
+  col = mix(col, palColor3.rgb, centerBoost);
+  col = adjust(col, saturation, brightness);
+  col *= intensity;
+
+  vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+  o.a = max(texColor.a, intensity) * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

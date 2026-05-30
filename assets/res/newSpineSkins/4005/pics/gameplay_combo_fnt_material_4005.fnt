@@ -1,0 +1,14 @@
+info face="Arial" size=186 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=186 base=186 scaleW=1446 scaleH=189 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="gameplay_combo_fnt_material_4005.png"
+chars count=10
+char id=48 x=0 y=0 width=151 height=187 xoffset=0 yoffset=0 xadvance=151 page=0  chnl=15
+char id=49 x=151 y=0 width=104 height=183 xoffset=0 yoffset=0 xadvance=104 page=0  chnl=15
+char id=50 x=255 y=0 width=150 height=186 xoffset=0 yoffset=0 xadvance=150 page=0  chnl=15
+char id=51 x=405 y=0 width=146 height=187 xoffset=0 yoffset=0 xadvance=146 page=0  chnl=15
+char id=52 x=551 y=0 width=158 height=186 xoffset=0 yoffset=0 xadvance=158 page=0  chnl=15
+char id=53 x=709 y=0 width=141 height=185 xoffset=0 yoffset=0 xadvance=141 page=0  chnl=15
+char id=54 x=850 y=0 width=140 height=189 xoffset=0 yoffset=0 xadvance=140 page=0  chnl=15
+char id=55 x=990 y=0 width=165 height=183 xoffset=0 yoffset=0 xadvance=165 page=0  chnl=15
+char id=56 x=1155 y=0 width=151 height=187 xoffset=0 yoffset=0 xadvance=151 page=0  chnl=15
+char id=57 x=1306 y=0 width=140 height=189 xoffset=0 yoffset=0 xadvance=140 page=0  chnl=15

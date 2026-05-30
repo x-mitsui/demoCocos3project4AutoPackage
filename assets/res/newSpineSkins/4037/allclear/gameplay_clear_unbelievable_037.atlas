@@ -1,0 +1,76 @@
+
+gameplay_clear_unbelievable_037.png
+size: 909,518
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+gameplay_txt_300_material_4037
+  rotate: true
+  xy: 742, 262
+  size: 254, 101
+  orig: 260, 105
+  offset: 3, 2
+  index: -1
+glow_edge
+  rotate: false
+  xy: 661, 2
+  size: 246, 258
+  orig: 246, 258
+  offset: 0, 0
+  index: -1
+par_8
+  rotate: false
+  xy: 845, 474
+  size: 42, 42
+  orig: 50, 50
+  offset: 4, 4
+  index: -1
+par_9
+  rotate: false
+  xy: 661, 292
+  size: 42, 42
+  orig: 50, 50
+  offset: 4, 4
+  index: -1
+par_tri
+  rotate: false
+  xy: 2, 14
+  size: 16, 16
+  orig: 18, 18
+  offset: 1, 1
+  index: -1
+star_glow_2
+  rotate: false
+  xy: 474, 57
+  size: 50, 50
+  orig: 54, 53
+  offset: 2, 1
+  index: -1
+txt_unbe
+  rotate: false
+  xy: 2, 109
+  size: 643, 105
+  orig: 644, 105
+  offset: 0, 0
+  index: -1
+un_glow
+  rotate: false
+  xy: 2, 216
+  size: 657, 118
+  orig: 659, 119
+  offset: 1, 0
+  index: -1
+wd_light_2
+  rotate: false
+  xy: 2, 336
+  size: 738, 180
+  orig: 760, 215
+  offset: 10, 14
+  index: -1
+wd_shine_2
+  rotate: false
+  xy: 2, 32
+  size: 470, 75
+  orig: 480, 80
+  offset: 0, 2
+  index: -1

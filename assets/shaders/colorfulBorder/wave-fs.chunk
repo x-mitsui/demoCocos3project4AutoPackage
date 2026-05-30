@@ -1,0 +1,25 @@
+// colorful-wave-fs：从下往上的彩色波浪 uniform + 片元函数体
+// x=speed, y=waveFreq, z=waveAmp, w=saturation / x=brightness
+uniform WaveParams {
+  vec4 waveParams1;
+  vec4 waveParams2;
+};
+
+vec4 frag () {
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  float speed      = waveParams1.x;
+  float waveFreq   = waveParams1.y;
+  float waveAmp    = waveParams1.z;
+  float saturation = waveParams1.w;
+  float brightness = waveParams2.x;
+
+  float wave = sin(uv0.x * waveFreq * 6.28318530718 + cc_time.x * 2.0) * waveAmp;
+  float t    = fract(uv0.y + wave + cc_time.x * speed);
+
+  vec3 rainbow = hsv2rgb(vec3(t, saturation, brightness));
+  vec4 o = vec4(rainbow, texColor.a) * color;
+  o.a = texColor.a * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

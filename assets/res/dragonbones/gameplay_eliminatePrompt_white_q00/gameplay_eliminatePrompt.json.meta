@@ -1,11 +1,9 @@
 {
   "ver": "1.0.2",
   "importer": "dragonbones-atlas",
-  "imported": true,
+  "imported": false,
   "uuid": "21c6d332-4f89-48e3-8b87-81ccf4a6c418",
-  "files": [
-    ".json"
-  ],
+  "files": [],
   "subMetas": {},
   "userData": {}
 }

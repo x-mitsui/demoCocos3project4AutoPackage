@@ -73,8 +73,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 859.41,
-      "height": 655.91
+      "width": 862,
+      "height": 126
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -113,16 +113,16 @@
     "premultipliedAlpha": false,
     "_defaultArmatureIndexValue": 0,
     "_dragonAsset": {
-      "__uuid__": "1d38d63a-3fc7-46b7-96eb-fedaa1d8d14f",
+      "__uuid__": "7925ad4a-8965-4603-9668-2d5530985bbf",
       "__expectedType__": "dragonBones.DragonBonesAsset"
     },
     "_dragonAtlasAsset": {
-      "__uuid__": "4ba750f7-2ddc-4982-9007-8ba9828b101d",
+      "__uuid__": "0ee19cd4-ae5b-4da7-8615-eadf1f275f50",
       "__expectedType__": "dragonBones.DragonBonesAtlasAsset"
     },
-    "_armatureName": "Armature",
-    "_animationName": "in",
-    "_animationIndexValue": 1,
+    "_armatureName": "armatureName",
+    "_animationName": "wathetblue2",
+    "_animationIndexValue": 9,
     "_defaultCacheModeValue": 0,
     "_timeScale": 1,
     "_playTimes": -1,

@@ -1,0 +1,28 @@
+// gradient-fs：渐变色 uniform + 片元函数体
+uniform Constant {
+  vec4 startColor;      // 渐变起始色
+  vec4 endColor;        // 渐变结束色
+  vec4 gradientParams;  // x=angle(0-360), y=intensity(0-1), zw=保留
+};
+
+vec4 frag () {
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  float angleRad      = radians(gradientParams.x);
+  float intensity     = gradientParams.y;
+  vec2  dir           = vec2(cos(angleRad), sin(angleRad));
+  float factor        = clamp(dot(uv0 - vec2(0.5), dir) + 0.5, 0.0, 1.0);
+  factor              = mix(0.5, factor, intensity);
+
+  vec3 gradColor = mix(startColor.rgb, endColor.rgb, factor);
+  vec4 o = vec4(texColor.rgb * gradColor, texColor.a);
+
+  #if IS_GRAY
+    float gray = 0.2126 * o.r + 0.7152 * o.g + 0.0722 * o.b;
+    o.r = o.g = o.b = gray;
+  #endif
+
+  o *= color;
+  ALPHA_TEST(o);
+  return o;
+}

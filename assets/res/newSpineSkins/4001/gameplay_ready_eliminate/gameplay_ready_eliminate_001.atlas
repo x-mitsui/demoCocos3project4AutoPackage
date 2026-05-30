@@ -1,0 +1,27 @@
+
+gameplay_ready_eliminate_001.png
+size: 326,110
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Gems_glow
+  rotate: false
+  xy: 218, 2
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+game_cube_1_material_4001
+  rotate: false
+  xy: 2, 2
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+game_cube_1_material_4002
+  rotate: false
+  xy: 110, 2
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1

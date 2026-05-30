@@ -1,0 +1,75 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: sprite-vs:vert
+      frag: pre-clear-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        u_colorPart1:  { value: [0.0, 0.0, 1.0, 1.0], editor: { displayName: "前段颜色", type: color } }
+        u_colorPart2:  { value: [0.0, 1.0, 0.0, 1.0], editor: { displayName: "后段颜色", type: color } }
+        u_splitPoint:  { value: 0.33, target: u_params.x, editor: { displayName: "分割点", slide: true, range: [0.0, 1.0], step: 0.01 } }
+        u_params:      { value: [0.33, 0.0, 0.0, 0.0] }
+}%
+
+CCProgram sprite-vs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+  #include <builtin/uniforms/cc-global>
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 v_color;
+  out vec2 v_uv;
+
+  vec4 vert () {
+    v_uv    = a_texCoord;
+    v_color = a_color;
+    return cc_matViewProj * vec4(a_position, 1.0);
+  }
+}%
+
+CCProgram pre-clear-fs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+
+  in vec4 v_color;
+  in vec2 v_uv;
+
+  // 告知引擎这是全局内置纹理，由 DragonBones 自动绑定
+  #pragma builtin(global)
+  layout(set = 0, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform PRE_CLEAR_DATA {
+    vec4 u_colorPart1;
+    vec4 u_colorPart2;
+    vec4 u_params;      // x = splitPoint
+  };
+
+  vec4 frag () {
+    vec4 texColor = texture(cc_spriteTexture, v_uv) * v_color;
+
+    float splitPoint = u_params.x;
+    // v_uv.x 横向分割；改为 v_uv.y 则纵向分割
+    vec4 tintColor = (v_uv.x < splitPoint) ? u_colorPart1 : u_colorPart2;
+
+    return vec4(texColor.rgb * tintColor.rgb, texColor.a);
+  }
+}%

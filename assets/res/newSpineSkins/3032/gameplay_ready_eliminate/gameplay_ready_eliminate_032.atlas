@@ -1,0 +1,27 @@
+
+gameplay_ready_eliminate_032.png
+size: 246,148
+format: RGBA8888
+filter: MipMap,MipMap
+repeat: none
+dl_7
+  rotate: true
+  xy: 148, 42
+  size: 102, 94
+  orig: 102, 102
+  offset: 0, 0
+  index: -1
+dl_8
+  rotate: false
+  xy: 4, 4
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+xc_22
+  rotate: false
+  xy: 148, 7
+  size: 31, 31
+  orig: 35, 35
+  offset: 2, 2
+  index: -1

@@ -1,0 +1,111 @@
+
+gameplay_word_001.png
+size: 959,875
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Amazing!
+  rotate: false
+  xy: 2, 55
+  size: 554, 171
+  orig: 559, 177
+  offset: 3, 3
+  index: -1
+Excellent!
+  rotate: false
+  xy: 2, 228
+  size: 567, 153
+  orig: 572, 158
+  offset: 3, 3
+  index: -1
+Good!
+  rotate: false
+  xy: 571, 163
+  size: 366, 153
+  orig: 371, 158
+  offset: 2, 3
+  index: -1
+Great!
+  rotate: false
+  xy: 558, 9
+  size: 395, 152
+  orig: 401, 157
+  offset: 3, 3
+  index: -1
+JLWZ_14
+  rotate: false
+  xy: 571, 318
+  size: 65, 63
+  orig: 67, 65
+  offset: 1, 1
+  index: -1
+gameplay_img_newHighScore
+  rotate: true
+  xy: 679, 318
+  size: 555, 248
+  orig: 560, 253
+  offset: 2, 3
+  index: -1
+gameplay_img_newHighScoreBg
+  rotate: false
+  xy: 2, 383
+  size: 675, 490
+  orig: 677, 491
+  offset: 1, 1
+  index: -1
+glowLight
+  rotate: true
+  xy: 929, 844
+  size: 29, 28
+  orig: 32, 32
+  offset: 1, 2
+  index: -1
+par_8
+  rotate: false
+  xy: 231, 11
+  size: 42, 42
+  orig: 50, 50
+  offset: 4, 4
+  index: -1
+par_9
+  rotate: false
+  xy: 275, 11
+  size: 42, 42
+  orig: 50, 50
+  offset: 4, 4
+  index: -1
+star_glow_2
+  rotate: false
+  xy: 638, 343
+  size: 38, 38
+  orig: 42, 42
+  offset: 2, 2
+  index: -1
+xg_1
+  rotate: false
+  xy: 55, 4
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+xg_2
+  rotate: false
+  xy: 2, 2
+  size: 51, 51
+  orig: 51, 51
+  offset: 0, 0
+  index: -1
+xg_3
+  rotate: true
+  xy: 106, 6
+  size: 47, 69
+  orig: 47, 69
+  offset: 0, 0
+  index: -1
+xg_4
+  rotate: true
+  xy: 177, 10
+  size: 43, 52
+  orig: 43, 52
+  offset: 0, 0
+  index: -1

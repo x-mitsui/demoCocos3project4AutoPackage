@@ -1,0 +1,62 @@
+
+revive_countdown_001.png
+size: 396,503
+format: RGBA8888
+filter: MipMap,MipMap
+repeat: none
+0
+  rotate: false
+  xy: 252, 171
+  size: 134, 163
+  orig: 162, 189
+  offset: 18, 12
+  index: -1
+1
+  rotate: true
+  xy: 4, 188
+  size: 63, 158
+  orig: 162, 189
+  offset: 57, 15
+  index: -1
+2
+  rotate: false
+  xy: 252, 338
+  size: 137, 161
+  orig: 162, 189
+  offset: 9, 15
+  index: -1
+3
+  rotate: false
+  xy: 4, 4
+  size: 123, 163
+  orig: 162, 189
+  offset: 17, 12
+  index: -1
+4
+  rotate: false
+  xy: 261, 9
+  size: 131, 158
+  orig: 162, 189
+  offset: 10, 15
+  index: -1
+5
+  rotate: false
+  xy: 131, 6
+  size: 126, 161
+  orig: 162, 189
+  offset: 17, 12
+  index: -1
+lz_2
+  rotate: false
+  xy: 166, 214
+  size: 37, 37
+  orig: 39, 39
+  offset: 1, 1
+  index: -1
+lz_3
+  rotate: false
+  xy: 4, 255
+  size: 244, 244
+  orig: 282, 282
+  offset: 19, 19
+  index: -1

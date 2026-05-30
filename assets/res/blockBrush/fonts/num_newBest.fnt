@@ -1,0 +1,14 @@
+info face="num_newBest" size=155 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=0,0
+common lineHeight=155 base=0 scaleW=1160 scaleH=155 pages=1 packed=0
+page id=0 file="num_newBest.png"
+chars count=10
+char id=48 x=0 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15
+char id=49 x=116 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15
+char id=50 x=232 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15
+char id=51 x=348 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15
+char id=52 x=464 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15
+char id=53 x=580 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15
+char id=54 x=696 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15
+char id=55 x=812 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15
+char id=56 x=928 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15
+char id=57 x=1044 y=0 width=116 height=155 xoffset=0 yoffset=0 xadvance=116 page=0 chnl=15

@@ -1,0 +1,223 @@
+
+gameplay_comboTips_032.png
+size: 1007,387
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+xin_1
+  rotate: false
+  xy: 639, 234
+  size: 178, 151
+  orig: 178, 151
+  offset: 0, 0
+  index: -1
+xin_11
+  rotate: false
+  xy: 348, 15
+  size: 94, 79
+  orig: 94, 79
+  offset: 0, 0
+  index: -1
+xin_13
+  rotate: false
+  xy: 248, 169
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+xin_15
+  rotate: false
+  xy: 2, 169
+  size: 244, 216
+  orig: 244, 216
+  offset: 0, 0
+  index: -1
+xin_2
+  rotate: false
+  xy: 190, 11
+  size: 156, 156
+  orig: 156, 156
+  offset: 0, 0
+  index: -1
+xin_3
+  rotate: false
+  xy: 819, 234
+  size: 178, 151
+  orig: 178, 151
+  offset: 0, 0
+  index: -1
+xin_5
+  rotate: false
+  xy: 348, 96
+  size: 104, 87
+  orig: 104, 87
+  offset: 0, 0
+  index: -1
+xin_6
+  rotate: false
+  xy: 2, 2
+  size: 186, 165
+  orig: 186, 165
+  offset: 0, 0
+  index: -1
+xin_7
+  rotate: false
+  xy: 459, 234
+  size: 178, 151
+  orig: 178, 151
+  offset: 0, 0
+  index: -1
+xin_8
+  rotate: false
+  xy: 906, 43
+  size: 48, 43
+  orig: 48, 43
+  offset: 0, 0
+  index: -1
+xin_9
+  rotate: false
+  xy: 248, 185
+  size: 209, 200
+  orig: 209, 200
+  offset: 0, 0
+  index: -1
+xl/lg0002
+  rotate: false
+  xy: 459, 167
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0003
+  rotate: false
+  xy: 538, 167
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0004
+  rotate: false
+  xy: 617, 167
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0005
+  rotate: false
+  xy: 696, 167
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0006
+  rotate: false
+  xy: 775, 167
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0007
+  rotate: false
+  xy: 854, 167
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0008
+  rotate: false
+  xy: 454, 100
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0009
+  rotate: false
+  xy: 533, 100
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0010
+  rotate: false
+  xy: 612, 100
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0011
+  rotate: false
+  xy: 691, 100
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0012
+  rotate: false
+  xy: 770, 100
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0013
+  rotate: false
+  xy: 849, 100
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0014
+  rotate: true
+  xy: 933, 155
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0015
+  rotate: false
+  xy: 928, 88
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0016
+  rotate: true
+  xy: 444, 17
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0017
+  rotate: false
+  xy: 511, 33
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0018
+  rotate: false
+  xy: 590, 33
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0019
+  rotate: false
+  xy: 669, 33
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0020
+  rotate: false
+  xy: 748, 33
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1
+xl/lg0021
+  rotate: false
+  xy: 827, 33
+  size: 77, 65
+  orig: 77, 65
+  offset: 0, 0
+  index: -1

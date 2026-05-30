@@ -1,0 +1,83 @@
+
+gameplay_eliminate_001.png
+size: 195,122
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+glow_000
+  rotate: false
+  xy: 105, 17
+  size: 45, 45
+  orig: 51, 51
+  offset: 3, 3
+  index: -1
+par_j_1
+  rotate: true
+  xy: 152, 2
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+par_j_3
+  rotate: false
+  xy: 56, 17
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+par_j_4
+  rotate: false
+  xy: 152, 30
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+par_j_5
+  rotate: false
+  xy: 153, 88
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+sk_1
+  rotate: true
+  xy: 105, 64
+  size: 56, 46
+  orig: 56, 46
+  offset: 0, 0
+  index: -1
+sk_2
+  rotate: false
+  xy: 64, 61
+  size: 39, 59
+  orig: 40, 59
+  offset: 0, 0
+  index: -1
+sk_3
+  rotate: false
+  xy: 2, 4
+  size: 52, 57
+  orig: 52, 57
+  offset: 0, 0
+  index: -1
+sk_4
+  rotate: true
+  xy: 153, 74
+  size: 12, 21
+  orig: 13, 21
+  offset: 1, 0
+  index: -1
+tex_splash
+  rotate: false
+  xy: 2, 63
+  size: 60, 57
+  orig: 60, 57
+  offset: 0, 0
+  index: -1
+tex_splash_2
+  rotate: true
+  xy: 176, 74
+  size: 12, 17
+  orig: 12, 17
+  offset: 0, 0
+  index: -1

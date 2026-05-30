@@ -1,0 +1,69 @@
+uniform Constant {
+  vec4 palColor1;
+  vec4 palColor2;
+  vec4 palColor3;
+  vec4 multiParams1; // x=speed, y=distort, z=thickness, w=saturation
+  vec4 multiParams2; // x=brightness, y=rings, z=count, w=variance
+  vec4 multiParams3; // x=seed, yzw=保留
+};
+
+float hash2(vec2 v) {
+  return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+vec3 adjust(vec3 c, float sat, float bri) {
+  float g = dot(c, vec3(0.299, 0.587, 0.114));
+  c = mix(vec3(g), c, sat);
+  return c * bri;
+}
+
+vec4 frag () {
+  float speed      = multiParams1.x;
+  float distort    = multiParams1.y;
+  float thick      = multiParams1.z;
+  float saturation = multiParams1.w;
+  float brightness = multiParams2.x;
+  float rings      = multiParams2.y;
+  float count      = multiParams2.z;
+  float variance   = multiParams2.w;
+  float seed       = multiParams3.x;
+
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  vec2 c = uv0 - vec2(0.5);
+  float r = length(c);
+  float a = atan(-c.y, c.x);
+  float t = cc_time.x * speed;
+
+  float glow = 1.0 - smoothstep(0.0, 0.8, r);
+  float ringIntensity = glow * 0.25;
+
+  for (int i = 0; i < 5; i++) {
+    float enable = step(float(i), count - 1.0);
+    float fi = float(i);
+    float k1 = 6.0 + 6.0 * hash2(vec2(seed + fi * 3.1, fi * 1.7));
+    float k2 = 3.0 + 5.0 * hash2(vec2(seed + fi * 5.3, fi * 2.3));
+    float amp = distort * (0.6 + 0.6 * hash2(vec2(seed + fi * 7.7, fi * 4.1)));
+    float baseR = fract(t * 0.35 + fi * 0.12);
+    float noise = 0.6 * (sin(a * k1 + t * 2.0) * 0.5 + 0.5) + 0.4 * (sin(a * k2 - t * 1.5) * 0.5 + 0.5);
+    float targetR = baseR + (noise - 0.5) * amp + (hash2(vec2(seed + fi * 11.0, a)) - 0.5) * variance;
+    float edge = 1.0 - smoothstep(0.0, thick, abs(r - targetR));
+    ringIntensity += enable * edge;
+  }
+
+  ringIntensity = clamp(ringIntensity, 0.0, 1.0);
+
+  float ramp = clamp(r * rings + 0.25 * sin(a * 3.0 + t * 0.8), 0.0, 1.0);
+  vec3 baseCol = mix(palColor1.rgb, palColor2.rgb, ramp);
+  float centerBoost = (1.0 - smoothstep(0.12, 0.42, r)) * ringIntensity;
+  baseCol = mix(baseCol, palColor3.rgb, centerBoost);
+  baseCol = adjust(baseCol, saturation, brightness);
+
+  vec3 col = baseCol * ringIntensity;
+  float intensity = ringIntensity;
+
+  vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+  o.a = max(texColor.a, intensity) * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

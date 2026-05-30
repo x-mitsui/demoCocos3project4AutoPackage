@@ -1,0 +1,15 @@
+info face="sans-serif" size=60 bold=0 italic=0 charset="32,48-57" unicode=1 stretchH=100 smooth=1 aa=1 padding=1,1,1,1 spacing=1,1 outline=0
+common lineHeight=60 base=53 scaleW=241 scaleH=252 pages=1 packed=0 alphaChnl=0 redChnl=4 greenChnl=4 blueChnl=4
+page id=0 file="typeFaceCurrent_material_4019.png"
+chars count=11
+char id=32 x=0 y=0 width=0 height=0 xoffset=0 yoffset=0 xadvance=17 page=0 chnl=15
+char id=48 x=0 y=0 width=71 height=84 xoffset=-1 yoffset=-1 xadvance=69 page=0 chnl=15
+char id=49 x=201 y=0 width=40 height=82 xoffset=-1 yoffset=-1 xadvance=38 page=0 chnl=15
+char id=50 x=0 y=85 width=67 height=83 xoffset=-1 yoffset=-1 xadvance=65 page=0 chnl=15
+char id=51 x=72 y=0 width=63 height=84 xoffset=-1 yoffset=-1 xadvance=61 page=0 chnl=15
+char id=52 x=135 y=85 width=69 height=82 xoffset=-1 yoffset=-1 xadvance=67 page=0 chnl=15
+char id=53 x=0 y=169 width=64 height=83 xoffset=-1 yoffset=-1 xadvance=62 page=0 chnl=15
+char id=54 x=68 y=85 width=66 height=83 xoffset=-1 yoffset=-1 xadvance=64 page=0 chnl=15
+char id=55 x=132 y=169 width=65 height=82 xoffset=-1 yoffset=-1 xadvance=63 page=0 chnl=15
+char id=56 x=136 y=0 width=64 height=84 xoffset=-1 yoffset=-1 xadvance=62 page=0 chnl=15
+char id=57 x=65 y=169 width=66 height=83 xoffset=-1 yoffset=-1 xadvance=64 page=0 chnl=15

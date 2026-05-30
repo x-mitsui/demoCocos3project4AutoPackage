@@ -1,0 +1,43 @@
+uniform BlobParams {
+  vec4 blobParams1; // x=speed, y=distort, z=thickness, w=saturation
+  vec4 blobParams2; // x=brightness, yzw=保留
+};
+
+float hash2(vec2 v) {
+  return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+vec4 frag () {
+  float speed      = blobParams1.x;
+  float distort    = blobParams1.y;
+  float thick      = blobParams1.z;
+  float saturation = blobParams1.w;
+  float brightness = blobParams2.x;
+
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  vec2 c = uv0 - vec2(0.5);
+  float r = length(c);
+  float a = atan(-c.y, c.x);
+  float t = cc_time.x * speed;
+
+  float n1 = sin(a * 9.0 + t * 2.0) * 0.5 + 0.5;
+  float n2 = sin(a * 3.0 - t * 1.3) * 0.5 + 0.5;
+  float n3 = hash2(vec2(floor((a + 3.14159265) * 10.0), floor(t * 1.7)));
+  float noise = clamp(0.4 * n1 + 0.4 * n2 + 0.2 * n3, 0.0, 1.0);
+
+  float baseR = fract(t * 0.35) * 1.3;
+  float targetR = baseR + (noise - 0.5) * distort;
+
+  float edge = 1.0 - smoothstep(0.0, thick, abs(r - targetR));
+  float glow = 1.0 - smoothstep(0.0, 0.7, r);
+  float intensity = clamp(glow * 0.3 + edge, 0.0, 1.0);
+
+  float hue = fract(baseR * 0.6 + t * 0.25);
+  vec3 col = hsv2rgb(vec3(hue, saturation, brightness)) * intensity;
+
+  vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+  o.a = max(texColor.a, intensity) * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

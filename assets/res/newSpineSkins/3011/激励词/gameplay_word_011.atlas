@@ -1,0 +1,181 @@
+
+gameplay_word_011.png
+size: 896,583
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+amazing_purple
+  rotate: true
+  xy: 453, 107
+  size: 381, 106
+  orig: 382, 106
+  offset: 0, 0
+  index: -1
+excellect_darkblue
+  rotate: false
+  xy: 453, 490
+  size: 389, 91
+  orig: 391, 93
+  offset: 1, 1
+  index: -1
+fl01
+  rotate: true
+  xy: 155, 15
+  size: 68, 67
+  orig: 72, 71
+  offset: 2, 2
+  index: -1
+fl02
+  rotate: true
+  xy: 224, 15
+  size: 68, 65
+  orig: 72, 70
+  offset: 2, 2
+  index: -1
+fl03
+  rotate: false
+  xy: 2, 8
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+fl05
+  rotate: false
+  xy: 79, 8
+  size: 74, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+glow
+  rotate: false
+  xy: 549, 2
+  size: 103, 103
+  orig: 128, 128
+  offset: 13, 12
+  index: -1
+glow004
+  rotate: true
+  xy: 763, 131
+  size: 124, 126
+  orig: 128, 128
+  offset: 2, 1
+  index: -1
+glow01
+  rotate: false
+  xy: 872, 509
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+glow02
+  rotate: false
+  xy: 869, 109
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+glow024_66
+  rotate: true
+  xy: 654, 257
+  size: 231, 232
+  orig: 245, 243
+  offset: 8, 5
+  index: -1
+glow03
+  rotate: false
+  xy: 869, 87
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+glow1
+  rotate: true
+  xy: 763, 5
+  size: 124, 37
+  orig: 128, 43
+  offset: 2, 3
+  index: -1
+glow2
+  rotate: false
+  xy: 844, 531
+  size: 50, 50
+  orig: 52, 52
+  offset: 1, 1
+  index: -1
+glow3
+  rotate: false
+  xy: 291, 6
+  size: 256, 95
+  orig: 256, 98
+  offset: 0, 3
+  index: -1
+glowLight
+  rotate: false
+  xy: 844, 502
+  size: 26, 27
+  orig: 32, 32
+  offset: 4, 3
+  index: -1
+good_green
+  rotate: true
+  xy: 670, 9
+  size: 246, 91
+  orig: 248, 94
+  offset: 1, 2
+  index: -1
+great_yellow
+  rotate: true
+  xy: 561, 220
+  size: 268, 91
+  orig: 270, 92
+  offset: 1, 1
+  index: -1
+leaf2
+  rotate: false
+  xy: 237, 85
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+newhighscore
+  rotate: true
+  xy: 2, 85
+  size: 496, 233
+  orig: 498, 237
+  offset: 1, 2
+  index: -1
+newhighscore_01
+  rotate: true
+  xy: 237, 103
+  size: 478, 214
+  orig: 480, 216
+  offset: 1, 1
+  index: -1
+paper_01
+  rotate: true
+  xy: 802, 108
+  size: 21, 65
+  orig: 21, 65
+  offset: 0, 0
+  index: -1
+paper_02
+  rotate: true
+  xy: 262, 87
+  size: 14, 17
+  orig: 14, 17
+  offset: 0, 0
+  index: -1
+star
+  rotate: true
+  xy: 802, 47
+  size: 59, 60
+  orig: 63, 63
+  offset: 2, 2
+  index: -1
+star002
+  rotate: false
+  xy: 561, 111
+  size: 107, 107
+  orig: 126, 126
+  offset: 9, 10
+  index: -1

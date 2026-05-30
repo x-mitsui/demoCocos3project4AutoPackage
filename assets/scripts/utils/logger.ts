@@ -1,4 +1,5 @@
 import { debug, error, log, warn } from "cc";
+import { Tool } from "./tool";
 
 export class Logger {
     static Level = {
@@ -6,11 +7,11 @@ export class Logger {
         INFO: 1,
         WARN: 2,
         ERROR: 3,
-        NONE: 4
+        NONE: 4,
     };
 
     // 设置当前日志级别，默认开发环境为DEBUG，生产环境可设为WARN或ERROR
-    static currentLevel = Logger.Level.DEBUG;
+    static currentLevel = Tool.isDev ? Logger.Level.ERROR : Logger.Level.ERROR;
 
     static debug(tag = "default", ...msg) {
         if (this.currentLevel <= Logger.Level.DEBUG) {

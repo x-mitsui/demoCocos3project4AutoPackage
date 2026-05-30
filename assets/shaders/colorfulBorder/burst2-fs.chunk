@@ -1,0 +1,25 @@
+uniform BurstParams {
+  vec4 burstParams; // x=speed, y=thickness, z=innerScale, w=outerScale
+};
+
+vec4 frag () {
+  float speed      = burstParams.x;
+  float thick      = burstParams.y;
+  float innerScale = burstParams.z;
+  float outerScale = burstParams.w;
+
+  vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+  vec2 c = uv0 - vec2(0.5);
+  float r = length(c);
+  float t = cc_time.x * speed;
+
+  float inner = 1.0 - smoothstep(0.0, thick, abs(r - fract(t) * innerScale));
+  float outer = 1.0 - smoothstep(0.0, thick, abs(r - fract(t * 0.7 + 0.33) * outerScale));
+  float intensity = clamp(inner + outer, 0.0, 1.0);
+
+  vec4 o = vec4(texColor.rgb, max(texColor.a, intensity)) * color;
+  o.a = max(texColor.a, intensity) * color.a;
+  ALPHA_TEST(o);
+  return o;
+}

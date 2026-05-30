@@ -1,0 +1,100 @@
+{
+  "__type__": "cc.Material",
+  "_name": "",
+  "_objFlags": 0,
+  "__editorExtras__": {},
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "be7cccca-6e4b-410d-831e-af3dc1d89906",
+    "__expectedType__": "cc.EffectAsset"
+  },
+  "_techIdx": 0,
+  "_defines": [
+    {}
+  ],
+  "_states": [
+    {
+      "rasterizerState": {},
+      "depthStencilState": {},
+      "blendState": {
+        "targets": [
+          {}
+        ]
+      }
+    }
+  ],
+  "_props": [
+    {
+      "frameOuterColor": {
+        "__type__": "cc.Color",
+        "r": 5,
+        "g": 5,
+        "b": 5,
+        "a": 255
+      },
+      "borderWidth": 0.01,
+      "bevelWidth": 0.1,
+      "centerGradientStart": {
+        "__type__": "cc.Color",
+        "r": 26,
+        "g": 47,
+        "b": 165,
+        "a": 255
+      },
+      "centerGradientEnd": {
+        "__type__": "cc.Color",
+        "r": 59,
+        "g": 83,
+        "b": 208,
+        "a": 255
+      },
+      "centerGradientIntensity": 0,
+      "topGradientStart": {
+        "__type__": "cc.Color",
+        "r": 31,
+        "g": 100,
+        "b": 230,
+        "a": 255
+      },
+      "topGradientIntensity": 0,
+      "bottomGradientStart": {
+        "__type__": "cc.Color",
+        "r": 19,
+        "g": 60,
+        "b": 189,
+        "a": 255
+      },
+      "bottomGradientIntensity": 0,
+      "leftGradientStart": {
+        "__type__": "cc.Color",
+        "r": 29,
+        "g": 86,
+        "b": 192,
+        "a": 255
+      },
+      "leftGradientEnd": {
+        "__type__": "cc.Color",
+        "r": 0,
+        "g": 48,
+        "b": 238,
+        "a": 255
+      },
+      "leftGradientIntensity": 0.9,
+      "rightGradientStart": {
+        "__type__": "cc.Color",
+        "r": 22,
+        "g": 92,
+        "b": 223,
+        "a": 255
+      },
+      "rightGradientIntensity": 0.2,
+      "bevelBrightness": {
+        "__type__": "cc.Vec4",
+        "x": 1.8,
+        "y": 0.8,
+        "z": 0.8,
+        "w": 0.9
+      }
+    }
+  ]
+}

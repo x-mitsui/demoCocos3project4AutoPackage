@@ -1,0 +1,356 @@
+
+gameplay_eliminate_028.png
+size: 805,212
+format: RGBA8888
+filter: MipMap,MipMap
+repeat: none
+Gems1
+  rotate: false
+  xy: 4, 102
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems1_2_liZi_2
+  rotate: false
+  xy: 62, 47
+  size: 26, 51
+  orig: 46, 74
+  offset: 11, 7
+  index: -1
+Gems1_2_liZi_3
+  rotate: true
+  xy: 272, 53
+  size: 45, 40
+  orig: 60, 50
+  offset: 6, 5
+  index: -1
+Gems1_2_liZi_4
+  rotate: true
+  xy: 548, 9
+  size: 42, 41
+  orig: 53, 50
+  offset: 5, 6
+  index: -1
+Gems1_2_liZi_5
+  rotate: true
+  xy: 4, 4
+  size: 36, 27
+  orig: 47, 39
+  offset: 5, 5
+  index: -1
+Gems1_2_liZi_6
+  rotate: true
+  xy: 408, 6
+  size: 43, 31
+  orig: 49, 43
+  offset: 3, 6
+  index: -1
+Gems2
+  rotate: false
+  xy: 114, 102
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems2_2_liZi_2
+  rotate: false
+  xy: 92, 47
+  size: 26, 51
+  orig: 46, 74
+  offset: 11, 7
+  index: -1
+Gems2_2_liZi_3
+  rotate: true
+  xy: 276, 4
+  size: 45, 40
+  orig: 60, 50
+  offset: 6, 5
+  index: -1
+Gems2_2_liZi_4
+  rotate: true
+  xy: 553, 56
+  size: 42, 41
+  orig: 53, 50
+  offset: 5, 6
+  index: -1
+Gems2_2_liZi_5
+  rotate: true
+  xy: 35, 4
+  size: 36, 27
+  orig: 47, 39
+  offset: 5, 5
+  index: -1
+Gems2_2_liZi_6
+  rotate: true
+  xy: 443, 6
+  size: 43, 31
+  orig: 49, 43
+  offset: 3, 6
+  index: -1
+Gems3
+  rotate: false
+  xy: 224, 102
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems3_2_liZi_2
+  rotate: false
+  xy: 122, 47
+  size: 26, 51
+  orig: 46, 74
+  offset: 11, 7
+  index: -1
+Gems3_2_liZi_3
+  rotate: true
+  xy: 316, 53
+  size: 45, 40
+  orig: 60, 50
+  offset: 6, 5
+  index: -1
+Gems3_2_liZi_4
+  rotate: true
+  xy: 593, 10
+  size: 42, 41
+  orig: 53, 50
+  offset: 5, 6
+  index: -1
+Gems3_2_liZi_5
+  rotate: true
+  xy: 774, 172
+  size: 36, 27
+  orig: 47, 39
+  offset: 5, 5
+  index: -1
+Gems3_2_liZi_6
+  rotate: true
+  xy: 448, 55
+  size: 43, 31
+  orig: 49, 43
+  offset: 3, 6
+  index: -1
+Gems4
+  rotate: false
+  xy: 334, 102
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems4_2_liZi_2
+  rotate: false
+  xy: 152, 47
+  size: 26, 51
+  orig: 46, 74
+  offset: 11, 7
+  index: -1
+Gems4_2_liZi_3
+  rotate: true
+  xy: 320, 4
+  size: 45, 40
+  orig: 60, 50
+  offset: 6, 5
+  index: -1
+Gems4_2_liZi_4
+  rotate: true
+  xy: 598, 56
+  size: 42, 41
+  orig: 53, 50
+  offset: 5, 6
+  index: -1
+Gems4_2_liZi_5
+  rotate: true
+  xy: 774, 132
+  size: 36, 27
+  orig: 47, 39
+  offset: 5, 5
+  index: -1
+Gems4_2_liZi_6
+  rotate: true
+  xy: 478, 8
+  size: 43, 31
+  orig: 49, 43
+  offset: 3, 6
+  index: -1
+Gems5
+  rotate: false
+  xy: 444, 102
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems5_2_liZi_2
+  rotate: false
+  xy: 182, 47
+  size: 26, 51
+  orig: 46, 74
+  offset: 11, 7
+  index: -1
+Gems5_2_liZi_3
+  rotate: true
+  xy: 360, 53
+  size: 45, 40
+  orig: 60, 50
+  offset: 6, 5
+  index: -1
+Gems5_2_liZi_4
+  rotate: true
+  xy: 638, 10
+  size: 42, 41
+  orig: 53, 50
+  offset: 5, 6
+  index: -1
+Gems5_2_liZi_5
+  rotate: true
+  xy: 774, 92
+  size: 36, 27
+  orig: 47, 39
+  offset: 5, 5
+  index: -1
+Gems5_2_liZi_6
+  rotate: true
+  xy: 483, 55
+  size: 43, 31
+  orig: 49, 43
+  offset: 3, 6
+  index: -1
+Gems6
+  rotate: false
+  xy: 554, 102
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems6_2_liZi_2
+  rotate: false
+  xy: 212, 47
+  size: 26, 51
+  orig: 46, 74
+  offset: 11, 7
+  index: -1
+Gems6_2_liZi_3
+  rotate: true
+  xy: 364, 4
+  size: 45, 40
+  orig: 60, 50
+  offset: 6, 5
+  index: -1
+Gems6_2_liZi_4
+  rotate: true
+  xy: 643, 56
+  size: 42, 41
+  orig: 53, 50
+  offset: 5, 6
+  index: -1
+Gems6_2_liZi_5
+  rotate: false
+  xy: 729, 71
+  size: 36, 27
+  orig: 47, 39
+  offset: 5, 5
+  index: -1
+Gems6_2_liZi_6
+  rotate: true
+  xy: 513, 8
+  size: 43, 31
+  orig: 49, 43
+  offset: 3, 6
+  index: -1
+Gems7
+  rotate: false
+  xy: 664, 102
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems7_2_liZi_2
+  rotate: false
+  xy: 242, 47
+  size: 26, 51
+  orig: 46, 74
+  offset: 11, 7
+  index: -1
+Gems7_2_liZi_3
+  rotate: true
+  xy: 404, 53
+  size: 45, 40
+  orig: 60, 50
+  offset: 6, 5
+  index: -1
+Gems7_2_liZi_4
+  rotate: true
+  xy: 683, 10
+  size: 42, 41
+  orig: 53, 50
+  offset: 5, 6
+  index: -1
+Gems7_2_liZi_5
+  rotate: true
+  xy: 769, 52
+  size: 36, 27
+  orig: 47, 39
+  offset: 5, 5
+  index: -1
+Gems7_2_liZi_6
+  rotate: true
+  xy: 518, 55
+  size: 43, 31
+  orig: 49, 43
+  offset: 3, 6
+  index: -1
+guang_11
+  rotate: false
+  xy: 66, 6
+  size: 31, 37
+  orig: 105, 105
+  offset: 1, 62
+  index: -1
+guang_22
+  rotate: false
+  xy: 101, 6
+  size: 31, 37
+  orig: 105, 105
+  offset: 1, 62
+  index: -1
+guang_23
+  rotate: false
+  xy: 4, 44
+  size: 54, 54
+  orig: 72, 72
+  offset: 9, 9
+  index: -1
+guang_33
+  rotate: false
+  xy: 136, 6
+  size: 31, 37
+  orig: 105, 105
+  offset: 1, 62
+  index: -1
+guang_44
+  rotate: false
+  xy: 171, 6
+  size: 31, 37
+  orig: 105, 105
+  offset: 1, 62
+  index: -1
+guang_55
+  rotate: false
+  xy: 206, 6
+  size: 31, 37
+  orig: 105, 105
+  offset: 1, 62
+  index: -1
+guang_66
+  rotate: false
+  xy: 241, 6
+  size: 31, 37
+  orig: 105, 105
+  offset: 1, 62
+  index: -1
+guang_77
+  rotate: true
+  xy: 688, 57
+  size: 31, 37
+  orig: 105, 105
+  offset: 1, 62
+  index: -1

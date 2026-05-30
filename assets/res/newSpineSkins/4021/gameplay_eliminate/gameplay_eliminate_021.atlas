@@ -1,0 +1,90 @@
+
+gameplay_eliminate_021.png
+size: 234,504
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bpar_1
+  rotate: true
+  xy: 194, 124
+  size: 38, 37
+  orig: 38, 37
+  offset: 0, 0
+  index: -1
+Bpar_2
+  rotate: false
+  xy: 186, 361
+  size: 39, 45
+  orig: 39, 45
+  offset: 0, 0
+  index: -1
+Opar_1
+  rotate: false
+  xy: 186, 316
+  size: 38, 43
+  orig: 38, 43
+  offset: 0, 0
+  index: -1
+Opar_2
+  rotate: false
+  xy: 158, 24
+  size: 39, 40
+  orig: 39, 40
+  offset: 0, 0
+  index: -1
+glow_01
+  rotate: false
+  xy: 99, 66
+  size: 93, 96
+  orig: 100, 100
+  offset: 0, 2
+  index: -1
+glow_02
+  rotate: true
+  xy: 2, 21
+  size: 481, 95
+  orig: 502, 106
+  offset: 9, 5
+  index: -1
+glow_03
+  rotate: false
+  xy: 2, 2
+  size: 94, 17
+  orig: 100, 19
+  offset: 3, 1
+  index: -1
+glow_04
+  rotate: true
+  xy: 186, 408
+  size: 94, 42
+  orig: 100, 46
+  offset: 3, 2
+  index: -1
+glow_fra
+  rotate: false
+  xy: 99, 164
+  size: 114, 128
+  orig: 114, 128
+  offset: 0, 0
+  index: -1
+glow_line_2
+  rotate: true
+  xy: 99, 294
+  size: 208, 85
+  orig: 208, 85
+  offset: 0, 0
+  index: -1
+star_glow_1
+  rotate: false
+  xy: 99, 7
+  size: 57, 57
+  orig: 64, 64
+  offset: 3, 3
+  index: -1
+star_glow_2
+  rotate: false
+  xy: 194, 84
+  size: 38, 38
+  orig: 42, 42
+  offset: 2, 2
+  index: -1

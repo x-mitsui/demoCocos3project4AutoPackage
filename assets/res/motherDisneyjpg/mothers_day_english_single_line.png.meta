@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "22b322b2-aaab-49b3-9b00-ce4e352885f0",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "22b322b2-aaab-49b3-9b00-ce4e352885f0@6c48a",
+      "displayName": "mothers_day_english_single_line",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "22b322b2-aaab-49b3-9b00-ce4e352885f0",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "22b322b2-aaab-49b3-9b00-ce4e352885f0@f9941",
+      "displayName": "mothers_day_english_single_line",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -0.5,
+        "offsetY": -2.5,
+        "trimX": 8,
+        "trimY": 51,
+        "width": 403,
+        "height": 83,
+        "rawWidth": 420,
+        "rawHeight": 180,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": false,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -201.5,
+            -41.5,
+            0,
+            201.5,
+            -41.5,
+            0,
+            -201.5,
+            41.5,
+            0,
+            201.5,
+            41.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            8,
+            129,
+            411,
+            129,
+            8,
+            46,
+            411,
+            46
+          ],
+          "nuv": [
+            0.01904761904761905,
+            0.25555555555555554,
+            0.9785714285714285,
+            0.25555555555555554,
+            0.01904761904761905,
+            0.7166666666666667,
+            0.9785714285714285,
+            0.7166666666666667
+          ],
+          "minPos": [
+            -201.5,
+            -41.5,
+            0
+          ],
+          "maxPos": [
+            201.5,
+            41.5,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "22b322b2-aaab-49b3-9b00-ce4e352885f0@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "22b322b2-aaab-49b3-9b00-ce4e352885f0@6c48a"
+  }
+}

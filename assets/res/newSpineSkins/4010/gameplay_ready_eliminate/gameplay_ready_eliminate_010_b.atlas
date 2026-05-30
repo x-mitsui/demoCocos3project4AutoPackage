@@ -1,0 +1,69 @@
+
+gameplay_ready_eliminate_010_b.png
+size: 346,346
+format: RGBA8888
+filter: MipMap,MipMap
+repeat: none
+kuai_1
+  rotate: false
+  xy: 4, 114
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+kuai_2
+  rotate: false
+  xy: 114, 114
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+kuai_3
+  rotate: false
+  xy: 126, 236
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+kuai_4
+  rotate: false
+  xy: 224, 126
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+kuai_5
+  rotate: false
+  xy: 236, 236
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+kuai_6
+  rotate: false
+  xy: 224, 16
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+kuai_7
+  rotate: false
+  xy: 4, 4
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+kuai_black
+  rotate: false
+  xy: 114, 4
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+kuai_shadow
+  rotate: false
+  xy: 4, 224
+  size: 118, 118
+  orig: 120, 120
+  offset: 1, 1
+  index: -1

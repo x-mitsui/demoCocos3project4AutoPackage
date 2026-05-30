@@ -1,0 +1,13 @@
+{
+  "ver": "2.0.4",
+  "importer": "animation-clip",
+  "imported": true,
+  "uuid": "d30687d1-3df4-4a24-be9b-73a3a89dc1ca",
+  "files": [
+    ".bin"
+  ],
+  "subMetas": {},
+  "userData": {
+    "name": "melonEliminateSpriteFrame"
+  }
+}

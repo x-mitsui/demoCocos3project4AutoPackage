@@ -1,0 +1,15 @@
+info face="sans-serif" size=46 bold=0 italic=0 charset="32,48-57" unicode=1 stretchH=100 smooth=1 aa=1 padding=1,1,1,1 spacing=1,1 outline=0
+common lineHeight=46 base=40 scaleW=137 scaleH=144 pages=1 packed=0 alphaChnl=0 redChnl=4 greenChnl=4 blueChnl=4
+page id=0 file="typefacehigh_material_4001.png"
+chars count=11
+char id=32 x=0 y=0 width=0 height=0 xoffset=0 yoffset=0 xadvance=13 page=0 chnl=15
+char id=48 x=0 y=0 width=40 height=48 xoffset=0 yoffset=-1 xadvance=40 page=0 chnl=15
+char id=49 x=115 y=0 width=22 height=46 xoffset=10 yoffset=0 xadvance=40 page=0 chnl=15
+char id=50 x=0 y=49 width=38 height=47 xoffset=2 yoffset=-1 xadvance=40 page=0 chnl=15
+char id=51 x=41 y=0 width=36 height=48 xoffset=3 yoffset=-1 xadvance=40 page=0 chnl=15
+char id=52 x=77 y=49 width=39 height=46 xoffset=1 yoffset=0 xadvance=40 page=0 chnl=15
+char id=53 x=0 y=97 width=36 height=47 xoffset=2 yoffset=0 xadvance=40 page=0 chnl=15
+char id=54 x=39 y=49 width=37 height=47 xoffset=2 yoffset=0 xadvance=40 page=0 chnl=15
+char id=55 x=76 y=97 width=37 height=46 xoffset=2 yoffset=0 xadvance=40 page=0 chnl=15
+char id=56 x=78 y=0 width=36 height=48 xoffset=2 yoffset=-1 xadvance=40 page=0 chnl=15
+char id=57 x=37 y=97 width=38 height=47 xoffset=1 yoffset=-1 xadvance=40 page=0 chnl=15

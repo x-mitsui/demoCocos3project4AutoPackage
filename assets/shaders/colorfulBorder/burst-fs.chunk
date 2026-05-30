@@ -1,0 +1,52 @@
+// colorful-burst-fs：光环脱离边框向外幅散（加法混合）uniform + 片元函数体
+// x=speed, y=numRings, z=sharpness, w=borderRadius
+// x=brightness, y=tailLength, z=saturation, w=shapeBlend(0圆/1方)
+uniform BurstParams {
+  vec4 burstParams1;
+  vec4 burstParams2;
+};
+
+vec4 frag () {
+  float speed        = burstParams1.x;
+  float numRings     = burstParams1.y;
+  float sharpness    = burstParams1.z;
+  float borderRadius = burstParams1.w;
+  float brightness   = burstParams2.x;
+  float tailLen      = burstParams2.y;
+  float saturation   = burstParams2.z;
+  float shapeBlend   = burstParams2.w;
+
+  float dist      = shapeDist(uv0 - vec2(0.5), shapeBlend);
+  float outerDist = dist - borderRadius;
+  float maxExpand = mix(0.71, 0.5, shapeBlend) - borderRadius;
+
+  float totalIntensity = 0.0;
+  float finalHue       = 0.0;
+  float maxW           = 0.0;
+  int   n              = int(clamp(numRings, 1.0, 5.0));
+
+  for (int i = 0; i < 5; i++) {
+    if (i >= n) break;
+
+    float offset     = float(i) / float(n);
+    float progress   = fract(cc_time.x * speed + offset);
+    float ringRadius = progress * maxExpand;
+    float d          = outerDist - ringRadius;
+
+    float w = exp(-max( d, 0.0) * sharpness * 40.0)
+            * exp( min( d, 0.0) * tailLen    *  8.0);
+    w *= (1.0 - progress * 0.9);
+
+    if (w > maxW) { maxW = w; finalHue = fract(float(i) * 0.2 + cc_time.x * 0.04); }
+    totalIntensity += w;
+  }
+
+  // 边框内侧平滑压制为透明
+  totalIntensity = clamp(totalIntensity * clamp(outerDist * 25.0, 0.0, 1.0), 0.0, 1.0);
+
+  vec3 c = hsv2rgb(vec3(finalHue, saturation, brightness));
+  // 加法混合：颜色 × 强度叠加到场景
+  vec4 o = vec4(c * totalIntensity, totalIntensity);
+  ALPHA_TEST(o);
+  return o;
+}

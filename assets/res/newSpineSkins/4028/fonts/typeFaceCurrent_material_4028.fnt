@@ -1,0 +1,14 @@
+info face="Arial" size=83 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=83 base=83 scaleW=690 scaleH=83 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="typeFaceCurrent_material_4072.png"
+chars count=10
+char id=48 x=0 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15
+char id=49 x=69 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15
+char id=50 x=138 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15
+char id=51 x=207 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15
+char id=52 x=276 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15
+char id=53 x=345 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15
+char id=54 x=414 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15
+char id=55 x=483 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15
+char id=56 x=552 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15
+char id=57 x=621 y=0 width=69 height=83 xoffset=0 yoffset=0 xadvance=69 page=0  chnl=15

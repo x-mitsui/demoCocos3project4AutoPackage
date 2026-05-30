@@ -1,0 +1,281 @@
+{
+    "frameRate": 30,
+    "name": "gameplay_blockMark",
+    "version": "5.5",
+    "compatibleVersion": "5.5",
+    "armature": [
+        {
+            "type": "Armature",
+            "frameRate": 30,
+            "name": "Armature",
+            "bone": [
+                { "name": "root" },
+                { "name": "EfxRoot", "parent": "root" },
+                { "name": "glow_fr_002", "parent": "EfxRoot" }
+            ],
+            "slot": [
+                { "blendMode": "add", "displayIndex": -1, "name": "glow_fr_002", "parent": "glow_fr_002" },
+                { "blendMode": "add", "displayIndex": -1, "name": "glow_fr_001", "parent": "EfxRoot" }
+            ],
+            "skin": [
+                {
+                    "slot": [
+                        { "name": "glow_fr_001", "display": [{ "name": "glow_fr_003" }] },
+                        { "name": "glow_fr_002", "display": [{ "name": "glow_fr_002" }] }
+                    ]
+                }
+            ],
+            "animation": [
+                {
+                    "duration": 13,
+                    "playTimes": 0,
+                    "name": "blue_1",
+                    "slot": [
+                        {
+                            "name": "glow_fr_002",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.2483870967741936, 0, 0.7064516129032258, 0.9754098360655737],
+                                    "value": { "aM": 75, "rM": 14, "gM": 70 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 14, "gM": 70 } }
+                            ]
+                        },
+                        {
+                            "name": "glow_fr_001",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.14838709677419354, 0, 0.8354838709677419, 0.9508196721311475],
+                                    "value": { "aM": 60, "rM": 15, "gM": 56 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 15, "gM": 56 } }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "duration": 13,
+                    "playTimes": 0,
+                    "name": "red_1",
+                    "slot": [
+                        {
+                            "name": "glow_fr_002",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.2483870967741936, 0, 0.7064516129032258, 0.9754098360655737],
+                                    "value": { "aM": 75, "gM": 70, "bM": 71 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "gM": 70, "bM": 71 } }
+                            ]
+                        },
+                        {
+                            "name": "glow_fr_001",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.14838709677419354, 0, 0.8354838709677419, 0.9508196721311475],
+                                    "value": { "aM": 60, "gM": 62, "bM": 63 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "gM": 62, "bM": 63 } }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "duration": 13,
+                    "playTimes": 0,
+                    "name": "green_1",
+                    "slot": [
+                        {
+                            "name": "glow_fr_002",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.2483870967741936, 0, 0.7064516129032258, 0.9754098360655737],
+                                    "value": { "aM": 75, "rM": 37, "bM": 37 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 37, "bM": 37 } }
+                            ]
+                        },
+                        {
+                            "name": "glow_fr_001",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.14838709677419354, 0, 0.8354838709677419, 0.9508196721311475],
+                                    "value": { "aM": 60, "rM": 30, "gM": 99, "bM": 30 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 30, "gM": 99, "bM": 30 } }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "duration": 13,
+                    "playTimes": 0,
+                    "name": "orange_1",
+                    "slot": [
+                        {
+                            "name": "glow_fr_002",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.2483870967741936, 0, 0.7064516129032258, 0.9754098360655737],
+                                    "value": { "aM": 75, "gM": 77, "bM": 55 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "gM": 77, "bM": 55 } }
+                            ]
+                        },
+                        {
+                            "name": "glow_fr_001",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.14838709677419354, 0, 0.8354838709677419, 0.9508196721311475],
+                                    "value": { "aM": 60, "gM": 61, "bM": 28 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "gM": 61, "bM": 28 } }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "duration": 13,
+                    "playTimes": 0,
+                    "name": "purple_1",
+                    "slot": [
+                        {
+                            "name": "glow_fr_002",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.2483870967741936, 0, 0.7064516129032258, 0.9754098360655737],
+                                    "value": { "aM": 75, "rM": 78, "gM": 62 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 78, "gM": 62 } }
+                            ]
+                        },
+                        {
+                            "name": "glow_fr_001",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.14838709677419354, 0, 0.8354838709677419, 0.9508196721311475],
+                                    "value": { "aM": 60, "rM": 75, "gM": 54 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 75, "gM": 54 } }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "duration": 13,
+                    "playTimes": 0,
+                    "name": "cyan_1",
+                    "slot": [
+                        {
+                            "name": "glow_fr_002",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.2483870967741936, 0, 0.7064516129032258, 0.9754098360655737],
+                                    "value": { "aM": 75, "rM": 0, "gM": 97, "bM": 94 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 0, "gM": 97, "bM": 94 } }
+                            ]
+                        },
+                        {
+                            "name": "glow_fr_001",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.14838709677419354, 0, 0.8354838709677419, 0.9508196721311475],
+                                    "value": { "aM": 60, "rM": 0, "gM": 94, "bM": 89 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 0, "gM": 94, "bM": 89 } }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "duration": 13,
+                    "playTimes": 0,
+                    "name": "yellow_1",
+                    "slot": [
+                        {
+                            "name": "glow_fr_002",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.2483870967741936, 0, 0.7064516129032258, 0.9754098360655737],
+                                    "value": { "aM": 75, "gM": 87, "bM": 9 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "gM": 87, "bM": 9 } }
+                            ]
+                        },
+                        {
+                            "name": "glow_fr_001",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.14838709677419354, 0, 0.8354838709677419, 0.9508196721311475],
+                                    "value": { "aM": 60, "rM": 96, "gM": 69, "bM": 0 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 96, "gM": 69, "bM": 0 } }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "duration": 13,
+                    "playTimes": 0,
+                    "name": "pink_1",
+                    "slot": [
+                        {
+                            "name": "glow_fr_002",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.2483870967741936, 0, 0.7064516129032258, 0.9754098360655737],
+                                    "value": { "aM": 75, "rM": 87, "bM": 65 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 87, "bM": 65 } }
+                            ]
+                        },
+                        {
+                            "name": "glow_fr_001",
+                            "displayFrame": [{ "duration": 13 }],
+                            "colorFrame": [
+                                {
+                                    "duration": 13,
+                                    "curve": [0.14838709677419354, 0, 0.8354838709677419, 0.9508196721311475],
+                                    "value": { "aM": 60, "rM": 96, "gM": 69, "bM": 0 }
+                                },
+                                { "duration": 0, "value": { "aM": 0, "rM": 96, "gM": 69, "bM": 0 } }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "defaultActions": [{ "gotoAndPlay": "blue_1" }]
+        }
+    ]
+}

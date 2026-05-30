@@ -1,0 +1,132 @@
+
+gameplay_word_037.png
+size: 968,503
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Amazing!
+  rotate: true
+  xy: 532, 112
+  size: 389, 116
+  orig: 393, 120
+  offset: 2, 2
+  index: -1
+Excellent!
+  rotate: true
+  xy: 432, 107
+  size: 394, 98
+  orig: 398, 102
+  offset: 2, 2
+  index: -1
+Good!
+  rotate: false
+  xy: 468, 3
+  size: 256, 102
+  orig: 258, 106
+  offset: 1, 2
+  index: -1
+Great!
+  rotate: true
+  xy: 650, 114
+  size: 276, 101
+  orig: 280, 105
+  offset: 2, 2
+  index: -1
+JLWZ_14
+  rotate: false
+  xy: 423, 10
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+JLWZ_3
+  rotate: false
+  xy: 288, 9
+  size: 43, 44
+  orig: 43, 44
+  offset: 0, 0
+  index: -1
+JLWZ_4
+  rotate: false
+  xy: 333, 10
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+JLWZ_6
+  rotate: false
+  xy: 378, 10
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+Nh_1
+  rotate: true
+  xy: 236, 55
+  size: 446, 194
+  orig: 446, 194
+  offset: 0, 0
+  index: -1
+c_guang_3
+  rotate: false
+  xy: 753, 62
+  size: 124, 126
+  orig: 128, 128
+  offset: 2, 1
+  index: -1
+glowLight
+  rotate: false
+  xy: 432, 77
+  size: 29, 28
+  orig: 32, 32
+  offset: 1, 2
+  index: -1
+glow_1
+  rotate: false
+  xy: 726, 392
+  size: 240, 109
+  orig: 242, 111
+  offset: 1, 1
+  index: -1
+glow_ring_01
+  rotate: false
+  xy: 753, 190
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+paper_01
+  rotate: true
+  xy: 2, 2
+  size: 21, 65
+  orig: 21, 65
+  offset: 0, 0
+  index: -1
+paper_02
+  rotate: false
+  xy: 69, 6
+  size: 14, 17
+  orig: 14, 17
+  offset: 0, 0
+  index: -1
+par_8
+  rotate: false
+  xy: 650, 459
+  size: 42, 42
+  orig: 50, 50
+  offset: 4, 4
+  index: -1
+star_glow_2
+  rotate: false
+  xy: 236, 3
+  size: 50, 50
+  orig: 54, 53
+  offset: 2, 1
+  index: -1
+zdi
+  rotate: true
+  xy: 2, 25
+  size: 476, 232
+  orig: 478, 233
+  offset: 1, 1
+  index: -1

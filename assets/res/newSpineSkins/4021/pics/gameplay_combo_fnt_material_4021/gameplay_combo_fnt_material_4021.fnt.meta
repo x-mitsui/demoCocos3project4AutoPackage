@@ -1,0 +1,33 @@
+{
+  "ver": "1.0.6",
+  "importer": "bitmap-font",
+  "imported": true,
+  "uuid": "a11fd552-e5bd-4079-9468-3d046dbb58fd",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {},
+  "userData": {
+    "_fntConfig": {
+      "commonHeight": 189,
+      "fontSize": 189,
+      "atlasName": "gameplay_combo_fnt_material_4021.png",
+      "fontDefDictionary": {
+        "103": {
+          "rect": {
+            "x": 1317,
+            "y": 0,
+            "width": 146,
+            "height": 189
+          },
+          "xOffset": 0,
+          "yOffset": 0,
+          "xAdvance": 146
+        }
+      },
+      "kerningDict": {}
+    },
+    "fontSize": 189,
+    "textureUuid": "b813ebc5-484a-43ce-b39a-e3701b743f4c"
+  }
+}

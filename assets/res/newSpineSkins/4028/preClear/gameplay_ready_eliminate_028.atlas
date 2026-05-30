@@ -1,0 +1,55 @@
+
+gameplay_ready_eliminate_028.png
+size: 774,114
+format: RGBA8888
+filter: MipMap,MipMap
+repeat: none
+Gems1
+  rotate: false
+  xy: 664, 4
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems2
+  rotate: false
+  xy: 4, 4
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems3
+  rotate: false
+  xy: 114, 4
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems4
+  rotate: false
+  xy: 224, 4
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems5
+  rotate: false
+  xy: 334, 4
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems6
+  rotate: false
+  xy: 444, 4
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems7
+  rotate: false
+  xy: 554, 4
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1

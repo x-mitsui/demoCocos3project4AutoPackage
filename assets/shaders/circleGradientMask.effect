@@ -1,0 +1,87 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: sprite-vs:vert
+      frag: circle-gradient-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        # 圆心颜色（含 alpha）
+        centerColor:  { value: [1.0, 1.0, 1.0, 1.0], editor: { displayName: "圆心颜色", type: color } }
+        # 边缘颜色（alpha 建议设为 0）
+        edgeColor:    { value: [1.0, 1.0, 1.0, 0.0], editor: { displayName: "边缘颜色", type: color } }
+        # 渐变软边宽度：0 = 硬边，1 = 全软
+        softness:     { value: 0.1, target: circleParams.x, editor: { displayName: "软边宽度", slide: true, range: [0.0, 1.0], step: 0.01 } }
+        # 圆的半径（UV 空间，0.5 = 刚好填满正方形纹理）
+        radius:       { value: 0.5, target: circleParams.y, editor: { displayName: "半径", slide: true, range: [0.0, 1.0], step: 0.01 } }
+        circleParams: { value: [0.1, 0.5, 0.0, 0.0] }
+}%
+
+CCProgram sprite-vs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+  #include <builtin/uniforms/cc-global>
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 v_color;
+  out vec2 v_uv;
+
+  vec4 vert () {
+    v_uv    = a_texCoord;
+    v_color = a_color;
+    return cc_matViewProj * vec4(a_position, 1.0);
+  }
+}%
+
+CCProgram circle-gradient-fs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+
+  in vec4 v_color;
+  in vec2 v_uv;
+
+  uniform CircleData {
+    vec4 centerColor;
+    vec4 edgeColor;
+    vec4 circleParams; // x = softness, y = radius
+  };
+
+  vec4 frag () {
+    // 以 (0.5, 0.5) 为圆心计算距离，归一化到 [0, 1]
+    float dist = length(v_uv - vec2(0.5));
+
+    float radius   = circleParams.y;
+    float softness = circleParams.x;
+
+    // smoothstep：在 [radius - softness, radius] 区间内平滑过渡 1 → 0
+    float alpha = 1.0 - smoothstep(radius - softness, radius, dist);
+
+    // 中心到边缘颜色插值，插值因子 = dist / radius（clamp 防越界）
+    float t = clamp(dist / radius, 0.0, 1.0);
+    vec4 col = mix(centerColor, edgeColor, t);
+
+    // 最终 alpha = 渐变 alpha * 插值 alpha * 节点 alpha
+    col.a *= alpha * v_color.a;
+    col.rgb *= v_color.rgb;
+
+    return col;
+  }
+}%

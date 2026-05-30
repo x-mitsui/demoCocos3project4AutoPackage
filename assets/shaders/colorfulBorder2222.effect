@@ -1,0 +1,1264 @@
+// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.
+CCEffect %{
+  techniques:
+  - name: plain
+    passes:
+    - vert: sprite-vs:vert
+      frag: plain-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+  - name: gradient
+    passes:
+    - vert: sprite-vs:vert
+      frag: sprite-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        startColor: { value: [1.0, 1.0, 1.0, 1.0], editor: {type: color} }
+        endColor: { value: [1.0, 1.0, 1.0, 1.0], editor: {type: color} }
+        gradientParams: { value: [0.0, 1.0, 0.0, 0.0] }
+        gradientAngle: { value: 0.0, target: gradientParams.x, editor: { displayName: "渐变角度(0-360)", slide: true, range: [0, 360], step: 1 } }
+        gradientIntensity: { value: 1.0, target: gradientParams.y, editor: { displayName: "渐变强度(0-1)", slide: true, range: [0, 1], step: 0.05 } }
+  - name: colorful-rotate
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-rotate-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        colorfulParams: { value: [0.3, 1.0, 1.0, 0.0] }
+        speed:      { value: 1.7, target: colorfulParams.x, editor: { displayName: "流速",   slide: true, range: [0, 5], step: 0.05 } }
+        saturation: { value: 1.0, target: colorfulParams.y, editor: { displayName: "饱和度", slide: true, range: [0, 1], step: 0.05 } }
+        brightness: { value: 1.0, target: colorfulParams.z, editor: { displayName: "亮度",   slide: true, range: [0, 2], step: 0.05 } }
+  - name: colorful-wave
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-wave-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        waveParams1: { value: [0.3, 3.0, 0.06, 1.0] }
+        waveParams2: { value: [1.0, 0.0, 0.0, 0.0] }
+        speed:      { value: 1.7,  target: waveParams1.x, editor: { displayName: "流速（下→上）", slide: true, range: [0, 5],   step: 0.05 } }
+        waveFreq:   { value: 3.0,  target: waveParams1.y, editor: { displayName: "波浪频率",      slide: true, range: [0, 20],  step: 0.5  } }
+        waveAmp:    { value: 0.06, target: waveParams1.z, editor: { displayName: "波浪振幅",      slide: true, range: [0, 0.3], step: 0.01 } }
+        saturation: { value: 1.0,  target: waveParams1.w, editor: { displayName: "饱和度",        slide: true, range: [0, 1],   step: 0.05 } }
+        brightness: { value: 1.0,  target: waveParams2.x, editor: { displayName: "亮度",          slide: true, range: [0, 2],   step: 0.05 } }
+  - name: colorful-breath
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-breath-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        breathParams: { value: [0.15, 1.2, 1.0, 1.2] }
+        colorSpeed:   { value: 0.15, target: breathParams.x, editor: { displayName: "色相变速", slide: true, range: [0, 2],   step: 0.05 } }
+        breatheSpeed: { value: 1.2,  target: breathParams.y, editor: { displayName: "呼吸速度", slide: true, range: [0, 5],   step: 0.1  } }
+        saturation:   { value: 1.0,  target: breathParams.z, editor: { displayName: "饱和度",   slide: true, range: [0, 1],   step: 0.05 } }
+        brightness:   { value: 1.2,  target: breathParams.w, editor: { displayName: "亮度",     slide: true, range: [0, 3],   step: 0.1  } }
+  - name: colorful-glitter
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-glitter-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        glitterParams: { value: [10.0, 0.35, 1.0, 2.5] }
+        speed:      { value: 10.0, target: glitterParams.x, editor: { displayName: "闪烁速度", slide: true, range: [0, 30], step: 0.5  } }
+        density:    { value: 0.35, target: glitterParams.y, editor: { displayName: "闪烁密度", slide: true, range: [0, 1],  step: 0.05 } }
+        saturation: { value: 1.0,  target: glitterParams.z, editor: { displayName: "饱和度",   slide: true, range: [0, 1],  step: 0.05 } }
+        brightness: { value: 2.5,  target: glitterParams.w, editor: { displayName: "亮度",     slide: true, range: [0, 4],  step: 0.1  } }
+  - name: colorful-burst2
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-burst2-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        burstParams: { value: [1.6, 1.2, 1.8, 1.0] }
+        speed:      { value: 1.6, target: burstParams.x, editor: { displayName: "扩散速度", slide: true, range: [0, 5],  step: 0.05 } }
+        scale:      { value: 1.2, target: burstParams.y, editor: { displayName: "波纹尺度", slide: true, range: [0, 3],  step: 0.05 } }
+        brightness: { value: 1.8, target: burstParams.z, editor: { displayName: "亮度",     slide: true, range: [0, 4],  step: 0.1  } }
+        saturation: { value: 1.0, target: burstParams.w, editor: { displayName: "饱和度",   slide: true, range: [0, 1],  step: 0.05 } }
+  - name: colorful-radial-blob
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-radial-blob-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        blobParams1: { value: [1.5, 0.25, 0.12, 1.0] }
+        blobParams2: { value: [1.6, 0.0, 0.0, 0.0] }
+        speed:      { value: 1.5, target: blobParams1.x, editor: { displayName: "扩散速度", slide: true, range: [0, 5],  step: 0.05 } }
+        distort:    { value: 0.25, target: blobParams1.y, editor: { displayName: "不规则幅度", slide: true, range: [0, 1],  step: 0.02 } }
+        thickness:  { value: 0.12, target: blobParams1.z, editor: { displayName: "边缘厚度", slide: true, range: [0, 0.5], step: 0.01 } }
+        saturation: { value: 1.0, target: blobParams1.w, editor: { displayName: "饱和度",   slide: true, range: [0, 1],  step: 0.05 } }
+        brightness: { value: 1.6, target: blobParams2.x, editor: { displayName: "亮度",     slide: true, range: [0, 4],  step: 0.1  } }
+  - name: colorful-radial-palette
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-radial-palette-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        palColor1: { value: [0.90, 0.20, 0.85, 1.0], editor: {type: color} }
+        palColor2: { value: [0.20, 0.60, 1.00, 1.0], editor: {type: color} }
+        palColor3: { value: [0.98, 0.98, 1.00, 1.0], editor: {type: color} }
+        paletteParams1: { value: [1.5, 0.25, 0.12, 1.0] }
+        paletteParams2: { value: [1.8, 2.0, 0.0, 0.0] }
+        speed:      { value: 1.5, target: paletteParams1.x, editor: { displayName: "扩散速度", slide: true, range: [0, 5],  step: 0.05 } }
+        distort:    { value: 0.25, target: paletteParams1.y, editor: { displayName: "不规则幅度", slide: true, range: [0, 1],  step: 0.02 } }
+        thickness:  { value: 0.12, target: paletteParams1.z, editor: { displayName: "边缘厚度", slide: true, range: [0, 0.5], step: 0.01 } }
+        saturation: { value: 1.0, target: paletteParams1.w, editor: { displayName: "饱和度",   slide: true, range: [0, 1],  step: 0.05 } }
+        brightness: { value: 1.8, target: paletteParams2.x, editor: { displayName: "亮度",     slide: true, range: [0, 4],  step: 0.1  } }
+        rings:      { value: 2.0, target: paletteParams2.y, editor: { displayName: "色带环数", slide: true, range: [0.5, 4], step: 0.1  } }
+  - name: colorful-radial-spark
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-radial-spark-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        palColor1: { value: [0.90, 0.20, 0.85, 1.0], editor: {type: color} }
+        palColor2: { value: [0.20, 0.60, 1.00, 1.0], editor: {type: color} }
+        palColor3: { value: [0.98, 0.98, 1.00, 1.0], editor: {type: color} }
+        sparkParams1: { value: [1.6, 0.35, 0.12, 0.06] }
+        sparkParams2: { value: [2.0, 48.0, 0.55, 2.8] }
+        sparkParams3: { value: [0.0, 0.0, 0.0, 0.0] }
+        speed:      { value: 1.6, target: sparkParams1.x, editor: { displayName: "扩散速度", slide: true, range: [0, 5],  step: 0.05 } }
+        distort:    { value: 0.35, target: sparkParams1.y, editor: { displayName: "不规则幅度", slide: true, range: [0, 1],  step: 0.02 } }
+        thickness:  { value: 0.12, target: sparkParams1.z, editor: { displayName: "环缘厚度", slide: true, range: [0, 0.5], step: 0.01 } }
+        sparkSize:  { value: 0.06, target: sparkParams1.w, editor: { displayName: "粒子尺寸", slide: true, range: [0.01, 0.2], step: 0.01 } }
+        brightness: { value: 2.0, target: sparkParams2.x, editor: { displayName: "亮度",     slide: true, range: [0, 4],  step: 0.1  } }
+        angleBins:  { value: 48.0, target: sparkParams2.y, editor: { displayName: "角向分段", slide: true, range: [16, 96], step: 1    } }
+        density:    { value: 0.55, target: sparkParams2.z, editor: { displayName: "粒子密度", slide: true, range: [0, 1],  step: 0.05 } }
+        rings:      { value: 2.8, target: sparkParams2.w, editor: { displayName: "色带环数", slide: true, range: [0.5, 5], step: 0.1  } }
+        seed:       { value: 0.0,  target: sparkParams3.x, editor: { displayName: "随机种子",  slide: true, range: [0, 1000], step: 1    } }
+        jitter:     { value: 0.04, target: sparkParams3.y, editor: { displayName: "切向抖动", slide: true, range: [0, 0.2], step: 0.005 } }
+  - name: colorful-radial-multi
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-radial-multi-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        palColor1: { value: [0.90, 0.20, 0.85, 1.0], editor: {type: color} }
+        palColor2: { value: [0.20, 0.60, 1.00, 1.0], editor: {type: color} }
+        palColor3: { value: [0.98, 0.98, 1.00, 1.0], editor: {type: color} }
+        multiParams1: { value: [1.6, 0.35, 0.12, 1.0] }
+        multiParams2: { value: [2.0, 3.0, 4.0, 0.4] }
+        multiParams3: { value: [0.0, 0.0, 0.0, 0.0] }
+        speed:      { value: 1.6, target: multiParams1.x, editor: { displayName: "扩散速度", slide: true, range: [0, 5],  step: 0.05 } }
+        distort:    { value: 0.35, target: multiParams1.y, editor: { displayName: "不规则幅度", slide: true, range: [0, 1],  step: 0.02 } }
+        thickness:  { value: 0.12, target: multiParams1.z, editor: { displayName: "边缘厚度", slide: true, range: [0, 0.5], step: 0.01 } }
+        saturation: { value: 1.0,  target: multiParams1.w, editor: { displayName: "饱和度",   slide: true, range: [0, 1],  step: 0.05 } }
+        brightness: { value: 2.0,  target: multiParams2.x, editor: { displayName: "亮度",     slide: true, range: [0, 4],  step: 0.1  } }
+        rings:      { value: 3.0,  target: multiParams2.y, editor: { displayName: "色带环数", slide: true, range: [0.5, 5], step: 0.1  } }
+        count:      { value: 4.0,  target: multiParams2.z, editor: { displayName: "不规则环数量", slide: true, range: [1, 5], step: 1 } }
+        variance:   { value: 0.4,  target: multiParams2.w, editor: { displayName: "形状差异", slide: true, range: [0, 1], step: 0.05 } }
+        seed:       { value: 0.0,  target: multiParams3.x, editor: { displayName: "随机种子",  slide: true, range: [0, 1000], step: 1    } }
+  - name: colorful-spark-cluster
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-spark-cluster-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        palColor1: { value: [0.90, 0.20, 0.85, 1.0], editor: {type: color} }
+        palColor2: { value: [0.20, 0.60, 1.00, 1.0], editor: {type: color} }
+        palColor3: { value: [0.98, 0.98, 1.00, 1.0], editor: {type: color} }
+        clusterParams1: { value: [1.6, 0.35, 0.12, 1.0] }
+        clusterParams2: { value: [2.0, 3.0, 4.0, 0.5] }
+        clusterParams3: { value: [0.0, 0.0, 0.0, 0.0] }
+        speed:      { value: 1.6, target: clusterParams1.x, editor: { displayName: "扩散速度", slide: true, range: [0, 5],  step: 0.05 } }
+        distort:    { value: 0.35, target: clusterParams1.y, editor: { displayName: "不规则幅度", slide: true, range: [0, 1],  step: 0.02 } }
+        thickness:  { value: 0.12, target: clusterParams1.z, editor: { displayName: "边缘厚度", slide: true, range: [0, 0.5], step: 0.01 } }
+        saturation: { value: 1.0,  target: clusterParams1.w, editor: { displayName: "饱和度",   slide: true, range: [0, 1],  step: 0.05 } }
+        brightness: { value: 2.0,  target: clusterParams2.x, editor: { displayName: "亮度",     slide: true, range: [0, 4],  step: 0.1  } }
+        rings:      { value: 3.0,  target: clusterParams2.y, editor: { displayName: "色带环数", slide: true, range: [0.5, 5], step: 0.1  } }
+        count:      { value: 4.0,  target: clusterParams2.z, editor: { displayName: "形状数量", slide: true, range: [1, 8], step: 1 } }
+        variance:   { value: 0.5,  target: clusterParams2.w, editor: { displayName: "形状差异", slide: true, range: [0, 1], step: 0.05 } }
+        seed:        { value: 0.0,  target: clusterParams3.x, editor: { displayName: "随机种子",  slide: true, range: [0, 1000], step: 1    } }
+        centerRange: { value: 0.06, target: clusterParams3.y, editor: { displayName: "中心随机范围", slide: true, range: [0, 0.3], step: 0.005 } }
+        grain:       { value: 0.2,  target: clusterParams3.z, editor: { displayName: "噪点强度", slide: true, range: [0, 1], step: 0.05 } }
+        detail:      { value: 0.1,  target: clusterParams3.w, editor: { displayName: "细节强度", slide: true, range: [0, 1], step: 0.05 } }
+  - name: colorful-spark-core-multi
+    passes:
+    - vert: sprite-vs:vert
+      frag: colorful-spark-core-multi-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        palColor1: { value: [0.90, 0.20, 0.85, 1.0], editor: {type: color} }
+        palColor2: { value: [0.20, 0.60, 1.00, 1.0], editor: {type: color} }
+        palColor3: { value: [0.98, 0.98, 1.00, 1.0], editor: {type: color} }
+        coreParams1: { value: [1.6, 0.35, 0.12, 1.0] }
+        coreParams2: { value: [2.0, 3.0, 4.0, 0.0] }
+        coreParams3: { value: [0.0, 0.0, 0.0, 0.0] }
+        speed:      { value: 1.6, target: coreParams1.x, editor: { displayName: "扩散速度", slide: true, range: [0, 5],  step: 0.05 } }
+        distort:    { value: 0.35, target: coreParams1.y, editor: { displayName: "不规则幅度", slide: true, range: [0, 1],  step: 0.02 } }
+        thickness:  { value: 0.12, target: coreParams1.z, editor: { displayName: "边缘厚度", slide: true, range: [0, 0.5], step: 0.01 } }
+        saturation: { value: 1.0,  target: coreParams1.w, editor: { displayName: "饱和度",   slide: true, range: [0, 1],  step: 0.05 } }
+        brightness: { value: 2.0,  target: coreParams2.x, editor: { displayName: "亮度",     slide: true, range: [0, 4],  step: 0.1  } }
+        rings:      { value: 3.0,  target: coreParams2.y, editor: { displayName: "色带环数", slide: true, range: [0.5, 5], step: 0.1  } }
+        count:      { value: 4.0,  target: coreParams2.z, editor: { displayName: "形状数量", slide: true, range: [1, 8], step: 1 } }
+        seed:        { value: 0.0,  target: coreParams3.x, editor: { displayName: "随机种子",  slide: true, range: [0, 1000], step: 1    } }
+        centerRange: { value: 0.06, target: coreParams3.y, editor: { displayName: "中心随机范围", slide: true, range: [0, 0.3], step: 0.005 } }
+        grain:       { value: 0.2,  target: coreParams3.z, editor: { displayName: "噪点强度", slide: true, range: [0, 1], step: 0.05 } }
+        detail:      { value: 0.1,  target: coreParams3.w, editor: { displayName: "细节强度", slide: true, range: [0, 1], step: 0.05 } }
+}%
+
+CCProgram plain-fs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  vec4 frag () {
+    vec4 o = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0) * color;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-spark-core-multi-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform Constant {
+    vec4 palColor1;
+    vec4 palColor2;
+    vec4 palColor3;
+    vec4 coreParams1;
+    vec4 coreParams2;
+    vec4 coreParams3;
+  };
+
+  float hash2(vec2 v) {
+    return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  vec3 adjust(vec3 c, float sat, float bri) {
+    float g = dot(c, vec3(0.299, 0.587, 0.114));
+    c = mix(vec3(g), c, sat);
+    return c * bri;
+  }
+
+  vec4 frag () {
+    float speed      = coreParams1.x;
+    float distort    = coreParams1.y;
+    float thick      = coreParams1.z;
+    float saturation = coreParams1.w;
+    float brightness = coreParams2.x;
+    float rings      = coreParams2.y;
+    float count      = coreParams2.z;
+    float seed        = coreParams3.x;
+    float centerRange = coreParams3.y;
+    float grain       = coreParams3.z;
+    float detail      = coreParams3.w;
+
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    vec2 randomOffset = (vec2(hash2(vec2(seed, 12.3)), hash2(vec2(seed, 45.7))) - vec2(0.5)) * centerRange;
+    vec2 center = vec2(0.5) + randomOffset;
+    vec2 c = uv0 - center;
+    float r = length(c);
+    float a = atan(-c.y, c.x);
+    float t = cc_time.x * speed;
+
+    float ringIntensity = 0.0;
+    float glow = 1.0 - smoothstep(0.0, 0.8, r);
+
+    for (int i = 0; i < 8; i++) {
+      float enable = step(float(i), count - 1.0);
+      float fi = float(i);
+      vec2 jitter = (vec2(hash2(vec2(seed + fi * 19.7, 9.1)), hash2(vec2(seed + fi * 23.3, 17.4))) - vec2(0.5)) * centerRange * 0.6;
+      vec2 cFi = (uv0 - (center + jitter));
+      float rFi = length(cFi);
+      float aFi = atan(-cFi.y, cFi.x);
+
+      float kA = 6.0 + 6.0 * hash2(vec2(seed + fi * 3.1, fi * 1.7));
+      float kB = 3.0 + 5.0 * hash2(vec2(seed + fi * 5.3, fi * 2.3));
+      float n1 = sin(aFi * kA + t * 2.2) * 0.5 + 0.5;
+      float n2 = sin(aFi * kB - t * 1.1) * 0.5 + 0.5;
+      float noiseBase = 0.55 * n1 + 0.45 * n2;
+      float nDetail = sin(aFi * (kA * 0.6 + 3.0) + t * 0.9 + seed * 0.01 + fi * 0.37) * 0.5 + 0.5;
+      float noiseRaw = mix(noiseBase, nDetail, detail);
+      float noise    = mix(0.5, noiseRaw, grain);
+
+      float baseR = fract(t * 0.35 + fi * 0.11 + hash2(vec2(seed + fi * 2.2, aFi)) * 0.2) * 1.25;
+      float thickEff = thick * (1.0 + (1.0 - grain) * 1.2);
+      float targetR0 = baseR + (noise - 0.5) * distort;
+      float targetR1 = baseR * 0.72 + 0.12 + (noise - 0.5) * (distort * 0.8);
+      float targetR2 = min(1.0, baseR + 0.28) + (noise - 0.5) * (distort * 0.6);
+      float edge0 = 1.0 - smoothstep(0.0, thickEff, abs(rFi - targetR0));
+      float edge1 = 1.0 - smoothstep(0.0, thickEff, abs(rFi - targetR1));
+      float edge2 = 1.0 - smoothstep(0.0, thickEff, abs(rFi - targetR2));
+      float group = clamp(glow * 0.25 + edge0 + 0.8 * edge1 + 0.6 * edge2, 0.0, 1.0);
+      ringIntensity += enable * group;
+    }
+
+    ringIntensity = clamp(ringIntensity, 0.0, 1.0);
+
+    float ramp = clamp(r * rings + 0.25 * sin(a * 3.0 + t * 0.8), 0.0, 1.0);
+    vec3 baseCol = mix(palColor1.rgb, palColor2.rgb, ramp);
+    float centerBoost = (1.0 - smoothstep(0.12, 0.42, r)) * ringIntensity;
+    baseCol = mix(baseCol, palColor3.rgb, centerBoost);
+    baseCol = adjust(baseCol, saturation, brightness);
+
+    vec3 col = baseCol * ringIntensity;
+    float intensity = ringIntensity;
+
+    vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+    o.a = max(texColor.a, intensity) * color.a;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-spark-cluster-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform Constant {
+    vec4 palColor1;
+    vec4 palColor2;
+    vec4 palColor3;
+    vec4 clusterParams1;
+    vec4 clusterParams2;
+    vec4 clusterParams3;
+  };
+
+  float hash2(vec2 v) {
+    return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  vec3 adjust(vec3 c, float sat, float bri) {
+    float g = dot(c, vec3(0.299, 0.587, 0.114));
+    c = mix(vec3(g), c, sat);
+    return c * bri;
+  }
+
+  vec4 frag () {
+    float speed      = clusterParams1.x;
+    float distort    = clusterParams1.y;
+    float thick      = clusterParams1.z;
+    float saturation = clusterParams1.w;
+    float brightness = clusterParams2.x;
+    float rings      = clusterParams2.y;
+    float count      = clusterParams2.z;
+    float variance   = clusterParams2.w;
+    float seed       = clusterParams3.x;
+
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    float centerRange = clusterParams3.y;
+    float grain       = clusterParams3.z;
+    float detail      = clusterParams3.w;
+    vec2 randomOffset = (vec2(hash2(vec2(seed, 12.3)), hash2(vec2(seed, 45.7))) - vec2(0.5)) * centerRange;
+    vec2 center = vec2(0.5) + randomOffset;
+    vec2 c = uv0 - center;
+    float r = length(c);
+    float a = atan(-c.y, c.x);
+    float t = cc_time.x * speed;
+
+    float ringIntensity = 0.0;
+
+    for (int i = 0; i < 8; i++) {
+      float enable = step(float(i), count - 1.0);
+      float fi = float(i);
+      vec2 jitter = (vec2(hash2(vec2(seed + fi * 19.7, 9.1)), hash2(vec2(seed + fi * 23.3, 17.4))) - vec2(0.5)) * centerRange * 0.6;
+      vec2 cFi = (uv0 - (center + jitter));
+      float rFi = length(cFi);
+      float aFi = atan(-cFi.y, cFi.x);
+
+      float kA = 6.0 + 6.0 * hash2(vec2(seed + fi * 3.1, fi * 1.7));
+      float kB = 3.0 + 5.0 * hash2(vec2(seed + fi * 5.3, fi * 2.3));
+      float n1 = sin(aFi * kA + t * 2.2) * 0.5 + 0.5;
+      float n2 = sin(aFi * kB - t * 1.1) * 0.5 + 0.5;
+      float noiseBase = 0.55 * n1 + 0.45 * n2;
+      float nDetail = sin(aFi * (kA * 0.6 + 3.0) + t * 0.9 + seed * 0.01 + fi * 0.37) * 0.5 + 0.5;
+      float noiseRaw = mix(noiseBase, nDetail, detail);
+      float noise    = mix(0.5, noiseRaw, grain);
+
+      float baseR = fract(t * 0.35 + fi * 0.11 + hash2(vec2(seed + fi * 2.2, aFi)) * 0.2) * 1.25;
+      float targetR  = baseR + (noise - 0.5) * distort + (hash2(vec2(seed + fi * 11.0, aFi)) - 0.5) * variance;
+      float thickEff = thick * (1.0 + (1.0 - grain) * 1.2);
+      float edge     = 1.0 - smoothstep(0.0, thickEff, abs(rFi - targetR));
+      ringIntensity += enable * edge;
+    }
+
+    ringIntensity = clamp(ringIntensity + (1.0 - smoothstep(0.0, 0.8, r)) * 0.25, 0.0, 1.0);
+
+    float ramp = clamp(r * rings + 0.25 * sin(a * 3.0 + t * 0.8), 0.0, 1.0);
+    vec3 baseCol = mix(palColor1.rgb, palColor2.rgb, ramp);
+    float centerBoost = (1.0 - smoothstep(0.12, 0.42, r)) * ringIntensity;
+    baseCol = mix(baseCol, palColor3.rgb, centerBoost);
+    baseCol = adjust(baseCol, saturation, brightness);
+
+    vec3 col = baseCol * ringIntensity;
+    float intensity = ringIntensity;
+
+    vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+    o.a = max(texColor.a, intensity) * color.a;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-radial-multi-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform Constant {
+    vec4 palColor1;
+    vec4 palColor2;
+    vec4 palColor3;
+    vec4 multiParams1;
+    vec4 multiParams2;
+    vec4 multiParams3;
+  };
+
+  float hash2(vec2 v) {
+    return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  vec3 adjust(vec3 c, float sat, float bri) {
+    float g = dot(c, vec3(0.299, 0.587, 0.114));
+    c = mix(vec3(g), c, sat);
+    return c * bri;
+  }
+
+  vec4 frag () {
+    float speed      = multiParams1.x;
+    float distort    = multiParams1.y;
+    float thick      = multiParams1.z;
+    float saturation = multiParams1.w;
+    float brightness = multiParams2.x;
+    float rings      = multiParams2.y;
+    float count      = multiParams2.z;
+    float variance   = multiParams2.w;
+    float seed       = multiParams3.x;
+
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    vec2 c = uv0 - vec2(0.5);
+    float r = length(c);
+    float a = atan(-c.y, c.x);
+    float t = cc_time.x * speed;
+
+    float glow = 1.0 - smoothstep(0.0, 0.8, r);
+    float ringIntensity = glow * 0.25;
+
+    for (int i = 0; i < 5; i++) {
+      float enable = step(float(i), count - 1.0);
+      float fi = float(i);
+      float k1 = 6.0 + 6.0 * hash2(vec2(seed + fi * 3.1, fi * 1.7));
+      float k2 = 3.0 + 5.0 * hash2(vec2(seed + fi * 5.3, fi * 2.3));
+      float amp = distort * (0.6 + 0.6 * hash2(vec2(seed + fi * 7.7, fi * 4.1)));
+      float baseR = fract(t * 0.35 + fi * 0.12);
+      float noise = 0.6 * (sin(a * k1 + t * 2.0) * 0.5 + 0.5) + 0.4 * (sin(a * k2 - t * 1.5) * 0.5 + 0.5);
+      float targetR = baseR + (noise - 0.5) * amp + (hash2(vec2(seed + fi * 11.0, a)) - 0.5) * variance;
+      float edge = 1.0 - smoothstep(0.0, thick, abs(r - targetR));
+      ringIntensity += enable * edge;
+    }
+
+    ringIntensity = clamp(ringIntensity, 0.0, 1.0);
+
+    float ramp = clamp(r * rings + 0.25 * sin(a * 3.0 + t * 0.8), 0.0, 1.0);
+    vec3 baseCol = mix(palColor1.rgb, palColor2.rgb, ramp);
+    float centerBoost = (1.0 - smoothstep(0.12, 0.42, r)) * ringIntensity;
+    baseCol = mix(baseCol, palColor3.rgb, centerBoost);
+    baseCol = adjust(baseCol, saturation, brightness);
+
+    vec3 col = baseCol * ringIntensity;
+    float intensity = ringIntensity;
+
+    vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+    o.a = max(texColor.a, intensity) * color.a;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-radial-spark-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform Constant {
+    vec4 palColor1;
+    vec4 palColor2;
+    vec4 palColor3;
+    vec4 sparkParams1;
+    vec4 sparkParams2;
+    vec4 sparkParams3;
+  };
+
+  float hash2(vec2 v) {
+    return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  vec3 adjust(vec3 c, float sat, float bri) {
+    float g = dot(c, vec3(0.299, 0.587, 0.114));
+    c = mix(vec3(g), c, sat);
+    return c * bri;
+  }
+
+  vec4 frag () {
+    float speed      = sparkParams1.x;
+    float distort    = sparkParams1.y;
+    float thick      = sparkParams1.z;
+    float sparkSize  = sparkParams1.w;
+    float brightness = sparkParams2.x;
+    float angleBins  = sparkParams2.y;
+    float density    = sparkParams2.z;
+    float rings      = sparkParams2.w;
+    float saturation = 1.0;
+    float seed       = sparkParams3.x;
+    float jitter     = sparkParams3.y;
+
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    vec2 c = uv0 - vec2(0.5);
+    float r = length(c);
+    float a = atan(-c.y, c.x);
+    float t = cc_time.x * speed;
+
+    float n1 = sin(a * 9.0 + t * 2.1) * 0.5 + 0.5;
+    float n2 = sin(a * 4.0 - t * 1.2) * 0.5 + 0.5;
+    float n3 = hash2(vec2(floor((a + 3.14159265) * 14.0), floor(t * 1.3)));
+    float noise = clamp(0.45 * n1 + 0.35 * n2 + 0.20 * n3, 0.0, 1.0);
+
+    float baseR = fract(t * 0.35) * 1.25;
+    float targetR0 = baseR + (noise - 0.5) * distort;
+    float targetR1 = baseR * 0.7 + (noise - 0.5) * (distort * 0.8);
+    float targetR2 = min(1.0, baseR + 0.25) + (noise - 0.5) * (distort * 0.6);
+
+    float edge0 = 1.0 - smoothstep(0.0, thick, abs(r - targetR0));
+    float edge1 = 1.0 - smoothstep(0.0, thick, abs(r - targetR1));
+    float edge2 = 1.0 - smoothstep(0.0, thick, abs(r - targetR2));
+    float glow = 1.0 - smoothstep(0.0, 0.8, r);
+    float ringIntensity = clamp(glow * 0.25 + edge0 + 0.8 * edge1 + 0.6 * edge2, 0.0, 1.0);
+
+    float ramp = clamp(r * rings + 0.25 * sin(a * 3.0 + t * 0.8), 0.0, 1.0);
+    vec3 baseCol = mix(palColor1.rgb, palColor2.rgb, ramp);
+    float centerBoost = (1.0 - smoothstep(0.12, 0.42, r)) * ringIntensity;
+    baseCol = mix(baseCol, palColor3.rgb, centerBoost);
+    baseCol = adjust(baseCol, saturation, brightness);
+
+    float ai = floor((a + 3.14159265) * angleBins);
+    float s0 = hash2(vec2(ai + seed, floor(t * 2.0) + seed));
+    float s1 = hash2(vec2(ai + 13.0 + seed, floor(t * 1.5) + seed));
+    float s2 = hash2(vec2(ai + 37.0 + seed, floor(t * 1.8) + seed));
+    float gate0 = step(1.0 - density, s0);
+    float gate1 = step(1.0 - density, s1);
+    float gate2 = step(1.0 - density, s2);
+    float rp0 = fract(s0 + t);
+    float rp1 = fract(s1 + t * 1.2);
+    float rp2 = fract(s2 + t * 1.4);
+    vec2 dir = normalize(c);
+    vec2 perp = vec2(-dir.y, dir.x);
+    vec2 center0 = vec2(0.5) + dir * rp0 + perp * jitter * (s0 - 0.5);
+    vec2 center1 = vec2(0.5) + dir * rp1 + perp * jitter * (s1 - 0.5);
+    vec2 center2 = vec2(0.5) + dir * rp2 + perp * jitter * (s2 - 0.5);
+    float spark0 = gate0 * (1.0 - smoothstep(0.0, sparkSize, length(uv0 - center0)));
+    float spark1 = gate1 * (1.0 - smoothstep(0.0, sparkSize, length(uv0 - center1)));
+    float spark2 = gate2 * (1.0 - smoothstep(0.0, sparkSize, length(uv0 - center2)));
+    float sparks = clamp(spark0 + spark1 + spark2, 0.0, 1.0);
+
+    vec3 col = baseCol * ringIntensity + palColor3.rgb * sparks;
+    float intensity = clamp(max(ringIntensity, sparks), 0.0, 1.0);
+
+    vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+    o.a = max(texColor.a, intensity) * color.a;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-radial-palette-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform Constant {
+    vec4 palColor1;
+    vec4 palColor2;
+    vec4 palColor3;
+    vec4 paletteParams1;
+    vec4 paletteParams2;
+  };
+
+  float hash2(vec2 v) {
+    return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  vec3 adjust(vec3 c, float sat, float bri) {
+    float g = dot(c, vec3(0.299, 0.587, 0.114));
+    c = mix(vec3(g), c, sat);
+    return c * bri;
+  }
+
+  vec4 frag () {
+    float speed      = paletteParams1.x;
+    float distort    = paletteParams1.y;
+    float thick      = paletteParams1.z;
+    float saturation = paletteParams1.w;
+    float brightness = paletteParams2.x;
+    float rings      = paletteParams2.y;
+
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    vec2 c = uv0 - vec2(0.5);
+    float r = length(c);
+    float a = atan(-c.y, c.x);
+    float t = cc_time.x * speed;
+
+    float n1 = sin(a * 8.0 + t * 2.2) * 0.5 + 0.5;
+    float n2 = sin(a * 5.0 - t * 1.1) * 0.5 + 0.5;
+    float n3 = hash2(vec2(floor((a + 3.14159265) * 12.0), floor(t * 1.5)));
+    float noise = clamp(0.45 * n1 + 0.35 * n2 + 0.20 * n3, 0.0, 1.0);
+
+    float baseR = fract(t * 0.35) * 1.25;
+    float targetR = baseR + (noise - 0.5) * distort;
+
+    float edge = 1.0 - smoothstep(0.0, thick, abs(r - targetR));
+    float glow = 1.0 - smoothstep(0.0, 0.75, r);
+    float intensity = clamp(glow * 0.3 + edge, 0.0, 1.0);
+
+    float ramp = clamp(r * rings + 0.25 * sin(a * 3.0 + t * 0.8), 0.0, 1.0);
+    vec3 col = mix(palColor1.rgb, palColor2.rgb, ramp);
+    float centerBoost = (1.0 - smoothstep(0.15, 0.45, r)) * intensity;
+    col = mix(col, palColor3.rgb, centerBoost);
+    col = adjust(col, saturation, brightness);
+    col *= intensity;
+
+    vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+    o.a = max(texColor.a, intensity) * color.a;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-radial-blob-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform BlobParams {
+    vec4 blobParams1;
+    vec4 blobParams2;
+  };
+
+  vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+  }
+
+  float hash2(vec2 v) {
+    return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  vec4 frag () {
+    float speed      = blobParams1.x;
+    float distort    = blobParams1.y;
+    float thick      = blobParams1.z;
+    float saturation = blobParams1.w;
+    float brightness = blobParams2.x;
+
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    vec2 c = uv0 - vec2(0.5);
+    float r = length(c);
+    float a = atan(-c.y, c.x);
+    float t = cc_time.x * speed;
+
+    float n1 = sin(a * 9.0 + t * 2.0) * 0.5 + 0.5;
+    float n2 = sin(a * 3.0 - t * 1.3) * 0.5 + 0.5;
+    float n3 = hash2(vec2(floor((a + 3.14159265) * 10.0), floor(t * 1.7)));
+    float noise = clamp(0.4 * n1 + 0.4 * n2 + 0.2 * n3, 0.0, 1.0);
+
+    float baseR = fract(t * 0.35) * 1.3;
+    float targetR = baseR + (noise - 0.5) * distort;
+
+    float edge = 1.0 - smoothstep(0.0, thick, abs(r - targetR));
+    float glow = 1.0 - smoothstep(0.0, 0.7, r);
+    float intensity = clamp(glow * 0.3 + edge, 0.0, 1.0);
+
+    float hue = fract(baseR * 0.6 + t * 0.25);
+    vec3 col = hsv2rgb(vec3(hue, saturation, brightness)) * intensity;
+
+    vec4 o = vec4(col, max(texColor.a, intensity)) * color;
+    o.a = max(texColor.a, intensity) * color.a;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-burst2-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform BurstParams {
+    vec4 burstParams;
+  };
+
+  vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+  }
+
+  float hash2(vec2 v) {
+    return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  vec4 frag () {
+    float speed      = burstParams.x;
+    float scale      = burstParams.y;
+    float brightness = burstParams.z;
+    float saturation = burstParams.w;
+
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    vec2 c = uv0 - vec2(0.5);
+    float r = length(c);
+    float a = atan(-c.y, c.x);
+    float t = cc_time.x * speed;
+
+    float ringPhase = fract(r * scale - t);
+    float ring = smoothstep(0.0, 0.15, 1.0 - ringPhase);
+
+    float angBands = 0.5 + 0.5 * sin(a * 12.0 + t * 2.5);
+    float angNoise = hash2(vec2(floor((a + 3.14159265) * 6.0), floor(t * 1.5)));
+    float irregular = clamp(angBands * (0.6 + 0.4 * angNoise), 0.0, 1.0);
+
+    float baseGlow = 1.0 - smoothstep(0.0, 0.6, r);
+    float intensity = clamp(baseGlow * 0.5 + ring * irregular, 0.0, 1.0);
+
+    float hue = fract((a + 3.14159265) / 6.28318531);
+    vec3 base = hsv2rgb(vec3(hue, saturation, brightness));
+    vec3 rgb = base * intensity;
+
+    vec4 o = vec4(rgb, max(texColor.a, intensity)) * color;
+    o.a = max(texColor.a, intensity) * color.a;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram sprite-vs %{
+  #ifdef GL_ES
+  precision mediump float; // 移动端默认用mediump
+  #else
+  precision highp float;   // PC端用highp
+  #endif
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+  #if SAMPLE_FROM_RT
+    #include <common/common-define>
+  #endif
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1);
+
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+
+    uv0 = a_texCoord;
+    #if SAMPLE_FROM_RT
+      CC_HANDLE_RT_SAMPLE_FLIP(uv0);
+    #endif
+    color = a_color;
+
+    return pos;
+  }
+}%
+
+CCProgram sprite-fs %{
+  #ifdef GL_ES
+  precision mediump float; // 移动端默认用mediump
+  #else
+  precision highp float;   // PC端用highp
+  #endif
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+
+  uniform Constant {
+    vec4 startColor;        // 起始色
+    vec4 endColor;          // 结束色
+    vec4 gradientParams;    // x=angle, y=intensity, zw=保留
+  };   
+
+  in vec2 uv0;
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  vec4 frag () {
+    // 采样纹理
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+    
+    // 从 gradientParams 解包参数
+    float gradientAngle = gradientParams.x;
+    float gradientIntensity = gradientParams.y;
+
+    // 计算基于角度的渐变因子
+    float angleRad = radians(gradientAngle);
+    vec2 dir = vec2(cos(angleRad), sin(angleRad));
+    float gradientFactor = dot(uv0 - vec2(0.5), dir) + 0.5;
+    gradientFactor = clamp(gradientFactor, 0.0, 1.0);
+    
+    // 应用渐变强度（intensity）：
+    // intensity=1: 完整渐变（0->1）
+    // intensity=0: 无渐变，全部为中间色（0.5）
+    // 将 gradientFactor 从 [0,1] 映射到 [0.5-intensity/2, 0.5+intensity/2]
+    gradientFactor = mix(0.5, gradientFactor, gradientIntensity);
+    
+    // 计算渐变色
+    vec3 gradientColor = mix(startColor.rgb, endColor.rgb, gradientFactor);
+    
+    // 应用渐变到 RGB，保持原始 alpha
+    // 这样透明区域会保持透明，不会被渲染
+    vec4 o = vec4(texColor.rgb * gradientColor, texColor.a);
+    
+    #if IS_GRAY
+      float gray  = 0.2126 * o.r + 0.7152 * o.g + 0.0722 * o.b;
+      o.r = o.g = o.b = gray;
+    #endif
+
+    o *= color;
+
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-wave-fs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+  #include <builtin/uniforms/cc-global>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  // x=speed, y=waveFreq, z=waveAmp, w=saturation
+  // x=brightness, yzw=保留
+  uniform WaveParams {
+    vec4 waveParams1;
+    vec4 waveParams2;
+  };
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+  }
+
+  vec4 frag () {
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    float speed      = waveParams1.x;
+    float waveFreq   = waveParams1.y;
+    float waveAmp    = waveParams1.z;
+    float saturation = waveParams1.w;
+    float brightness = waveParams2.x;
+
+    // 水平正弦波扰动：让彩色带边缘呈波浪形
+    // 波浪本身也随时间横向移动，产生二维流动感
+    float wave = sin(uv0.x * waveFreq * 6.28318530718 + cc_time.x * 2.0) * waveAmp;
+
+    // UV y=0 为底部，y=1 为顶部（Cocos 精灵默认）
+    // 减去 time*speed → 每帧 t 减小 → 相同 y 位置的色相向上一帧的更高 y 靠拢 → 彩色从下往上流动
+    float t = fract(uv0.y + wave + cc_time.x * speed);
+
+    vec3 rainbow = hsv2rgb(vec3(t, saturation, brightness));
+
+    // 用纹理 alpha 做蒙版，彩色仅显示在边框可见像素上
+    vec4 o = vec4(rainbow, texColor.a) * color;
+    o.a = texColor.a * color.a;
+
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-rotate-fs %{
+  #ifdef GL_ES
+  precision mediump float;
+  #else
+  precision highp float;
+  #endif
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+  #include <builtin/uniforms/cc-global>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  // x=speed, y=saturation, z=brightness, w=保留
+  uniform ColorfulParams {
+    vec4 colorfulParams;
+  };
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  // HSV → RGB 转换
+  vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+  }
+
+  vec4 frag () {
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    float speed      = colorfulParams.x;
+    float saturation = colorfulParams.y;
+    float brightness = colorfulParams.z;
+
+    // 以精灵中心为原点，计算当前像素的极角
+    // atan(-y, x)：翻转 Y 轴，使角度在屏幕空间逆时针递增
+    vec2 centered = uv0 - vec2(0.5);
+    float angle = atan(-centered.y, centered.x);              // [-PI, PI]
+    float t = (angle + 3.14159265359) / 6.28318530718;        // [0, 1]
+
+    // 减去时间偏移 → 彩虹整体沿逆时针方向流动
+    float h = fract(t - cc_time.x * speed);
+
+    vec3 rainbow = hsv2rgb(vec3(h, saturation, brightness));
+
+    // 用纹理 alpha 做形状蒙版，彩色只在边框可见像素上显示
+    vec4 o = vec4(rainbow, texColor.a) * color;
+    o.a = texColor.a * color.a;
+
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-breath-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform Constant {
+    vec4 breathParams; // x=colorSpeed, y=breatheSpeed, z=saturation, w=brightness
+  };
+
+  vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+  }
+
+  vec4 frag () {
+    float colorSpeed   = breathParams.x;
+    float breatheSpeed = breathParams.y;
+    float saturation   = breathParams.z;
+    float brightness   = breathParams.w;
+
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    // 色相随时间缓慢循环
+    float hue = fract(cc_time.x * colorSpeed);
+    // 亮度 sin 呼吸：[0,1]
+    float breathe = sin(cc_time.x * breatheSpeed) * 0.5 + 0.5;
+
+    vec3 c = hsv2rgb(vec3(hue, saturation, brightness * (0.4 + 0.6 * breathe)));
+    vec4 plain = texColor * color;
+    vec4 lit   = vec4(c, texColor.a) * color;
+    vec4 o = mix(plain, lit, breathe);
+    o.a = texColor.a * color.a;
+
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
+
+CCProgram colorful-glitter-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  uniform Constant {
+    vec4 glitterParams; // x=speed, y=density, z=saturation, w=brightness
+  };
+
+  vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+  }
+
+  float hash2(vec2 v) {
+    return fract(sin(dot(v, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  vec4 frag () {
+    float speed      = glitterParams.x;
+    float density    = glitterParams.y;
+    float saturation = glitterParams.z;
+    float brightness = glitterParams.w;
+
+    vec4 texColor = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+
+    // 将 UV 划分为 20×20 格子，每格独立闪烁
+    vec2 cell = floor(uv0 * 20.0);
+
+    // 每格以不同速率切换帧（基于格子固有哈希值偏移频率）
+    float cellFreq = 1.0 + hash2(cell) * speed;
+    float t = floor(cc_time.x * cellFreq);
+
+    // 该格本帧是否闪烁
+    float isOn = step(1.0 - density, hash2(cell + vec2(t * 0.01, 0.0)));
+
+    // 每格固有色相 + 慢速漂移
+    float hue = fract(hash2(cell * 3.7) + cc_time.x * 0.05);
+
+    vec3 c = hsv2rgb(vec3(hue, saturation, brightness));
+    vec4 plain = texColor * color;
+    vec4 lit   = vec4(c, texColor.a) * color;
+    vec4 o = mix(plain, lit, isOn);
+    o.a = texColor.a * color.a;
+
+    ALPHA_TEST(o);
+    return o;
+  }
+}%

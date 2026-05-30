@@ -1,0 +1,171 @@
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: block-vs:vert
+      frag: block-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        frameOuterColor:         { value: [0.08, 0.12, 0.28, 1.0], editor: { displayName: "外框.边缘色", type: color } }
+        borderWidth:              { value: 0.02, target: blockParams.x, editor: { displayName: "外框.宽度", slide: true, range: [0, 0.08], step: 0.01 } }
+        bevelWidth:               { value: 0.16, target: blockParams.y, editor: { displayName: "外框.斜面宽", slide: true, range: [0.06, 0.28], step: 0.01 } }
+        blockParams:              { value: [0.02, 0.16, 1.0, 0.0] }
+        brightness:               { value: 1.0, target: blockParams.z, editor: { displayName: "亮度", slide: true, range: [0, 3.0], step: 0.01 } }
+        
+        centerGradientStart:      { value: [1.0, 1.0, 1.0, 1.0], editor: { displayName: "中心.渐变开始", type: color } }
+        centerGradientEnd:        { value: [0.9, 0.95, 1.0, 1.0], editor: { displayName: "中心.渐变结束", type: color } }
+        centerGradientDirection:  { value: 90.0, target: centerGradientParams.x, editor: { displayName: "中心.角度(度)", type: float } }
+        centerGradientIntensity:   { value: 0.5, target: centerGradientParams.y, editor: { displayName: "中心.强度(0-1)", slide: true, range: [0, 1], step: 0.05 } }
+        centerGradientParams:     { value: [90.0, 0.5, 0.0, 0.0] }
+        
+        topGradientStart:         { value: [0.92, 0.95, 1.0, 1.0], editor: { displayName: "上梯形.渐变开始", type: color } }
+        topGradientEnd:           { value: [0.3, 0.4, 0.8, 1.0], editor: { displayName: "上梯形.渐变结束", type: color } }
+        topGradientDirection:     { value: 90.0, target: topGradientParams.x, editor: { displayName: "上梯形.角度(度)", type: float } }
+        topGradientIntensity:      { value: 0.5, target: topGradientParams.y, editor: { displayName: "上梯形.强度(0-1)", slide: true, range: [0, 1], step: 0.05 } }
+        topGradientParams:        { value: [90.0, 0.5, 0.0, 0.0] }
+        
+        bottomGradientStart:      { value: [0.92, 0.95, 1.0, 1.0], editor: { displayName: "下梯形.渐变开始", type: color } }
+        bottomGradientEnd:        { value: [0.3, 0.4, 0.8, 1.0], editor: { displayName: "下梯形.渐变结束", type: color } }
+        bottomGradientDirection:  { value: 90.0, target: bottomGradientParams.x, editor: { displayName: "下梯形.角度(度)", type: float } }
+        bottomGradientIntensity:   { value: 0.5, target: bottomGradientParams.y, editor: { displayName: "下梯形.强度(0-1)", slide: true, range: [0, 1], step: 0.05 } }
+        bottomGradientParams:     { value: [90.0, 0.5, 0.0, 0.0] }
+        
+        leftGradientStart:        { value: [0.92, 0.95, 1.0, 1.0], editor: { displayName: "左梯形.渐变开始", type: color } }
+        leftGradientEnd:          { value: [0.3, 0.4, 0.8, 1.0], editor: { displayName: "左梯形.渐变结束", type: color } }
+        leftGradientDirection:    { value: 90.0, target: leftGradientParams.x, editor: { displayName: "左梯形.角度(度)", type: float } }
+        leftGradientIntensity:     { value: 0.5, target: leftGradientParams.y, editor: { displayName: "左梯形.强度(0-1)", slide: true, range: [0, 1], step: 0.05 } }
+        leftGradientParams:       { value: [90.0, 0.5, 0.0, 0.0] }
+        
+        rightGradientStart:       { value: [0.92, 0.95, 1.0, 1.0], editor: { displayName: "右梯形.渐变开始", type: color } }
+        rightGradientEnd:         { value: [0.3, 0.4, 0.8, 1.0], editor: { displayName: "右梯形.渐变结束", type: color } }
+        rightGradientDirection:   { value: 90.0, target: rightGradientParams.x, editor: { displayName: "右梯形.角度(度)", type: float } }
+        rightGradientIntensity:    { value: 0.5, target: rightGradientParams.y, editor: { displayName: "右梯形.强度(0-1)", slide: true, range: [0, 1], step: 0.05 } }
+        rightGradientParams:      { value: [90.0, 0.5, 0.0, 0.0] }
+}%
+
+CCProgram block-vs %{
+  #ifdef GL_ES
+  precision mediump float; // 移动端默认用mediump
+  #else
+  precision highp float;   // PC端用highp
+  #endif
+  #include <builtin/uniforms/cc-global>
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+    pos = cc_matViewProj * pos;
+    uv0 = a_texCoord;
+    color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram block-fs %{
+  #ifdef GL_ES
+  precision mediump float; // 移动端默认用mediump
+  #else
+  precision highp float;   // PC端用highp
+  #endif
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+
+  uniform BLOCK_DATA {
+    vec4 frameOuterColor;
+    vec4 centerGradientStart;
+    vec4 centerGradientEnd;
+    vec4 topGradientStart;
+    vec4 topGradientEnd;
+    vec4 bottomGradientStart;
+    vec4 bottomGradientEnd;
+    vec4 leftGradientStart;
+    vec4 leftGradientEnd;
+    vec4 rightGradientStart;
+    vec4 rightGradientEnd;
+    vec4 blockParams;
+    vec4 centerGradientParams;
+    vec4 topGradientParams;
+    vec4 bottomGradientParams;
+    vec4 leftGradientParams;
+    vec4 rightGradientParams;
+  };
+  
+  // 根据角度计算渐变因子
+  float calcGradientFactor(float angleDeg, vec2 uv) {
+    float rad = angleDeg * 0.01745329; // 度转弧度
+    vec2 dir = vec2(cos(rad), sin(rad));
+    return clamp(dot(uv - 0.5, dir) + 0.5, 0.0, 1.0);
+  }
+  
+  // 应用渐变：根据强度混合纯色和渐变色
+  vec3 applyGradient(vec3 startRgb, vec3 endRgb, float factor, float strength) {
+    vec3 gradient = mix(startRgb, endRgb, factor);
+    return mix(startRgb, gradient, strength);
+  }
+
+  vec4 frag () {
+    vec2 uv = uv0;
+    
+    float b = blockParams.x;
+    float w = blockParams.y;
+    float innerMin = b + w;
+    float innerMax = 1.0 - innerMin;
+
+    // 1) 外框边缘
+    float inBorder = step(uv.x, b) + step(1.0 - b, uv.x) + step(uv.y, b) + step(1.0 - b, uv.y);
+    inBorder = min(inBorder, 1.0);
+
+    // 2) 中心正方形
+    float inCenter = step(innerMin, uv.x) * step(uv.x, innerMax) * step(innerMin, uv.y) * step(uv.y, innerMax);
+    
+    // 中心渐变
+    float centerFactor = calcGradientFactor(centerGradientParams.x, uv);
+    vec3 centerColor = applyGradient(centerGradientStart.rgb, centerGradientEnd.rgb, centerFactor, centerGradientParams.y);
+
+    // 3) 四个梯形：判断属于哪条边
+    float dLeft = (uv.x < innerMin) ? (innerMin - uv.x) / w : 0.0;
+    float dRight = (uv.x > innerMax) ? (uv.x - innerMax) / w : 0.0;
+    float dBottom = (uv.y < innerMin) ? (innerMin - uv.y) / w : 0.0;
+    float dTop = (uv.y > innerMax) ? (uv.y - innerMax) / w : 0.0;
+    float inBevel = (1.0 - inCenter) * (1.0 - inBorder);
+
+    // 根据主导边计算该梯形的渐变颜色
+    vec3 bevelColor;
+    if (dBottom >= dTop && dBottom >= dLeft && dBottom >= dRight) {
+      float factor = calcGradientFactor(topGradientParams.x, uv);
+      bevelColor = applyGradient(topGradientStart.rgb, topGradientEnd.rgb, factor, topGradientParams.y);
+    } else if (dTop >= dBottom && dTop >= dLeft && dTop >= dRight) {
+      float factor = calcGradientFactor(bottomGradientParams.x, uv);
+      bevelColor = applyGradient(bottomGradientStart.rgb, bottomGradientEnd.rgb, factor, bottomGradientParams.y);
+    } else if (dLeft >= dBottom && dLeft >= dTop && dLeft >= dRight) {
+      float factor = calcGradientFactor(leftGradientParams.x, uv);
+      bevelColor = applyGradient(leftGradientStart.rgb, leftGradientEnd.rgb, factor, leftGradientParams.y);
+    } else {
+      float factor = calcGradientFactor(rightGradientParams.x, uv);
+      bevelColor = applyGradient(rightGradientStart.rgb, rightGradientEnd.rgb, factor, rightGradientParams.y);
+    }
+
+    float brightness = blockParams.z;
+    vec3 finalColor = (inBorder * frameOuterColor.rgb + inBevel * bevelColor + inCenter * centerColor) * brightness;
+    vec4 o = vec4(finalColor, centerGradientStart.a * color.a);
+    return o;
+  }
+}%

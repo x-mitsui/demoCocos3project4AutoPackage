@@ -1,0 +1,201 @@
+CCEffect %{
+  techniques:
+  - name: electric-border
+    passes:
+    - vert: sprite-vs:vert
+      frag: electric-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        mainColor:      { value: [0.87, 0.52, 0.28, 1.0], editor: { type: color, displayName: "边框颜色" } }
+        borderWidth:    { value: 0.012, editor: { displayName: "边框宽度", slide: true, range: [0.003, 0.04], step: 0.001 } }
+        displaceScale:  { value: 0.10, editor: { displayName: "位移强度", slide: true, range: [0, 0.25], step: 0.005 } }
+        speed:          { value: 1.0, editor: { displayName: "动画速度", slide: true, range: [0, 5], step: 0.1 } }
+        glowIntensity:  { value: 1.0, editor: { displayName: "辉光强度", slide: true, range: [0, 3], step: 0.1 } }
+        resolution:     { value: [106, 106], editor: { displayName: "分辨率(像素)" } }
+        alphaThreshold: { value: 0.01, editor: { displayName: "Alpha裁切(勿超0.1)", slide: true, range: [0, 0.1], step: 0.005 } }
+        uvInset:        { value: 0.12, editor: { displayName: "UV边距(留辉光)", slide: true, range: [0, 0.24], step: 0.01 } }
+        jaggedness:     { value: 1.0, editor: { displayName: "锯齿感", slide: true, range: [0.3, 3.0], step: 0.1 } }
+        engineTime:     { value: 0.0, editor: { displayName: "动画时间(脚本写入)", tooltip: "由 ElectricBorderSync 写入 game.totalTime；未挂脚本时保持 0（仅静止）" } }
+}%
+
+CCProgram sprite-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/uniforms/cc-local>
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 v_color;
+  out vec2 v_uv;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+    #if CC_USE_MODEL
+      pos = cc_matViewProj * (cc_matWorld * pos);
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+    v_uv    = a_texCoord;
+    v_color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram electric-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+
+  in vec4 v_color;
+  in vec2 v_uv;
+
+  uniform Properties {
+    vec4  mainColor;
+    float borderWidth;
+    float displaceScale;
+    float speed;
+    float glowIntensity;
+    vec2  resolution;
+    float alphaThreshold;
+    float uvInset;
+    float jaggedness;
+    float engineTime;
+    float _p1;
+    float _p2;
+  };
+
+  float hash (vec2 p) {
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+  }
+
+  float vnoise (vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(
+      mix(hash(i),                hash(i + vec2(1.0, 0.0)), f.x),
+      mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x),
+      f.y);
+  }
+
+  float fbm (vec2 p) {
+    float v = 0.0, amp = 0.5;
+    for (int i = 0; i < 5; i++) {
+      v   += amp * vnoise(p);
+      p    = p * 2.0 + vec2(1.7, 9.2);
+      amp *= 0.5;
+    }
+    return v;
+  }
+
+  vec2 fbm2 (vec2 p) {
+    return vec2(fbm(p), fbm(p + vec2(43.0, 17.0)));
+  }
+
+  float screenB (float a, float b) {
+    return 1.0 - (1.0 - a) * (1.0 - b);
+  }
+
+  float dodge (float a, float b) {
+    return min(1.0, b / max(0.001, 1.0 - a));
+  }
+
+  float edgeDist (vec2 p) {
+    return min(min(p.x, 1.0 - p.x), min(p.y, 1.0 - p.y));
+  }
+
+  vec4 frag () {
+    vec2 raw = v_uv;
+
+    float ins  = clamp(uvInset, 0.0, 0.24);
+    float span = max(1.0 - 2.0 * ins, 0.01);
+    vec2  uv   = (raw - ins) / span;
+
+    vec2  res   = max(resolution, vec2(64.0));
+    float jag   = max(jaggedness, 0.3);
+    float nBase = max(min(res.x, res.y) * 0.02, 5.0) * jag;
+    vec2  nc    = raw * nBase;
+
+    // 优先用脚本传入的 engineTime（game.totalTime），避免部分预览/运行时 cc_time 未注入自定义 Effect
+    float t = engineTime * speed;
+    if (t == 0.0) {
+      t = cc_time.x * speed;
+    }
+
+    // circular orbit: arcs wiggle in place, no directional flow
+    vec2 orbitA = vec2(sin(t * 0.7),  cos(t * 0.7))  * 2.5;
+    vec2 orbitB = vec2(cos(t * 0.9),  sin(t * 0.9))  * 2.0;
+
+    // X displacement: two opposite-orbiting samples → stationary interference
+    float nx1 = fbm(nc + orbitA);
+    float nx2 = fbm(nc - orbitA + vec2(11.0, 7.0));
+    float dispX = (nx1 + nx2 - 1.0) * displaceScale;
+
+    // Y displacement: different orbit & seed
+    float ny1 = fbm(nc + orbitB + vec2(57.0, 23.0));
+    float ny2 = fbm(nc - orbitB + vec2(37.0, 61.0));
+    float dispY = (ny1 + ny2 - 1.0) * displaceScale;
+
+    vec2 disp = vec2(dispX, dispY);
+
+    // glow brightness modulation
+    float glowMod = dodge(screenB(nx1, nx2), screenB(ny1, ny2));
+
+    vec2 srcUV = uv - disp;
+
+    float bw = borderWidth;
+    float dS = abs(edgeDist(uv));
+    float dD = abs(edgeDist(srcUV));
+
+    vec3 col = mainColor.rgb;
+    vec3 rgb = vec3(0.0);
+
+    // background-glow (wide, faint)
+    float outerG = 1.0 - smoothstep(0.0, bw * 15.0, dS);
+    rgb += col * outerG * 0.4 * glowIntensity;
+
+    // glow-layer-2 (medium)
+    float innerG = 1.0 - smoothstep(0.0, bw * 5.0, dS);
+    rgb += col * innerG * 0.6 * glowIntensity;
+
+    // glow-layer-1 / static border
+    float sB = 1.0 - smoothstep(0.0, bw * 1.5, dS);
+    rgb += col * sB * 0.5;
+
+    // displaced glow (halo around the electric line)
+    float dGlow = 1.0 - smoothstep(0.0, bw * 4.0, dD);
+    rgb += col * dGlow * 0.7 * glowIntensity * (0.6 + 0.4 * glowMod);
+
+    // displaced sharp border (the animated electric line)
+    float dB = 1.0 - smoothstep(0.0, bw, dD);
+    rgb += col * dB * 2.0;
+    rgb += vec3(1.0, 0.97, 0.9) * dB * 0.5;
+
+    // alpha
+    float alpha = max(outerG * 0.2, innerG * 0.4);
+    alpha = max(alpha, sB * 0.5);
+    alpha = max(alpha, dGlow * 0.5);
+    alpha = max(alpha, dB);
+    alpha = clamp(alpha, 0.0, 1.0);
+
+    // kill center fill
+    float centerFade = 1.0 - smoothstep(0.08, 0.3, max(edgeDist(uv), 0.0));
+    rgb   *= centerFade;
+    alpha *= centerFade;
+
+    if (alpha < alphaThreshold) discard;
+
+    return vec4(rgb * v_color.rgb, alpha * mainColor.a * v_color.a);
+  }
+}%

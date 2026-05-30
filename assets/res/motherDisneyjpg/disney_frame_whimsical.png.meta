@@ -1,0 +1,134 @@
+{
+  "ver": "1.0.27",
+  "importer": "image",
+  "imported": true,
+  "uuid": "fe2a3003-87ff-4bab-a9e6-ee5073c4a358",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "fe2a3003-87ff-4bab-a9e6-ee5073c4a358@6c48a",
+      "displayName": "disney_frame_whimsical",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "fe2a3003-87ff-4bab-a9e6-ee5073c4a358",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "fe2a3003-87ff-4bab-a9e6-ee5073c4a358@f9941",
+      "displayName": "disney_frame_whimsical",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0.5,
+        "offsetY": 0.5,
+        "trimX": 6,
+        "trimY": 7,
+        "width": 518,
+        "height": 212,
+        "rawWidth": 529,
+        "rawHeight": 227,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -259,
+            -106,
+            0,
+            259,
+            -106,
+            0,
+            -259,
+            106,
+            0,
+            259,
+            106,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            6,
+            220,
+            524,
+            220,
+            6,
+            8,
+            524,
+            8
+          ],
+          "nuv": [
+            0.011342155009451797,
+            0.03524229074889868,
+            0.9905482041587902,
+            0.03524229074889868,
+            0.011342155009451797,
+            0.9691629955947136,
+            0.9905482041587902,
+            0.9691629955947136
+          ],
+          "minPos": [
+            -259,
+            -106,
+            0
+          ],
+          "maxPos": [
+            259,
+            106,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "fe2a3003-87ff-4bab-a9e6-ee5073c4a358@6c48a",
+        "atlasUuid": "",
+        "trimType": "auto"
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": false,
+    "hasAlpha": true,
+    "redirect": "fe2a3003-87ff-4bab-a9e6-ee5073c4a358@6c48a"
+  }
+}

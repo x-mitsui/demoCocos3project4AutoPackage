@@ -1,0 +1,286 @@
+
+gameplay_word_005.png
+size: 993,692
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+guang_1
+  rotate: true
+  xy: 638, 234
+  size: 135, 127
+  orig: 135, 127
+  offset: 0, 0
+  index: -1
+guang_2
+  rotate: false
+  xy: 643, 11
+  size: 199, 200
+  orig: 199, 200
+  offset: 0, 0
+  index: -1
+guang_3
+  rotate: false
+  xy: 613, 478
+  size: 212, 212
+  orig: 212, 212
+  offset: 0, 0
+  index: -1
+guang_4
+  rotate: false
+  xy: 958, 522
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+new_1
+  rotate: true
+  xy: 2, 16
+  size: 674, 171
+  orig: 674, 171
+  offset: 0, 0
+  index: -1
+new_10
+  rotate: false
+  xy: 958, 492
+  size: 29, 28
+  orig: 33, 33
+  offset: 2, 3
+  index: -1
+new_13
+  rotate: false
+  xy: 405, 213
+  size: 231, 143
+  orig: 231, 143
+  offset: 0, 0
+  index: -1
+new_2
+  rotate: false
+  xy: 613, 371
+  size: 79, 105
+  orig: 79, 105
+  offset: 0, 0
+  index: -1
+new_3
+  rotate: false
+  xy: 844, 2
+  size: 67, 102
+  orig: 67, 102
+  offset: 0, 0
+  index: -1
+new_4
+  rotate: true
+  xy: 891, 157
+  size: 119, 100
+  orig: 119, 100
+  offset: 0, 0
+  index: -1
+new_5
+  rotate: false
+  xy: 913, 57
+  size: 74, 98
+  orig: 74, 98
+  offset: 0, 0
+  index: -1
+new_6
+  rotate: true
+  xy: 827, 623
+  size: 67, 101
+  orig: 67, 101
+  offset: 0, 0
+  index: -1
+new_7
+  rotate: true
+  xy: 827, 552
+  size: 69, 98
+  orig: 69, 98
+  offset: 0, 0
+  index: -1
+new_8
+  rotate: false
+  xy: 694, 374
+  size: 75, 102
+  orig: 75, 102
+  offset: 0, 0
+  index: -1
+new_9
+  rotate: false
+  xy: 175, 2
+  size: 260, 194
+  orig: 260, 194
+  offset: 0, 0
+  index: -1
+xc_10
+  rotate: true
+  xy: 302, 210
+  size: 480, 101
+  orig: 483, 104
+  offset: 1, 1
+  index: -1
+xc_19
+  rotate: false
+  xy: 437, 7
+  size: 204, 204
+  orig: 208, 208
+  offset: 2, 2
+  index: -1
+xc_20
+  rotate: false
+  xy: 771, 278
+  size: 198, 198
+  orig: 202, 202
+  offset: 2, 2
+  index: -1
+xc_22
+  rotate: false
+  xy: 880, 124
+  size: 31, 31
+  orig: 35, 35
+  offset: 2, 2
+  index: -1
+xc_23
+  rotate: false
+  xy: 767, 216
+  size: 60, 60
+  orig: 66, 66
+  offset: 3, 3
+  index: -1
+xc_24
+  rotate: true
+  xy: 175, 198
+  size: 492, 125
+  orig: 495, 127
+  offset: 2, 1
+  index: -1
+xc_25
+  rotate: true
+  xy: 405, 358
+  size: 332, 102
+  orig: 335, 104
+  offset: 1, 1
+  index: -1
+xc_26
+  rotate: true
+  xy: 509, 375
+  size: 315, 102
+  orig: 317, 105
+  offset: 1, 1
+  index: -1
+xc_27
+  rotate: false
+  xy: 829, 216
+  size: 60, 60
+  orig: 66, 66
+  offset: 3, 3
+  index: -1
+xc_28
+  rotate: false
+  xy: 930, 630
+  size: 60, 60
+  orig: 66, 66
+  offset: 3, 3
+  index: -1
+xulie/hg0001
+  rotate: true
+  xy: 638, 213
+  size: 19, 30
+  orig: 110, 76
+  offset: 1, 25
+  index: -1
+xulie/hg0002
+  rotate: true
+  xy: 927, 581
+  size: 23, 51
+  orig: 110, 76
+  offset: 5, 2
+  index: -1
+xulie/hg0003
+  rotate: true
+  xy: 509, 358
+  size: 15, 39
+  orig: 110, 76
+  offset: 16, 2
+  index: -1
+xulie/hg0004
+  rotate: true
+  xy: 695, 214
+  size: 18, 38
+  orig: 110, 76
+  offset: 19, 2
+  index: -1
+xulie/hg0005
+  rotate: true
+  xy: 930, 606
+  size: 22, 52
+  orig: 110, 76
+  offset: 25, 2
+  index: -1
+xulie/hg0006
+  rotate: true
+  xy: 827, 494
+  size: 26, 73
+  orig: 110, 76
+  offset: 34, 2
+  index: -1
+xulie/hg0007
+  rotate: true
+  xy: 827, 522
+  size: 28, 73
+  orig: 110, 76
+  offset: 39, 2
+  index: -1
+xulie/hg0008
+  rotate: false
+  xy: 927, 481
+  size: 29, 73
+  orig: 110, 76
+  offset: 46, 2
+  index: -1
+xulie/hg0009
+  rotate: false
+  xy: 944, 2
+  size: 25, 53
+  orig: 110, 76
+  offset: 59, 2
+  index: -1
+xulie/hg0010
+  rotate: false
+  xy: 844, 161
+  size: 39, 53
+  orig: 110, 76
+  offset: 66, 2
+  index: -1
+xulie/hg0011
+  rotate: false
+  xy: 844, 106
+  size: 34, 53
+  orig: 110, 76
+  offset: 71, 2
+  index: -1
+xulie/hg0012
+  rotate: false
+  xy: 913, 2
+  size: 29, 53
+  orig: 110, 76
+  offset: 76, 2
+  index: -1
+xulie/hg0013
+  rotate: true
+  xy: 927, 556
+  size: 23, 50
+  orig: 110, 76
+  offset: 82, 2
+  index: -1
+xulie/hg0014
+  rotate: true
+  xy: 670, 213
+  size: 19, 23
+  orig: 110, 76
+  offset: 85, 21
+  index: -1
+xulie/hg0015
+  rotate: true
+  xy: 2, 3
+  size: 11, 8
+  orig: 110, 76
+  offset: 89, 31
+  index: -1

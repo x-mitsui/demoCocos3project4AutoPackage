@@ -1,0 +1,97 @@
+
+gameplay_clear_unbelievable_003.png
+size: 831,522
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+gameplay_AllClear_num_material_3012
+  rotate: true
+  xy: 405, 68
+  size: 312, 134
+  orig: 322, 144
+  offset: 5, 5
+  index: -1
+glow_edge
+  rotate: true
+  xy: 541, 134
+  size: 246, 258
+  orig: 246, 258
+  offset: 0, 0
+  index: -1
+mask1
+  rotate: true
+  xy: 84, 4
+  size: 376, 253
+  orig: 376, 253
+  offset: 0, 0
+  index: -1
+par_9
+  rotate: false
+  xy: 787, 478
+  size: 42, 42
+  orig: 50, 50
+  offset: 4, 4
+  index: -1
+par_tri
+  rotate: false
+  xy: 40, 22
+  size: 16, 16
+  orig: 18, 18
+  offset: 1, 1
+  index: -1
+star_6
+  rotate: false
+  xy: 2, 2
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+star_B
+  rotate: true
+  xy: 541, 54
+  size: 78, 77
+  orig: 88, 86
+  offset: 5, 5
+  index: -1
+star_G
+  rotate: false
+  xy: 763, 66
+  size: 66, 66
+  orig: 76, 76
+  offset: 5, 5
+  index: -1
+star_P
+  rotate: true
+  xy: 620, 61
+  size: 71, 70
+  orig: 80, 80
+  offset: 4, 5
+  index: -1
+star_Y
+  rotate: false
+  xy: 692, 62
+  size: 69, 70
+  orig: 78, 80
+  offset: 5, 5
+  index: -1
+txt_unbe
+  rotate: false
+  xy: 84, 382
+  size: 701, 138
+  orig: 711, 151
+  offset: 5, 7
+  index: -1
+un_glow
+  rotate: true
+  xy: 339, 15
+  size: 365, 64
+  orig: 371, 70
+  offset: 3, 3
+  index: -1
+wd_shine_2
+  rotate: true
+  xy: 2, 40
+  size: 480, 80
+  orig: 480, 88
+  offset: 0, 3
+  index: -1

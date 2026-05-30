@@ -25,7 +25,11 @@ CCEffect %{
 }%
 
 CCProgram sprite-vs %{
-  precision highp float;
+  #ifdef GL_ES
+  precision mediump float; // 移动端默认用mediump
+  #else
+  precision highp float;   // PC端用highp
+  #endif
   #include <builtin/uniforms/cc-global>
 
   in vec3 a_position;
@@ -45,7 +49,11 @@ CCProgram sprite-vs %{
 }%
 
 CCProgram sprite-fs %{
-  precision highp float;
+  #ifdef GL_ES
+  precision mediump float; // 移动端默认用mediump
+  #else
+  precision highp float;   // PC端用highp
+  #endif
   #include <builtin/internal/embedded-alpha>
   #include <builtin/internal/alpha-test>
 

@@ -10,9 +10,7 @@
   },
   "_techIdx": 0,
   "_defines": [
-    {
-      "USE_GRADIENT_COLOR": true
-    }
+    {}
   ],
   "_states": [
     {
@@ -27,13 +25,21 @@
   ],
   "_props": [
     {
-      "gradientCol": {
+      "startColor": {
         "__type__": "cc.Color",
-        "r": 90,
-        "g": 142,
-        "b": 228,
+        "r": 63,
+        "g": 87,
+        "b": 197,
         "a": 255
-      }
+      },
+      "endColor": {
+        "__type__": "cc.Color",
+        "r": 78,
+        "g": 116,
+        "b": 215,
+        "a": 255
+      },
+      "gradientAngle": 83
     }
   ]
 }

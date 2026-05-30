@@ -1,0 +1,69 @@
+
+gameplay_ready_eliminate_011.png
+size: 790,218
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Gems1
+  rotate: false
+  xy: 358, 110
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems2
+  rotate: false
+  xy: 466, 110
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems3
+  rotate: false
+  xy: 574, 110
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems4
+  rotate: false
+  xy: 682, 110
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems5
+  rotate: false
+  xy: 358, 2
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems6
+  rotate: false
+  xy: 466, 2
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+Gems7
+  rotate: false
+  xy: 574, 2
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+glow001
+  rotate: false
+  xy: 2, 40
+  size: 176, 176
+  orig: 176, 176
+  offset: 0, 0
+  index: -1
+glow002
+  rotate: false
+  xy: 180, 40
+  size: 176, 176
+  orig: 176, 176
+  offset: 0, 0
+  index: -1

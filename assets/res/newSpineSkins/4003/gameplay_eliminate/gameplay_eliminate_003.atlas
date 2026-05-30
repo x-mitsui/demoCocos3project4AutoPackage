@@ -1,0 +1,216 @@
+
+gameplay_eliminate_003.png
+size: 506,520
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+glow031
+  rotate: false
+  xy: 2, 274
+  size: 194, 244
+  orig: 256, 256
+  offset: 26, 4
+  index: -1
+glow_002
+  rotate: false
+  xy: 58, 7
+  size: 46, 46
+  orig: 64, 64
+  offset: 9, 9
+  index: -1
+glow_ring_01
+  rotate: false
+  xy: 198, 2
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+star01
+  rotate: false
+  xy: 317, 42
+  size: 53, 54
+  orig: 63, 60
+  offset: 4, 2
+  index: -1
+stone/s1
+  rotate: true
+  xy: 295, 98
+  size: 62, 75
+  orig: 62, 75
+  offset: 0, 0
+  index: -1
+stone/s10
+  rotate: true
+  xy: 465, 176
+  size: 41, 39
+  orig: 41, 40
+  offset: 0, 1
+  index: -1
+stone/s12
+  rotate: false
+  xy: 119, 166
+  size: 86, 106
+  orig: 86, 106
+  offset: 0, 0
+  index: -1
+stone/s13
+  rotate: true
+  xy: 207, 130
+  size: 77, 86
+  orig: 77, 86
+  offset: 0, 0
+  index: -1
+stone/s14
+  rotate: true
+  xy: 119, 88
+  size: 76, 86
+  orig: 76, 86
+  offset: 0, 0
+  index: -1
+stone/s17
+  rotate: true
+  xy: 372, 22
+  size: 69, 71
+  orig: 69, 71
+  offset: 0, 0
+  index: -1
+stone/s2
+  rotate: false
+  xy: 408, 219
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+stone/s20
+  rotate: false
+  xy: 2, 6
+  size: 54, 47
+  orig: 54, 47
+  offset: 0, 0
+  index: -1
+stone/s21
+  rotate: false
+  xy: 372, 93
+  size: 71, 67
+  orig: 71, 67
+  offset: 0, 0
+  index: -1
+stone/s23
+  rotate: true
+  xy: 300, 162
+  size: 68, 81
+  orig: 68, 82
+  offset: 0, 1
+  index: -1
+stone/s3
+  rotate: false
+  xy: 207, 64
+  size: 82, 64
+  orig: 82, 64
+  offset: 0, 0
+  index: -1
+stone/s32
+  rotate: true
+  xy: 445, 137
+  size: 23, 17
+  orig: 23, 17
+  offset: 0, 0
+  index: -1
+stone/s33
+  rotate: false
+  xy: 111, 2
+  size: 85, 84
+  orig: 85, 85
+  offset: 0, 1
+  index: -1
+stone/s4
+  rotate: true
+  xy: 383, 162
+  size: 55, 80
+  orig: 55, 80
+  offset: 0, 0
+  index: -1
+stone/s6
+  rotate: false
+  xy: 207, 209
+  size: 91, 95
+  orig: 91, 95
+  offset: 0, 0
+  index: -1
+stone/s7
+  rotate: false
+  xy: 317, 20
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+stone/s9
+  rotate: true
+  xy: 260, 2
+  size: 60, 55
+  orig: 60, 55
+  offset: 0, 0
+  index: -1
+xin_000
+  rotate: false
+  xy: 2, 162
+  size: 115, 110
+  orig: 256, 256
+  offset: 71, 73
+  index: -1
+zs/zs_000
+  rotate: false
+  xy: 406, 306
+  size: 95, 105
+  orig: 128, 128
+  offset: 14, 13
+  index: -1
+zs/zs_001
+  rotate: false
+  xy: 307, 413
+  size: 106, 105
+  orig: 128, 128
+  offset: 10, 13
+  index: -1
+zs/zs_002
+  rotate: false
+  xy: 198, 413
+  size: 107, 105
+  orig: 128, 128
+  offset: 11, 13
+  index: -1
+zs/zs_003
+  rotate: false
+  xy: 415, 413
+  size: 88, 105
+  orig: 128, 128
+  offset: 22, 13
+  index: -1
+zs/zs_004
+  rotate: true
+  xy: 300, 232
+  size: 72, 106
+  orig: 128, 128
+  offset: 26, 13
+  index: -1
+zs/zs_005
+  rotate: false
+  xy: 307, 306
+  size: 97, 105
+  orig: 128, 128
+  offset: 14, 13
+  index: -1
+zs/zs_006
+  rotate: false
+  xy: 2, 55
+  size: 107, 105
+  orig: 128, 128
+  offset: 10, 13
+  index: -1
+zs/zs_007
+  rotate: false
+  xy: 198, 306
+  size: 107, 105
+  orig: 128, 128
+  offset: 10, 13
+  index: -1

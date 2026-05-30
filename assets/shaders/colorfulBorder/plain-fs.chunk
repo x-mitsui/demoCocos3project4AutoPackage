@@ -1,0 +1,6 @@
+// plain-fs 片元函数体（无 precision / include / in-out / 采样器声明）
+vec4 frag () {
+  vec4 o = CCSampleWithAlphaSeparated(cc_spriteTexture, uv0) * color;
+  ALPHA_TEST(o);
+  return o;
+}

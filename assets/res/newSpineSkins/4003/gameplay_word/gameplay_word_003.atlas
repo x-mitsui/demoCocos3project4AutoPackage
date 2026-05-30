@@ -1,0 +1,251 @@
+
+gameplay_word_003.png
+size: 1353,528
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Amazing_heart_blue
+  rotate: false
+  xy: 1272, 360
+  size: 79, 78
+  orig: 91, 92
+  offset: 7, 6
+  index: -1
+Amazing_heart_cyan
+  rotate: false
+  xy: 1272, 280
+  size: 79, 78
+  orig: 91, 92
+  offset: 7, 6
+  index: -1
+Amazing_heart_green
+  rotate: false
+  xy: 1174, 14
+  size: 77, 76
+  orig: 91, 92
+  offset: 8, 7
+  index: -1
+Amazing_heart_orange
+  rotate: false
+  xy: 1272, 200
+  size: 79, 78
+  orig: 91, 92
+  offset: 7, 6
+  index: -1
+Amazing_heart_purple
+  rotate: true
+  xy: 1192, 181
+  size: 79, 78
+  orig: 91, 92
+  offset: 7, 6
+  index: -1
+Amazing_heart_red
+  rotate: false
+  xy: 1105, 174
+  size: 84, 83
+  orig: 95, 96
+  offset: 6, 6
+  index: -1
+Amazing_heart_yellow
+  rotate: false
+  xy: 1272, 120
+  size: 79, 78
+  orig: 91, 92
+  offset: 7, 6
+  index: -1
+Excellent_star_blue
+  rotate: false
+  xy: 1018, 282
+  size: 85, 86
+  orig: 100, 101
+  offset: 7, 7
+  index: -1
+Excellent_star_cyan
+  rotate: false
+  xy: 919, 138
+  size: 85, 86
+  orig: 100, 101
+  offset: 7, 7
+  index: -1
+Excellent_star_green
+  rotate: false
+  xy: 1227, 440
+  size: 85, 86
+  orig: 100, 101
+  offset: 7, 7
+  index: -1
+Excellent_star_orange
+  rotate: true
+  xy: 1134, 347
+  size: 85, 86
+  orig: 100, 101
+  offset: 7, 7
+  index: -1
+Excellent_star_purple
+  rotate: false
+  xy: 1018, 194
+  size: 85, 86
+  orig: 100, 101
+  offset: 7, 7
+  index: -1
+Excellent_star_red
+  rotate: false
+  xy: 1134, 434
+  size: 91, 92
+  orig: 104, 105
+  offset: 6, 6
+  index: -1
+Excellent_star_yellow
+  rotate: false
+  xy: 1105, 259
+  size: 85, 86
+  orig: 100, 101
+  offset: 7, 7
+  index: -1
+Good_deco_blue
+  rotate: true
+  xy: 785, 2
+  size: 78, 83
+  orig: 94, 99
+  offset: 8, 8
+  index: -1
+Good_deco_cyan
+  rotate: true
+  xy: 919, 58
+  size: 78, 83
+  orig: 94, 99
+  offset: 8, 8
+  index: -1
+Good_deco_green
+  rotate: true
+  xy: 1006, 114
+  size: 78, 83
+  orig: 94, 99
+  offset: 8, 8
+  index: -1
+Good_deco_orange
+  rotate: true
+  xy: 1004, 34
+  size: 78, 83
+  orig: 94, 99
+  offset: 8, 8
+  index: -1
+Good_deco_purple
+  rotate: true
+  xy: 1091, 94
+  size: 78, 83
+  orig: 94, 99
+  offset: 8, 8
+  index: -1
+Good_deco_red
+  rotate: true
+  xy: 1089, 14
+  size: 78, 83
+  orig: 94, 99
+  offset: 8, 8
+  index: -1
+Good_deco_yellow
+  rotate: false
+  xy: 1176, 92
+  size: 74, 80
+  orig: 94, 99
+  offset: 10, 10
+  index: -1
+JLWZ_16
+  rotate: false
+  xy: 2, 272
+  size: 614, 254
+  orig: 626, 264
+  offset: 6, 5
+  index: -1
+JLWZ_22
+  rotate: false
+  xy: 539, 82
+  size: 378, 142
+  orig: 389, 154
+  offset: 5, 6
+  index: -1
+JLWZ_26
+  rotate: false
+  xy: 618, 226
+  size: 398, 142
+  orig: 409, 154
+  offset: 5, 6
+  index: -1
+JLWZ_34
+  rotate: false
+  xy: 2, 131
+  size: 535, 139
+  orig: 545, 151
+  offset: 5, 6
+  index: -1
+JLWZ_45
+  rotate: false
+  xy: 618, 370
+  size: 514, 156
+  orig: 526, 168
+  offset: 7, 6
+  index: -1
+JLWZ_6
+  rotate: false
+  xy: 1192, 262
+  size: 78, 83
+  orig: 94, 99
+  offset: 8, 8
+  index: -1
+glowLight
+  rotate: false
+  xy: 305, 20
+  size: 29, 28
+  orig: 32, 32
+  offset: 1, 2
+  index: -1
+heart_light
+  rotate: false
+  xy: 1222, 387
+  size: 48, 45
+  orig: 49, 46
+  offset: 0, 1
+  index: -1
+par_8
+  rotate: false
+  xy: 539, 228
+  size: 42, 42
+  orig: 50, 50
+  offset: 4, 4
+  index: -1
+star_glow_2
+  rotate: false
+  xy: 1222, 347
+  size: 38, 38
+  orig: 42, 42
+  offset: 2, 2
+  index: -1
+star_light
+  rotate: false
+  xy: 1253, 63
+  size: 57, 55
+  orig: 59, 57
+  offset: 1, 1
+  index: -1
+wd_light_1
+  rotate: false
+  xy: 2, 18
+  size: 301, 111
+  orig: 303, 113
+  offset: 1, 1
+  index: -1
+wd_light_2
+  rotate: false
+  xy: 533, 14
+  size: 250, 66
+  orig: 253, 68
+  offset: 2, 1
+  index: -1
+wd_shine_1
+  rotate: false
+  xy: 305, 50
+  size: 226, 79
+  orig: 236, 84
+  offset: 3, 3
+  index: -1

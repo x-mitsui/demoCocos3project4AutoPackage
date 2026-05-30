@@ -1,0 +1,227 @@
+// 能量拖尾：程序化噪声流动 + 横向柔边 + 尖端衰减 + 闪烁亮点
+// UV 约定：u=0 为根部（靠近物体），u=1 为尖端；v=0..1 为带宽方向（中线 v=0.5）
+CCEffect %{
+  techniques:
+  - name: transparent
+    passes:
+    - vert: tail-vs:vert
+      frag: tail-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.02, editor: { displayName: "Alpha 裁切", slide: true, range: [0, 0.2], step: 0.01 } }
+        mainColor: { value: [0.95, 0.55, 0.12, 1.0], editor: { type: color, displayName: "主色" } }
+        highlightColor: { value: [1.0, 0.92, 0.45, 1.0], editor: { type: color, displayName: "高光/内芯色" } }
+        tailParams: { value: [0.85, 3.2, 0.22, 1.35] }
+        flowSpeed: { value: 0.85, target: tailParams.x, editor: { displayName: "流动速度", slide: true, range: [0, 3], step: 0.05 } }
+        noiseScale: { value: 3.2, target: tailParams.y, editor: { displayName: "噪声尺度", slide: true, range: [0.5, 8], step: 0.1 } }
+        warpAmount: { value: 0.22, target: tailParams.z, editor: { displayName: "UV 扭曲强度", slide: true, range: [0, 0.6], step: 0.01 } }
+        taperPower: { value: 1.35, target: tailParams.w, editor: { displayName: "尖端衰减指数", slide: true, range: [0.3, 4], step: 0.05 } }
+        tailParams2: { value: [0.78, 1.25, 1.0, 1.15] }
+        edgeSoftness: { value: 0.78, target: tailParams2.x, editor: { displayName: "边缘软化(0-1)", slide: true, range: [0.2, 0.98], step: 0.01 } }
+        sparkleIntensity: { value: 1.25, target: tailParams2.y, editor: { displayName: "亮点强度", slide: true, range: [0, 3], step: 0.05 } }
+        sparkleScale: { value: 1.0, target: tailParams2.z, editor: { displayName: "亮点密度", slide: true, range: [0.3, 2.5], step: 0.05 } }
+        globalIntensity: { value: 1.15, target: tailParams2.w, editor: { displayName: "整体强度", slide: true, range: [0.2, 3], step: 0.05 } }
+        tailParams3: { value: [1.15, 7.5, 1.4, 0.91] }
+        bodyContrast: { value: 1.15, target: tailParams3.x, editor: { displayName: "絮状对比度", slide: true, range: [0.5, 2.5], step: 0.05 } }
+        twinkleSpeed: { value: 7.5, target: tailParams3.y, editor: { displayName: "闪烁速度", slide: true, range: [0, 20], step: 0.5 } }
+        headGlow: { value: 1.4, target: tailParams3.z, editor: { displayName: "根部增亮", slide: true, range: [0, 3], step: 0.1 } }
+        sparkleSharpness: { value: 0.91, target: tailParams3.w, editor: { displayName: "亮点锐利度", slide: true, range: [0.75, 0.995], step: 0.005 } }
+        engineTime: { value: 0.0, editor: { displayName: "时间(脚本写入)", tooltip: "使用脚本时间开启时，用此值作为动画时间（秒）" } }
+        useEngineTime: { value: 0.0, editor: { displayName: "使用脚本时间", slide: true, range: [0, 1], step: 1 } }
+
+  - name: additive
+    passes:
+    - vert: tail-vs:vert
+      frag: tail-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one
+          blendDstAlpha: one
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.02, editor: { displayName: "Alpha 裁切", slide: true, range: [0, 0.2], step: 0.01 } }
+        mainColor: { value: [0.95, 0.55, 0.12, 1.0], editor: { type: color, displayName: "主色" } }
+        highlightColor: { value: [1.0, 0.92, 0.45, 1.0], editor: { type: color, displayName: "高光/内芯色" } }
+        tailParams: { value: [0.85, 3.2, 0.22, 1.35] }
+        flowSpeed: { value: 0.85, target: tailParams.x, editor: { displayName: "流动速度", slide: true, range: [0, 3], step: 0.05 } }
+        noiseScale: { value: 3.2, target: tailParams.y, editor: { displayName: "噪声尺度", slide: true, range: [0.5, 8], step: 0.1 } }
+        warpAmount: { value: 0.22, target: tailParams.z, editor: { displayName: "UV 扭曲强度", slide: true, range: [0, 0.6], step: 0.01 } }
+        taperPower: { value: 1.35, target: tailParams.w, editor: { displayName: "尖端衰减指数", slide: true, range: [0.3, 4], step: 0.05 } }
+        tailParams2: { value: [0.78, 1.25, 1.0, 1.15] }
+        edgeSoftness: { value: 0.78, target: tailParams2.x, editor: { displayName: "边缘软化(0-1)", slide: true, range: [0.2, 0.98], step: 0.01 } }
+        sparkleIntensity: { value: 1.25, target: tailParams2.y, editor: { displayName: "亮点强度", slide: true, range: [0, 3], step: 0.05 } }
+        sparkleScale: { value: 1.0, target: tailParams2.z, editor: { displayName: "亮点密度", slide: true, range: [0.3, 2.5], step: 0.05 } }
+        globalIntensity: { value: 1.15, target: tailParams2.w, editor: { displayName: "整体强度", slide: true, range: [0.2, 3], step: 0.05 } }
+        tailParams3: { value: [1.15, 7.5, 1.4, 0.91] }
+        bodyContrast: { value: 1.15, target: tailParams3.x, editor: { displayName: "絮状对比度", slide: true, range: [0.5, 2.5], step: 0.05 } }
+        twinkleSpeed: { value: 7.5, target: tailParams3.y, editor: { displayName: "闪烁速度", slide: true, range: [0, 20], step: 0.5 } }
+        headGlow: { value: 1.4, target: tailParams3.z, editor: { displayName: "根部增亮", slide: true, range: [0, 3], step: 0.1 } }
+        sparkleSharpness: { value: 0.91, target: tailParams3.w, editor: { displayName: "亮点锐利度", slide: true, range: [0.75, 0.995], step: 0.005 } }
+        engineTime: { value: 0.0, editor: { displayName: "时间(脚本写入)", tooltip: "使用脚本时间开启时，用此值作为动画时间（秒）" } }
+        useEngineTime: { value: 0.0, editor: { displayName: "使用脚本时间", slide: true, range: [0, 1], step: 1 } }
+}%
+
+CCProgram tail-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 v_color;
+  out vec2 v_uv;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1.0);
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+    v_uv = a_texCoord;
+    v_color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram tail-fs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 v_color;
+  in vec2 v_uv;
+
+  uniform Constant {
+    vec4 mainColor;
+    vec4 highlightColor;
+    vec4 tailParams;
+    vec4 tailParams2;
+    vec4 tailParams3;
+    float engineTime;
+    float useEngineTime;
+    float _pad0;
+    float _pad1;
+  };
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  float hash21 (vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  float vnoise (vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(
+      mix(hash21(i), hash21(i + vec2(1.0, 0.0)), f.x),
+      mix(hash21(i + vec2(0.0, 1.0)), hash21(i + vec2(1.0, 1.0)), f.x),
+      f.y);
+  }
+
+  float fbm (vec2 p) {
+    float v = 0.0;
+    float a = 0.5;
+    mat2 rot = mat2(1.6, 1.2, -1.2, 1.6);
+    for (int i = 0; i < 5; i++) {
+      v += a * vnoise(p);
+      p = rot * p;
+      a *= 0.5;
+    }
+    return v;
+  }
+
+  vec2 fbm2 (vec2 p) {
+    return vec2(fbm(p + vec2(0.0, 0.0)), fbm(p + vec2(5.2, 1.3)));
+  }
+
+  vec4 frag () {
+    float flowSpeed = tailParams.x;
+    float noiseScale = tailParams.y;
+    float warpAmount = tailParams.z;
+    float taperPower = tailParams.w;
+    float edgeSoftness = tailParams2.x;
+    float sparkleIntensity = tailParams2.y;
+    float sparkleScale = tailParams2.z;
+    float globalIntensity = tailParams2.w;
+    float bodyContrast = tailParams3.x;
+    float twinkleSpeed = tailParams3.y;
+    float headGlowAmt = tailParams3.z;
+    float sparkleSharpness = tailParams3.w;
+
+    float t = (useEngineTime > 0.5) ? engineTime : cc_time.x;
+
+    vec2 uv = v_uv;
+    float u = uv.x;
+    float v = uv.y;
+
+    float distFromCenter = abs(v - 0.5) * 2.0;
+    float wMask = 1.0 - smoothstep(edgeSoftness, 1.0, distFromCenter);
+
+    float lenMask = pow(clamp(1.0 - u, 0.0, 1.0), taperPower);
+    float headBoost = 1.0 + headGlowAmt * exp(-u * 4.5);
+    lenMask *= headBoost;
+
+    vec2 flowUv = vec2(u * noiseScale - t * flowSpeed * 1.2, v * noiseScale * 0.65 + t * flowSpeed * 0.15);
+    vec2 warp = (fbm2(flowUv * 0.35 + vec2(0.0, u * 2.0)) - 0.5) * warpAmount * 2.0;
+    flowUv += warp;
+
+    float n1 = fbm(flowUv);
+    float n2 = fbm(flowUv * 2.45 + vec2(13.7, 2.1));
+    float body = mix(n1, n2, 0.45);
+    body = smoothstep(0.32, 0.58, body);
+    body = pow(clamp(body, 0.0, 1.0), bodyContrast);
+
+    float spN = vnoise(uv * 95.0 * sparkleScale + vec2(t * flowSpeed * 3.5, -t * flowSpeed * 2.2 + u * 18.0));
+    float spN2 = vnoise(uv * 160.0 * sparkleScale + vec2(-t * flowSpeed * 2.0, t * flowSpeed * 4.0));
+    float sparkleRaw = max(spN, spN2 * 0.85);
+    float th = sparkleSharpness;
+    float sparkle = smoothstep(th, min(th + 0.08, 0.999), sparkleRaw);
+    float tw = sin(t * twinkleSpeed + dot(uv, vec2(48.0, 31.0))) * 0.5 + 0.5;
+    sparkle *= mix(0.35, 1.0, tw) * sparkleIntensity;
+
+    vec3 core = mix(mainColor.rgb, highlightColor.rgb, body * 0.85);
+    vec3 rgb = core * (0.35 + body * 1.15) + highlightColor.rgb * body * body * 0.65;
+    rgb += mix(highlightColor.rgb, vec3(1.0), 0.75) * sparkle;
+
+    vec4 tex = CCSampleWithAlphaSeparated(cc_spriteTexture, uv);
+    float maskA = tex.a;
+
+    float energy = body * 0.55 + body * body * 0.45 + sparkle;
+    float alpha = clamp(energy * lenMask * wMask * globalIntensity * maskA, 0.0, 1.0);
+
+    vec4 o = vec4(rgb * v_color.rgb, alpha * v_color.a);
+    o.rgb *= tex.rgb;
+
+    ALPHA_TEST(o);
+    return o;
+  }
+}%
