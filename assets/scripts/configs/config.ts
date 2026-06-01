@@ -11,7 +11,7 @@ export const GameCustomInfo = {
 export const themeConfig = {
     SkinSystemID: "skin_1000" // 由 gen-index.js 自动维护，勿手动修改
 };
-const edgeLength = GameCustomInfo.name === "BlockBrush" ? 120.5 : 120;
+const edgeLength = GameCustomInfo.name === "BlockBrush" ? 120 : 120;
 /** 块大小 */
 export const BlockSize = {
     width: edgeLength,

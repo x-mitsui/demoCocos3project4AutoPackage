@@ -1,7 +1,7 @@
 import { GRID_SIZE } from "./board.js";
-import { BLOCK_COLORS, forEachCell, getShapeAnchor } from "./shapes.js";
+import { forEachCell, getBlockPalette, getShapeAnchor } from "./shapes.js";
 
-const GAP = 3;
+const GAP = 1;
 const BOARD_BG = "#0f3460";
 const CELL_BG = "#1a4a7a";
 const DRAG_LIFT_RATIO = 2.2;
@@ -128,23 +128,99 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function drawCell(ctx, x, y, size, color, alpha = 1) {
-  const inset = GAP / 2;
+function fillPoly(ctx, points, color) {
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(points[0][0], points[0][1]);
+  for (let i = 1; i < points.length; i++) ctx.lineTo(points[i][0], points[i][1]);
+  ctx.closePath();
+  ctx.fill();
+}
+
+/**
+ * 主项目 ShaderBlock 平面倒角：外框 + 中心面 + 四边梯形棱面（45° 拼角）
+ * borderWidth ≈ 0.02, bevelWidth ≈ 0.13
+ */
+function drawShaderBlock(ctx, bx, by, bs, palette, alpha = 1) {
+  const border = Math.max(1, bs * 0.02);
+  const bevel = Math.max(2, bs * 0.13);
+  const ix = bx + border;
+  const iy = by + border;
+  const is = bs - border * 2;
+
   ctx.save();
   ctx.globalAlpha = alpha;
-  roundRect(ctx, x + inset, y + inset, size - GAP, size - GAP, size * 0.18);
+
+  ctx.fillStyle = palette.frame;
+  ctx.fillRect(bx, by, bs, bs);
+
+  ctx.fillStyle = palette.center;
+  ctx.fillRect(ix + bevel, iy + bevel, is - bevel * 2, is - bevel * 2);
+
+  fillPoly(ctx, [
+    [ix + bevel, iy + is - bevel],
+    [ix + is - bevel, iy + is - bevel],
+    [ix + is, iy + is],
+    [ix, iy + is],
+  ], palette.bottom);
+
+  fillPoly(ctx, [
+    [ix + is - bevel, iy + bevel],
+    [ix + is, iy],
+    [ix + is, iy + is],
+    [ix + is - bevel, iy + is - bevel],
+  ], palette.right);
+
+  fillPoly(ctx, [
+    [ix, iy],
+    [ix + bevel, iy + bevel],
+    [ix + bevel, iy + is - bevel],
+    [ix, iy + is],
+  ], palette.left);
+
+  fillPoly(ctx, [
+    [ix, iy],
+    [ix + is, iy],
+    [ix + is - bevel, iy + bevel],
+    [ix + bevel, iy + bevel],
+  ], palette.top);
+
+  ctx.restore();
+}
+
+function drawEmptyCell(ctx, x, y, size, color, alpha) {
+  const inset = GAP / 2;
+  const bx = x + inset;
+  const by = y + inset;
+  const bs = size - GAP;
+  const r = Math.max(2, bs * 0.12);
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  roundRect(ctx, bx, by, bs, bs, r);
   ctx.fillStyle = color;
   ctx.fill();
-  ctx.fillStyle = "rgba(255,255,255,0.18)";
-  roundRect(ctx, x + inset + 2, y + inset + 2, size - GAP - 8, (size - GAP) * 0.35, size * 0.1);
-  ctx.fill();
+  roundRect(ctx, bx + 2, by + 2, bs - 4, bs - 4, r * 0.8);
+  ctx.strokeStyle = "rgba(0,0,0,0.22)";
+  ctx.lineWidth = 1;
+  ctx.stroke();
   ctx.restore();
+}
+
+function drawCell(ctx, x, y, size, colorIndex, alpha = 1, empty = false) {
+  if (empty) {
+    drawEmptyCell(ctx, x, y, size, CELL_BG, alpha);
+    return;
+  }
+
+  const inset = GAP / 2;
+  drawShaderBlock(ctx, x + inset, y + inset, size - GAP, getBlockPalette(colorIndex), alpha);
 }
 
 function drawShapeAt(ctx, shape, colorIndex, centerX, centerY, cellSize, alpha = 1) {
   const origin = getShapeOrigin(centerX, centerY, shape, cellSize);
   forEachCell(shape, (sr, sc) => {
-    drawCell(ctx, origin.x + sc * cellSize, origin.y + sr * cellSize, cellSize, BLOCK_COLORS[colorIndex], alpha);
+    drawCell(ctx, origin.x + sc * cellSize, origin.y + sr * cellSize, cellSize, colorIndex, alpha);
   });
 }
 
@@ -154,7 +230,7 @@ function drawShapeOnBoard(ctx, layout, shape, colorIndex, anchorRow, anchorCol, 
     const br = anchorRow + (sr - anchor.row);
     const bc = anchorCol + (sc - anchor.col);
     const { x, y } = layout.boardToPixel(br, bc);
-    drawCell(ctx, x, y, layout.cellSize, BLOCK_COLORS[colorIndex], alpha);
+    drawCell(ctx, x, y, layout.cellSize, colorIndex, alpha);
   });
 }
 
@@ -197,9 +273,9 @@ function drawBoard(ctx, layout, game) {
       const { x, y } = layout.boardToPixel(r, c);
       const cell = game.board[r][c];
       if (cell) {
-        drawCell(ctx, x, y, cellSize, BLOCK_COLORS[cell.colorIndex]);
+        drawCell(ctx, x, y, cellSize, cell.colorIndex);
       } else {
-        drawCell(ctx, x, y, cellSize, CELL_BG, 0.55);
+        drawCell(ctx, x, y, cellSize, 0, 0.55, true);
       }
     }
   }
@@ -223,9 +299,18 @@ function drawGhost(ctx, layout, game) {
 
 function drawFlash(ctx, layout, game) {
   const t = (game.flashUntil - performance.now()) / 180;
+  const alpha = 0.35 * t;
   for (const { row, col } of game.flashCells) {
     const { x, y } = layout.boardToPixel(row, col);
-    drawCell(ctx, x, y, layout.cellSize, "#ffffff", 0.35 * t);
+    const inset = GAP / 2;
+    const bx = x + inset;
+    const by = y + inset;
+    const bs = layout.cellSize - GAP;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(bx, by, bs, bs);
+    ctx.restore();
   }
 }
 
