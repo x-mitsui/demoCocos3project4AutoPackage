@@ -2,26 +2,20 @@ import { sys } from "cc";
 import super_html_playable from "../utils/super_html_playable";
 import { Logger } from "../utils/logger";
 
-// export const GameCustomInfo = {
-//     name: "BlockBlast",
-//     androidUrl: "https://play.google.com/store/apps/details?id=com.block.juggle",
-//     iosUrl: "https://apps.apple.com/us/app/block-blast/id1617391485",
-// };
-
 export const GameCustomInfo = {
     name: "BlockBrush",
     androidUrl: "https://play.google.com/store/apps/details?id=com.wood.block.sudoku.puzzle.bm",
-    iosUrl: "https://apps.apple.com/us/app/block-crush-travel-master/id1638139403",
+    iosUrl: "https://apps.apple.com/us/app/block-crush-travel-master/id1638139403"
 };
 
 export const themeConfig = {
-    SkinSystemID: "skin_1000", // 由 gen-index.js 自动维护，勿手动修改
+    SkinSystemID: "skin_1000" // 由 gen-index.js 自动维护，勿手动修改
 };
 const edgeLength = GameCustomInfo.name === "BlockBrush" ? 120.5 : 120;
 /** 块大小 */
 export const BlockSize = {
     width: edgeLength,
-    height: edgeLength,
+    height: edgeLength
 };
 
 export const getJumpUrl = () => {
@@ -30,7 +24,10 @@ export const getJumpUrl = () => {
     } else if (sys.os === sys.OS.ANDROID) {
         return GameCustomInfo.androidUrl;
     } else {
-        const userAgent = sys.isBrowser && typeof navigator !== "undefined" ? navigator.userAgent.toLowerCase() : "";
+        const userAgent =
+            sys.isBrowser && typeof navigator !== "undefined"
+                ? navigator.userAgent.toLowerCase()
+                : "";
         if (userAgent.includes("android")) {
             return GameCustomInfo.androidUrl;
         } else {

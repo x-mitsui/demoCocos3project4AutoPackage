@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Block Blast MVP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="hud">
+      <div class="hud-item">
+        <span class="label">分数</span>
+        <span id="score" class="value">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="label">最高</span>
+        <span id="best" class="value">0</span>
+      </div>
+      <button id="restart" type="button">重新开始</button>
+    </header>
+    <canvas id="game"></canvas>
+    <div id="overlay" class="overlay hidden">
+      <div class="dialog">
+        <h2>游戏结束</h2>
+        <p>最终得分：<strong id="final-score">0</strong></p>
+        <button id="play-again" type="button">再玩一次</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -12,7 +12,7 @@
             "_value": true
           },
           "gfx-webgl2": {
-            "_value": true
+            "_value": false
           },
           "gfx-webgpu": {
             "_value": false
@@ -104,7 +104,7 @@
             "_value": false
           },
           "profiler": {
-            "_value": true
+            "_value": false
           },
           "occlusion-query": {
             "_value": false
@@ -125,7 +125,7 @@
             "_value": false
           },
           "webview": {
-            "_value": true
+            "_value": false
           },
           "tween": {
             "_value": true
@@ -149,7 +149,7 @@
             "_value": false
           },
           "spine": {
-            "_value": false,
+            "_value": true,
             "_option": "spine-3.8"
           },
           "spine-3.8": {
@@ -190,7 +190,9 @@
             "_value": false
           }
         },
-        "flags": {},
+        "flags": {
+          "LOAD_SPINE_MANUALLY": false
+        },
         "includeModules": [
           "2d",
           "affine-transform",
@@ -200,15 +202,13 @@
           "custom-pipeline",
           "dragon-bones",
           "gfx-webgl",
-          "gfx-webgl2",
           "graphics",
           "intersection-2d",
           "mask",
           "particle-2d",
-          "profiler",
+          "spine-3.8",
           "tween",
-          "ui",
-          "webview"
+          "ui"
         ],
         "noDeprecatedFeatures": {
           "value": false,
