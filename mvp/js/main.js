@@ -1,3 +1,4 @@
+import { applyClears } from "./board.js";
 import { Game } from "./game.js";
 import { computeGhost, drawFrame, Layout } from "./render.js";
 
@@ -87,7 +88,43 @@ function onPointerUp(e) {
 }
 
 function loop() {
-  if (performance.now() > game.flashUntil && game.flashCells.length) {
+  const now = performance.now();
+  if (game.preClearCells.length && now > game.preClearUntil) {
+    game.flashCells = game.preClearCells;
+    game.preClearCells = [];
+    game.flashUntil = now + 260;
+    game.preClearUntil = 0;
+    game.clearParticles = [];
+    for (const cell of game.flashCells) {
+      const { x, y } = layout.boardToPixel(cell.row, cell.col);
+      const centerX = x + layout.cellSize / 2;
+      const centerY = y + layout.cellSize / 2;
+      const count = Math.max(4, Math.floor(layout.cellSize / 8));
+      for (let i = 0; i < count; i++) {
+        game.clearParticles.push({
+          x: centerX,
+          y: centerY,
+          vx: (Math.random() - 0.5) * 3.2,
+          vy: (Math.random() - 0.5) * 3.2,
+          life: 1,
+          size: 1.6 + Math.random() * 1.8
+        });
+      }
+    }
+    applyClears(game.board, game.pendingClearRows, game.pendingClearCols);
+    game.pendingClearRows = [];
+    game.pendingClearCols = [];
+  }
+  if (game.clearParticles.length) {
+    for (const p of game.clearParticles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.02;
+      p.life -= 0.05;
+    }
+    game.clearParticles = game.clearParticles.filter((p) => p.life > 0);
+  }
+  if (now > game.flashUntil && game.flashCells.length) {
     game.flashCells = [];
     game.lastRoundScore = 0;
   }
